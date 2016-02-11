@@ -1,0 +1,12 @@
+#upload-file-container input {
+  position: absolute; right: 0; font-size: <many a>px; opacity: 0; margin: 0; padding: 0; border: none;
+  cursor:pointer; width: 100px; height:100px;
+}
+#upload-file-container { 
+position: relative;
+width: 100px; height:100px;
+ overflow:hidden;
+ background-size: contain !important;
+background-repeat: no-repeat !important; 
+}
+

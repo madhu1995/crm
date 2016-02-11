@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+<?php
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aadhi Maruti | Opportunity Details</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+	 <!-- Date Picker -->
+    <link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+
+      <header class="main-header">
+        <!-- Logo -->
+        <a style="background-color: rgb(204, 238, 255);" href="index.html" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>Aa</b>dhi</span>
+          <!-- logo for regular state and mobile devices -->
+          <span style="background-color: rgb(102, 204, 255);" class="logo-lg"><b>Aadhi</b>MARUTI</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav style="background-color: rgb(102, 204, 255);" class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- Messages: style can be found in dropdown.less-->
+              <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-envelope-o"></i>
+                 </a>
+				 </li>
+                 <!-- Notifications: style can be found in dropdown.less -->
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
+                </a>
+				</li>
+               <!-- Tasks: style can be found in dropdown.less -->
+              <li class="dropdown tasks-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-flag-o"></i>
+                </a>
+				</li>
+               </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside style="font-family: &quot;Comic Sans MS&quot;,cursive,sans-serif;" class="main-sidebar">
+           <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          
+          <!-- search form -->
+          <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </form>
+          <!-- /.search form -->
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="leaddetails.html"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+                <li><a href="pages/forms/pre.html"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
+              </ul>
+            </li>
+            <li class=" active treeview">
+              <a href="#">
+                <i class="fa fa-cog"></i><span>Sales</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu" class="treeview-active">
+                <li  class="active"><a href="opp.html"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
+				<li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> Delivery</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="index.html">
+                <i class="fa fa-steam-square"></i> 
+				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
+				</a>
+			  <ul class="treeview-menu">
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="index.html">
+                <i class="fa fa-pie-chart"></i>
+                <span>Report</span>
+                </a>
+            </li>
+            <li class="treeview">
+              <a href="#index.html">
+                <i class="fa fa-inr"></i>
+                <span>Finance</span>
+              </a>
+              </li>
+            <li class="treeview">
+              <a href="index.html">
+                <i class="fa fa-edit"></i> <span>Feedback</span>
+              </a>
+              </li>
+            <li>
+              <a href="index.html">
+                <i class="fa fa-calendar"></i> <span>Calendar</span>
+               </a>
+            </li>                
+            <li>
+              <a href="index.html">
+                <i class="fa fa-phone"></i> <span>Alerts</span>
+               </a>
+            </li>  			
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Opportunity details
+            <small>(sales)</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+			<li class="active">Opportunity Details</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">Enquiry Details</h3>
+                </div><!-- /.box-header -->
+                <!-- form start enquiry-->
+                <form role="form">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label for="enq">Enquiry_Id</label><input type="text" style="width:70%" class="form-control input-sm" name="enq_id">
+                    </div>
+					<div class="form-group">
+                      <label for="enq">Customer_Id</label><input type="text" style="width:70%" class="form-control input-sm" name="cus_id">
+                    </div>
+                    <div class="form-group">
+                      <label for="mail">Customer_Name</label><input type="text" style="width:70%" class="form-control input-sm" id="cus_name">
+                    </div>
+					<div class="form-group">
+                      <label>Date of Enquiry</label>
+					    <div class="input-group date" data-provide="datepicker" style="width:70%">
+                          <input type="text" class="form-control" >
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
+					 <div class="form-group">
+                      <label>SalesPerson</label>
+					  <select class="form-control" style="width:70%">
+					    <option>Select a sales person</option>
+                        <option>aaa</option>
+                        <option>bbb</option>
+                        <option>ccc</option>
+                        <option>ddd</option>
+                        <option>eee</option>
+                      </select>
+                    </div>
+                  </div><!-- /.box-body -->
+
+                  
+                </form>
+              </div><!-- /.box -->
+
+              <!-- Form Element sizes -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Residence</h3>
+                </div>
+                <div class="box-body">
+				    <div class="form-group">
+                      <label>Address</label>
+                      <textarea class="form-control input-sm" style="width:70%" rows="3" placeholder="Enter ..." name="res-add"></textarea>
+                    </div>
+				    <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input type="text" style="width:70%" class="form-control input-sm" id="res-phone1" name="res-ph1"  placeholder="Enter mobile number">
+                    </div>
+					<div class="form-group">
+                      <label for="phone">Alternate Phone</label>
+                      <input type="text" style="width:70%" class="form-control input-sm" id="res-phone2" name="res-ph2" placeholder="Enter mobile number">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email</label>
+                      <input type="text" style="width:70%" class="form-control input-sm" id="exampleInputEmail1" name="res-em" placeholder="Enter mail">
+                    </div>
+					<div class="form-group">
+                      <label for="phone">Pincode</label>
+                      <input type="text" style="width:70%" class="form-control input-sm" id="pin1" name="res-pin"  placeholder="Enter pincode">
+                    </div>
+					<div class="form-group">
+                      <label>Date of Birth</label>
+					    <div class="input-group date" data-provide="datepicker" style="width:70%">
+                          <input type="text" class="form-control" name="dob">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Other details</h3>
+                </div>
+                <div class="box-body">
+                 
+                    <div class="form-group">
+                      <label>Buyer type</label>
+					   <select class="form-control" style="width:70%" name="buyer">
+                        <option>First time</option>
+                        <option>Second time</option>
+                        <option>more than two</option>
+                       </select>
+                    </div>
+					<div class="form-group">
+                      <label>Mode of payment</label>
+					  <select class="form-control" style="width:70%" name="pay">
+					    <option>Cash</option>
+                        <option>Self finance</option>
+                        <option>Maruti finance</option>
+                      </select>
+                    </div>
+                  
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!--/.col (left) -->
+            <!-- right column -->
+            <div class="col-md-6">
+              <!-- Horizontal Form -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">General details</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal">
+                  <div class="box-body">
+				    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Company</label>
+                      <div class="col-sm-11">
+                        <input type="text" style="width:50%" class="form-control input-sm" id="comp">
+                      </div>
+                    </div>
+					<div class="form-group">
+					 <div class="col-sm-2 control-label ">
+					 <label>Gender</label>
+					 </div>
+                      <div class="radio" class="col-sm-14">
+                        <label class="col-sm-3">
+                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                          Male
+						</label>
+						<label class="col-sm-6">
+						  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option1">
+                          Female
+                        </label>
+                      </div>
+                      </div>
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Communicate-to</label>
+                      <div class="col-sm-11">
+                        <select class="form-control" style="width:50%">
+					    <option>Residence</option>
+                        <option>Office</option>
+                      </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-2 control-label">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Test-Drive
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div><!-- /.box-body -->
+                </form>
+              </div><!-- /.box -->
+              <!-- general form elements disabled -->
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Occupation details</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <form role="form">
+                    <!-- text input -->
+					<div class="form-group">
+                      <label>Company name</label>
+                      <input type="text" style="width:70%" class="form-control input-sm" id="off-name1" name="off-name"  placeholder="Enter office name">
+                    </div>
+					<div class="form-group">
+                      <label>Designation</label>
+                      <input type="text" style="width:70%" class="form-control input-sm" id="off-des11" name="off-des"  placeholder="Enter desigantion">
+                    </div>
+                    <div class="form-group">
+                      <label>Office Address</label>
+                      <textarea class="form-control input-sm" style="width:70%" rows="3" placeholder="Enter ..." name="off-add"></textarea>
+                    </div>
+				    <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input type="text" style="width:70%" class="form-control input-sm" id="off-phone1" name="off-ph1"  placeholder="Enter mobile number">
+                    </div>
+					<div class="form-group">
+                      <label for="phone">Alternate Phone</label>
+                      <input type="text" style="width:70%" class="form-control input-sm" id="off-phone2" name="off-ph2"laceholder="Enter mobile number">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email</label>
+                      <input type="text" style="width:70%" class="form-control input-sm" id="exampleInputEmail1" name="off-em" placeholder="Enter mail">
+                    </div>
+					<div class="form-group">
+                      <label>City</label>
+                      <select class="form-control" style="width:70%" name="Off-city">
+					    <option>Select a city</option>
+                        <option>Chennai</option>
+                        <option>Coimbatore</option>
+                        <option>Trichy</option>
+                        <option>Tirupur</option>
+                        <option>Others</option>
+                      </select>
+					  </div>
+					<div class="form-group">
+                      <label for="phone">Pincode</label>
+                      <input type="text" style="width:70%" class="form-control input-sm" id="offpin1" name="off-pin"  placeholder="Enter pincode">
+                    </div>
+				   </form>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+			  <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Enquired models</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <form role="form">
+                    <!-- text input -->
+					 <div class="form-group">
+                      <div class="col-sm-2 control-label">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" class="btn btn-info btn-lg" data-toggle="modal" data-target="#my1">1
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+					<div class="form-group">
+                      <div class="col-sm-2 control-label">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" class="btn btn-info btn-lg" data-toggle="modal" data-target="#my2">2
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+				   </form>
+                </div><!-- /.box-body -->
+				<div class="box-footer">
+                    <button type="submit" class="btn btn-info pull-right">Submit</button>
+                  </div><!-- /.box-footer -->
+              </div><!-- /.box -->
+            </div><!--/.col (right) -->
+          </div>   <!-- /.row -->
+        </section><!-- /.content -->
+		<div class="modal fade" id="my2" role="dialog">
+     <div class="modal-dialog">
+      <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Model details</h4>
+           </div>
+           <div class="modal-body">
+		     <div class="col-xs-6">
+		    <div class="form-group">
+              <label>Model</label>
+     		    <select class="form-control" style="width:70%" name="model1">
+					    <option>Select a car model</option>
+                        <option>swift</option>
+                        <option>ritz</option>
+                        <option>celerio</option>
+                        <option>s-cross</option>
+                        <option>sx4</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+              <label>Fuel type</label>
+     		    <select class="form-control" style="width:70%" name="model-fuel">
+					    <option>Select fuel type</option>
+                        <option>Petrol</option>
+                        <option>Diesel</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+              <label>Color</label>
+     		    <select class="form-control" style="width:70%" name="model-color">
+					    <option>Silver</option>
+                        <option>Red</option>
+                        <option>Black</option>
+                        <option>Blue</option>
+                        <option>Yellow</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+                      
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="model-imp">Primary Model
+                          </label>
+                        </div>
+                      
+            </div>
+			<div class="form-group">
+              <label>Quantity</label>
+     		    <select class="form-control" style="width:70%" name="model-quan">
+					    <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+              <label>Status</label>
+     		    <select class="form-control" style="width:70%" name="stat">
+					    <option>Cold</option>
+                        <option>Hot</option>
+     			</select>
+             </div>
+            <div class="form-group">
+              <label>Approx.date for booking</label>
+			    <div class="input-group date" data-provide="datepicker" style="width:70%">
+                   <input type="text" class="form-control" name="ap-b-d" >
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                </div>
+            </div>
+            
+         </div>
+		 <div class="col-xs-6">
+		    <div class="form-group">
+              <label>Model</label>
+     		    <select class="form-control" style="width:70%" name="model1">
+					    <option>Select a car model</option>
+                        <option>swift</option>
+                        <option>ritz</option>
+                        <option>celerio</option>
+                        <option>s-cross</option>
+                        <option>sx4</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+              <label>Fuel type</label>
+     		    <select class="form-control" style="width:70%" name="model-fuel">
+					    <option>Select fuel type</option>
+                        <option>Petrol</option>
+                        <option>Diesel</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+              <label>Color</label>
+     		    <select class="form-control" style="width:70%" name="model-color">
+					    <option>Silver</option>
+                        <option>Red</option>
+                        <option>Black</option>
+                        <option>Blue</option>
+                        <option>Yellow</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+                      
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="model-imp">Primary Model
+                          </label>
+                        </div>
+                     
+            </div>
+			<div class="form-group">
+              <label>Quantity</label>
+     		    <select class="form-control" style="width:70%" name="model-quan">
+					    <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+              <label>Status</label>
+     		    <select class="form-control" style="width:70%" name="stat">
+					    <option>Cold</option>
+                        <option>Hot</option>
+     			</select>
+             </div>
+            <div class="form-group">
+              <label>Approx.date for booking</label>
+			    <div class="input-group date" data-provide="datepicker" style="width:70%">
+                   <input type="text" class="form-control" name="ap-b-d" >
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                </div>
+            </div>
+         </div>
+		 <div class="modal-footer">
+              <button type="button" class="btn btn-default" name="my2s">Submit</button>
+            </div>
+         </div>
+       </div>
+  </div>
+ </div>
+ <div class="modal fade" id="my1" role="dialog">
+     <div class="modal-dialog">
+      <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Model details</h4>
+           </div>
+           <div class="modal-body">
+		    <div class="form-group">
+              <label>Model</label>
+     		    <select class="form-control" style="width:70%" name="model1">
+					    <option>Select a car model</option>
+                        <option>swift</option>
+                        <option>ritz</option>
+                        <option>celerio</option>
+                        <option>s-cross</option>
+                        <option>sx4</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+              <label>Fuel type</label>
+     		    <select class="form-control" style="width:70%" name="model-fuel">
+					    <option>Select fuel type</option>
+                        <option>Petrol</option>
+                        <option>Diesel</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+              <label>Color</label>
+     		    <select class="form-control" style="width:70%" name="model-color">
+					    <option>Silver</option>
+                        <option>Red</option>
+                        <option>Black</option>
+                        <option>Blue</option>
+                        <option>Yellow</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+                      <div class="col-sm-2 control-label">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="model-imp">Primary Model
+                          </label>
+                        </div>
+                      </div>
+            </div>
+			<div class="form-group">
+              <label>Quantity</label>
+     		    <select class="form-control" style="width:70%" name="model-quan">
+					    <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+     			</select>
+             </div>
+			 <div class="form-group">
+              <label>Status</label>
+     		    <select class="form-control" style="width:70%" name="stat">
+					    <option>Cold</option>
+                        <option>Hot</option>
+     			</select>
+             </div>
+            <div class="form-group">
+              <label>Approx.date for booking</label>
+			    <div class="input-group date" data-provide="datepicker" style="width:70%">
+                   <input type="text" class="form-control" name="ap-b-d" >
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" name="my1s">Submit</button>
+            </div>
+         </div>
+      
+       </div>
+  </div>
+ </div>
+   <div class="modal fade" id="myModal" role="dialog">
+     <div class="modal-dialog">
+      <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Test Drive Details</h4>
+           </div>
+           <div class="modal-body">
+		     <div class="form-group">
+               <label for="mail">Test Drive No.</label><input type="text" style="width:70%" class="form-control input-sm" name="drn">
+             </div>
+            <div class="form-group">
+              <label>Date</label>
+			    <div class="input-group date" data-provide="datepicker" style="width:70%">
+                   <input type="text" class="form-control" name="test_date" >
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                </div>
+            </div>
+	        <div class="form-group">
+              <label>Model</label>
+     		    <select class="form-control" style="width:70%" name="model">
+					    <option>Select a car model</option>
+                        <option>swift</option>
+                        <option>ritz</option>
+                        <option>celerio</option>
+                        <option>s-cross</option>
+                        <option>sx4</option>
+     			</select>
+             </div>
+		    <div class="form-group">
+             <label for="mail">Duration(kms)</label><input type="text" style="width:70%" class="form-control input-sm" name="dur">
+            </div>
+		    <div class="form-group">
+              <label>Place of TD</label>
+     		    <select class="form-control" style="width:70%" name="place">
+					    <option>Dealership</option>
+                        <option>Customer place</option>
+               </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" name="mymodals">Submit</button>
+            </div>
+         </div>
+      
+       </div>
+  </div>
+ </div>
+      </div><!-- /.content-wrapper -->
+      
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+          <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+          <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <!-- Home tab content -->
+          <div class="tab-pane" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <ul class="control-sidebar-menu">
+              <li>
+                <a href="javascript::;">
+                  <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                    <p>Will be 23 on April 24th</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <i class="menu-icon fa fa-user bg-yellow"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+                    <p>New phone +1(800)555-1234</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+                    <p>nora@example.com</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <i class="menu-icon fa fa-file-code-o bg-green"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+                    <p>Execution time 5 seconds</p>
+                  </div>
+                </a>
+              </li>
+            </ul><!-- /.control-sidebar-menu -->
+
+            <h3 class="control-sidebar-heading">Tasks Progress</h3>
+            <ul class="control-sidebar-menu">
+              <li>
+                <a href="javascript::;">
+                  <h4 class="control-sidebar-subheading">
+                    Custom Template Design
+                    <span class="label label-danger pull-right">70%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <h4 class="control-sidebar-subheading">
+                    Update Resume
+                    <span class="label label-success pull-right">95%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <h4 class="control-sidebar-subheading">
+                    Laravel Integration
+                    <span class="label label-warning pull-right">50%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <h4 class="control-sidebar-subheading">
+                    Back End Framework
+                    <span class="label label-primary pull-right">68%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                  </div>
+                </a>
+              </li>
+            </ul><!-- /.control-sidebar-menu -->
+
+          </div><!-- /.tab-pane -->
+          <!-- Stats tab content -->
+          <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
+          <!-- Settings tab content -->
+          <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+              <h3 class="control-sidebar-heading">General Settings</h3>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Report panel usage
+                  <input type="checkbox" class="pull-right" checked>
+                </label>
+                <p>
+                  Some information about this general settings option
+                </p>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Allow mail redirect
+                  <input type="checkbox" class="pull-right" checked>
+                </label>
+                <p>
+                  Other sets of options are available
+                </p>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Expose author name in posts
+                  <input type="checkbox" class="pull-right" checked>
+                </label>
+                <p>
+                  Allow the user to show his name in blog posts
+                </p>
+              </div><!-- /.form-group -->
+
+              <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Show me as online
+                  <input type="checkbox" class="pull-right" checked>
+                </label>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Turn off notifications
+                  <input type="checkbox" class="pull-right">
+                </label>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Delete chat history
+                  <a href="javascript::;" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                </label>
+              </div><!-- /.form-group -->
+            </form>
+          </div><!-- /.tab-pane -->
+        </div>
+      </aside><!-- /.control-sidebar -->
+      <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../../plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../dist/js/demo.js"></script>
+	 <!-- datepicker -->
+    <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
+  </body
+  ?>
+</html>
