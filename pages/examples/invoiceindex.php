@@ -1,4 +1,9 @@
 <?php
+session_start();
+ if(empty($_SESSION['username']))
+{
+ header('Location:login.php');
+}
 $con=mysql_connect("localhost","root","");
 mysql_select_db("invoice",$con);
 
@@ -36,7 +41,7 @@ if(isset($_GET['did']))
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-<header class="main-header">
+     <header class="main-header">
         <!-- Logo -->
         <a style="background-color: rgb(204, 238, 255);" href="index.php" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -52,24 +57,30 @@ if(isset($_GET['did']))
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
+			 <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
+                  <img src="../../dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
+                  <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
                 </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="../../dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                    <p>
+					  <?php echo $_SESSION['username'] ?>
+                    </p>
+                  </li>
+                  <!-- Menu Body -->
+                 
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    
+                    <div class="pull-right">
+					  <a href="logout.php">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
                </ul>
           </div>
         </nav>
@@ -94,25 +105,25 @@ if(isset($_GET['did']))
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu" class="treeview-active">
-                <li class="active"><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+              <ul class="treeview-menu" >
+                <li ><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="../forms/pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="active treeview">
               <a href="#">
                 <i class="fa fa-cog"></i><span>Sales</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
+              <ul class="treeview-menu" class="treeview-active">
+                <li><a href="../forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
+				<li class="active"><a href="invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
+               <!-- <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>-->
+                <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
@@ -121,13 +132,13 @@ if(isset($_GET['did']))
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.php">
+              <a href="../forms/report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
@@ -144,7 +155,7 @@ if(isset($_GET['did']))
               </a>
               </li>
             <li>
-              <a href="index.php">
+              <a href="../calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
@@ -153,12 +164,6 @@ if(isset($_GET['did']))
                 <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li> 
-<li class="treeview">
-              <a href="logout.php">
-                <i class="fa fa-circle-o-notch"></i>
-                <span>Logout</span>
-              </a>
-              </li> 			
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -177,7 +182,7 @@ if(isset($_GET['did']))
             
           </h1>
           <ol class="breadcrumb">
-            <li><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="../../index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 			<li class="active">Invoice Details</li>
           </ol>
         </section>
@@ -235,10 +240,11 @@ if(isset($_GET['did']))
 						<td><?php echo $row['custname']; ?></td>
 							
 						<td class=back>
-							<a href="../../editinvoice.php?edit=<?php echo $row['invoice_no']; ?>">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
-							<a href="viewinvoice.php?view=<?php echo $row['invoice_no']; ?>">View</a>&nbsp;&nbsp;&nbsp;&nbsp;
-							<a href="genpdf.php?pdf=<?php echo $row['invoice_no']; ?>">Generate PDF</a>&nbsp;&nbsp;&nbsp;&nbsp;
-							<a href="invoiceindex.php?did=<?php echo $row['invoice_no']; ?>">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="button" class="btn btn-primary" onclick="location.href='../../editinvoice.php?edit=<?php echo $row['invoice_no']; ?>'"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="button" class="btn btn-primary" onclick="location.href='viewinvoice.php?view=<?php echo $row['invoice_no']; ?>'"><i class="fa fa-files-o"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
+							<a class="btn btn-primary" href="dompdf/genpdf.php?pdf=<?php echo $row['invoice_no']; ?>" target="_blank"><i class="fa fa-file-pdf-o"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="button" class="btn btn-primary" onclick="location.href='invoiceindex.php?did=<?php echo $row['invoice_no']; ?>'"><i class="fa fa-trash-o"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
+						    <button type="button" class="btn btn-primary" onClick="location.href='../../mails/sendinvoice.php?send=<?php echo $row['invoice_no']; ?>'" ><i class="fa fa-envelope-o"></i></a></button>
 						</td> 	
 						
 						

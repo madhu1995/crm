@@ -44,6 +44,7 @@ $(document).ready(function(){
 			data: dataString,
 			success: function(result){
 				$("#myModal").modal('hide');
+				
 			}
 		});
 

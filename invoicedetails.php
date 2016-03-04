@@ -1,17 +1,17 @@
-
 <?php
+session_start();
 $con=mysql_connect("localhost","root","");
 mysql_select_db("invoice",$con);
 error_reporting(0);
 if(isset($_POST['submit']))
 {
-$query=mysql_query("insert into invoice_details(enq_no,custname,title,fathername,invoice_no,booking_no ,doe,doi,addr,pin_code,delivery,particulars,qty,up,amt,unit_concess,tot_concess,af_concess,tot_tax,grs_tot,adjust,grand_tot,color,eng_no,cha_no) VALUES ('".$_POST['enq_no']."','".$_POST['custname']."','".$_POST['title']."','".$_POST['fathername']."','".$_POST['invoice_no']."','".$_POST['booking_no']."','".$_POST['doe']."','".$_POST['doi']."','".$_POST['addr']."','".$_POST['pin_code']."','".$_POST['delivery']."','".$_POST['particulars']."','".$_POST['qty']."','".$_POST['up']."','".$_POST['amt']."','".$_POST['unit_concess']."','".$_POST['tot_concess']."','".$_POST['af_concess']."','".$_POST['tot_tax']."','".$_POST['grs_tot']."','".$_POST['adjust']."','".$_POST['grand_tot']."','".$_POST['color']."','".$_POST['eng_no']."','".$_POST['cha_no']."')");
+$query=mysql_query("insert into invoice_details(enq_no,custname,title,fathername,invoice_no,booking_no ,doe,doi,email,addr,pin_code,delivery,particulars,qty,up,amt,unit_concess,tot_concess,af_concess,tot_tax,grs_tot,adjust,grand_tot,color,eng_no,cha_no) VALUES ('".$_POST['enq_no']."','".$_POST['custname']."','".$_POST['title']."','".$_POST['fathername']."','".$_POST['invoice_no']."','".$_POST['booking_no']."','".$_POST['doe']."','".$_POST['doi']."','".$_POST['email']."','".$_POST['addr']."','".$_POST['pin_code']."','".$_POST['delivery']."','".$_POST['particulars']."','".$_POST['qty']."','".$_POST['up']."','".$_POST['amt']."','".$_POST['unit_concess']."','".$_POST['tot_concess']."','".$_POST['af_concess']."','".$_POST['tot_tax']."','".$_POST['grs_tot']."','".$_POST['adjust']."','".$_POST['grand_tot']."','".$_POST['color']."','".$_POST['eng_no']."','".$_POST['cha_no']."')");
 #echo "insert into lead_details(custname,doe,phone,addr,t_d ,email,optionsRadios,city,salesperson,model,src,mop,optionsRadios1,optionsRadios2,follow_date,toc,next_foll,enquire) VALUES ('".$_POST['custname']."','".$_POST['doe']."','".$_POST['phone']."','".$_POST['addr']."','".$_POST['t_d']."','".$_POST['email']."','".$_POST['optionsRadios']."','".$_POST['city']."','".$_POST['salesperson']."','".$_POST['model']."','".$_POST['src']."','".$_POST['mop']."','".$_POST['optionsRadios1']."','".$_POST['optionsRadios2']."','".$_POST['follow_date']."','".$_POST['toc']."','".$_POST['next_foll']."','".$_POST['enquire']."')";
 #echo "value inserted";
 if($query)
 {
  echo "updated!!!!!";
- header("location:invoiceindex.php");
+ header("location:pages/examples/invoiceindex.php");
  
 }
 }
@@ -24,19 +24,6 @@ if($query)
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Adhi Maruti CRM</title>
-	
-	
-	<script language="javascript">
-                function addNumbers()
-                {
-                        var val1 = (document.getElementById("af_concess").value);
-                        var val2 = (document.getElementById("tot_tax").value);
-                        var ansD = document.getElementById("grs_tot");
-                        ansD.value = val1 + val2;
-
-                }
-        </script>
-	
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=100, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -92,23 +79,30 @@ if($query)
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
+              <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
+                  <img src="dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
+                  <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
                 </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                    <p>
+					  <?php echo $_SESSION['username'] ?>
+                    </p>
+                  </li>
+                  <!-- Menu Body -->
+                 
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    
+                    <div class="pull-right">
+					  <a href="logout.php">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
                </ul>
           </div>
         </nav>
@@ -133,25 +127,25 @@ if($query)
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu" class="treeview-active">
-                <li class="active"><a href="leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+              <ul class="treeview-menu">
+                <li><a href="leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pages/forms/pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="active treeview">
               <a href="#">
                 <i class="fa fa-cog"></i><span>Sales</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu">
+              <ul class="treeview-menu" class="treeview-active">
                 <li><a href="pages/forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
+				<li  class="active"><a href="pages/examples/invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
+             <!--   <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>-->
+                <li><a href="deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
@@ -193,7 +187,7 @@ if($query)
                </a>
             </li> 
 <li class="treeview">
-              <a href="pages/forms/logout.php">
+              <a href="pages/examples/logout.php">
                 <i class="fa fa-circle-o-notch"></i>
                 <span>Logout</span>
               </a>
@@ -210,7 +204,7 @@ if($query)
 			 
 		<div class="col-xs-3">
 	
-            <a href="pages/examples/invoiceindex.php"><h3><i class="fa fa-reply"></i></h3></a> </div>
+           <!-- <a href="pages/examples/invoiceindex.php"><h3><i class="fa fa-reply"></i></h3></a>--> </div>
 			<h3>Invoice details</h3>
             
           
@@ -221,14 +215,14 @@ if($query)
           </ol>
         </section>
 		
-         <br></br>
+         
         <!-- form -->
 		<div class="box box-primary">
 		         
                  <div class="box-header with-border">
                   
                <!-- /.box-header -->
-		<form role="form" method="post" onSubmit="false" oninput=" amt.value=qty.value*up.value; tot_concess.value=qty.value*unit_concess.value; af_concess.value=amt.value-tot_concess.value; tot_tax.value=(14.50*amt.value)/100; grs_tot.value=parseInt(af_concess.value)+parseInt(tot_tax.value); grand_tot.value=grs_tot.value-adjust.value;">
+		<form role="form" method="post" oninput=" amt.value=qty.value*up.value; tot_concess.value=qty.value*unit_concess.value; af_concess.value=amt.value-tot_concess.value; tot_tax.value=(14.50*amt.value)/100; grs_tot.value=parseInt(af_concess.value)+parseInt(tot_tax.value); grand_tot.value=grs_tot.value-adjust.value;">
 	
               
 				   <div class="box-body">
@@ -237,6 +231,9 @@ if($query)
 				  <div class="form-group">
 				  <label>Enquiry_No</label>
 					  <input type="text" style="width:70%" class="form-control input-sm"  name="enq_no" placeholder="Enter Enquiry no.." required>
+				  
+                   <!-- <button type="submit" class="btn btn-primary" name="search" onClick="location.href='invoicedetails.php?search=<?php echo $row['enquire']; ?>'">Search</button>-->
+                
 				  </div>
 				  
 				   <div class="form-group">
@@ -294,10 +291,12 @@ if($query)
                     <!-- /.input group -->
                   </div>
 				  
+				  
+				  
 				   <div class="form-group">
-				  <label>Time Picker</label>
-				   <input type="text" class="form-control" name="tp">
-				   </div>
+                      <label for="exampleInputEmail1">Email</label>
+                      <input type="email" style="width:70%" class="form-control input-sm" id="exampleInputEmail1" name="email" placeholder="Enter mail" required>
+                    </div>
 					
 					<div class="form-group">
                       <label>Address</label>

@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 $con=mysql_connect("localhost","root","");
@@ -5,10 +6,12 @@ mysql_select_db("presales",$con);
 error_reporting(0);
 if(isset($_POST['submit']))
 {
-$query=mysql_query("insert into feedback(r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_POST['r3']."','".$_POST['r4']."','".$_POST['r5']."','".$_POST['r6']."','".$_POST['r7']."','".$_POST['r8']."','".$_POST['r9']."','".$_POST['r1']."')");
+$query=mysql_query("insert into feedback(custname,enquire,r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_POST['custname']."','".$_POST['enquire']."','".$_POST['r3']."','".$_POST['r4']."','".$_POST['r5']."','".$_POST['r6']."','".$_POST['r7']."','".$_POST['r8']."','".$_POST['r9']."','".$_POST['r1']."')");
 #echo "insert into presales_fb(r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_POST['r3']."','".$_POST['r4']."','".$_POST['r5']."','".$_POST['r6']."','".$_POST['r7']."','".$_POST['r8']."','".$_POST['r9']."','".$_POST['r1']."')";
 }
 ?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -65,25 +68,7 @@ $query=mysql_query("insert into feedback(r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_P
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
-                </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
-				<!-- User Account: style can be found in dropdown.less -->
+              <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="../../dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
@@ -98,24 +83,12 @@ $query=mysql_query("insert into feedback(r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_P
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-body">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </li>
+                 
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
-					  <a href="../../pages/examples/logout.php">Sign out</a>
+                    
+                    <div class="text-center">
+					  <a href="../examples/logout.php">Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -148,7 +121,7 @@ $query=mysql_query("insert into feedback(r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_P
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu" class="treeview-active">
-                <li><a href="leaddetails.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+                <li><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li class="active"><a href="pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
@@ -159,9 +132,9 @@ $query=mysql_query("insert into feedback(r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_P
               </a>
               <ul class="treeview-menu">
                 <li><a href="oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Delivery</a></li>
+				<li><a href="../examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
+               <!-- <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li>-->
+                <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
@@ -188,7 +161,7 @@ $query=mysql_query("insert into feedback(r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_P
               </a>
               </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
@@ -224,7 +197,19 @@ $query=mysql_query("insert into feedback(r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_P
         <section class="content">
           <form role="form" method="post">
           <!-- /.box -->
-
+				 <div class="box-body">
+				  <div class="col-xs-3">
+                    <div class="form-group">
+                      <label for="mail">Customer_Name</label>
+					  <input type="text" style="width:70%" class="form-control input-sm"  name="custname" placeholder="Enter name" required>
+                    </div>
+					</div>
+					<div class="col-xs-3">
+						<div class="form-group">
+                      <label for="enq">Enquiry_Id</label><input type="text" style="width:70%" class="form-control input-sm" id="enq_id" name="enquire" required>
+                    </div>
+					</div>
+					</div>
           <div class="row">
                <!-- iCheck -->
               <div class="box box-success">

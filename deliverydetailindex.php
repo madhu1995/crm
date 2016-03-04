@@ -1,5 +1,5 @@
-
 <?php
+session_start();
 $con=mysql_connect("localhost","root","");
 mysql_select_db("delivery",$con);
 
@@ -67,24 +67,32 @@ if(isset($_GET['did']))
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
+				<!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
+                  <img src="dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
+                  <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
                 </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                    <p>
+					  <?php echo $_SESSION['username'] ?>
+                    </p>
+                  </li>
+                  <!-- Menu Body -->
+                  
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    
+                    <div class="text-center">
+					  <a href="pages/examples/logout.php">
+                      Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
                </ul>
           </div>
         </nav>
@@ -108,72 +116,66 @@ if(isset($_GET['did']))
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview">
+            <li class="treeview" >
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+                <li><a href="leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pages/forms/pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="active treeview">
               <a href="#">
                 <i class="fa fa-cog"></i><span>Sales</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu">
+              <ul class="treeview-menu" class="treeview-active">
                 <li><a href="pages/forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
+				<li ><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                <!-- <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li> -->
+                <li class="active"><a href="deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
-              <a href="index.php">
+              <a href="index.html">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.php">
+              <a href="pages/forms/report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
             </li>
             <li class="treeview">
-              <a href="index.php">
+              <a href="#index.html">
                 <i class="fa fa-inr"></i>
                 <span>Finance</span>
               </a>
               </li>
             <li class="treeview">
-              <a href="index.php">
+              <a href="pages/forms/post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-              <a href="index.php">
+			  <a href="pages/calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
             <li>
-              <a href="index.php">
+                <a href="">
                 <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li> 
-			 <li class="treeview">
-              <a href="pages/examples/logout.php">
-                <i class="fa fa-circle-o-notch"></i>
-                <span>Logout</span>
-              </a>
-              </li>
-			  	
+          </ul>  	
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -187,7 +189,7 @@ if(isset($_GET['did']))
             <small>Delivery</small>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Delivery Details</li>
           </ol>
         </section>
@@ -207,25 +209,16 @@ if(isset($_GET['did']))
 					  <!-- <th style="padding: 25px;"></th>-->
 					  <tr class="info">
                       <th>Enquiry_Id</th>
-					  <th>Customer_Id</th>
-					  <th>Booking_Id</th>
+					
+
 					   <th>Customer_Name</th>
 					  
 					   <th>Delivery_Id</th>
 					  
-					   <th>Address</th>
-					   <th>Phone</th>
-					   <th>Alternate Phone</th>
-					   <th>Email</th>
-					  <th>Pincode</th>
+					  
 					  <th>Model</th>
-					  <th>Fuel type</th>
-					  <th>Color</th>
-					  <th>Gear type</th>
-					  <th>Chassis_No</th>
-					  <th>Engine_No</th>
-					  <th>Date of Sale</th>
-					  <th>Approx.date for Delivery</th>
+					 
+					
 					 <!--  <th>ModeofPayment</th>-->
                        </tr>
                         <?php
@@ -235,27 +228,16 @@ if(isset($_GET['did']))
 						?>
 						<tr>
 						<td><?php echo $row['enq_id']; ?></td>
-						<td><?php echo $row['cus_id']; ?></td>
-						<td><?php echo $row['book_id']; ?></td>
+						
+						
 						<td><?php echo $row['cust_name']; ?></td>
 						
 						<td><?php echo $row['deliv_id']; ?></td>
 						
-						<td><?php echo $row['res_add']; ?></td>
-						<td><?php echo $row['res_ph1']; ?></td>
-						<td><?php echo $row['res_ph2']; ?></td>
 						
-						<td><?php echo $row['res_em']; ?></td>
-						<td><?php echo $row['res_pin']; ?></td>
 					    <td><?php echo $row['model1']; ?></td>
-						<td><?php echo $row['model_fuel']; ?></td>
-						<td><?php echo $row['model_color']; ?></td>
-						<td><?php echo $row['model_gear']; ?></td>
-						<td><?php echo $row['chassis_no']; ?></td>
-						<td><?php echo $row['engine_no']; ?></td>
-						<td><?php echo $row['ap_b_d']; ?></td>
-						<td><?php echo $row['ap_b_e']; ?></td>
-						<td><?php echo $row['pay']; ?></td>
+						
+						
 						
 						
 						<div class="btn-group">
@@ -268,10 +250,14 @@ if(isset($_GET['did']))
 							<td>
 							<button type="button" class="btn btn-primary" onClick="location.href='deliveryprint.php?did=<?php echo $row['enq_id']; ?>'" >PRINT</a></button>
                            </td>
-
-						
+						   <td>
+							<button type="button" class="btn btn-primary" onClick="location.href='delivpdf.php?gdf=<?php echo $row['enq_id']; ?>'" > GENERATE PDF</a></button>
+                           </td>
+						   <td>
+							<button type="button" class="btn btn-primary" onClick="location.href='mails/deliverymail.php?smd=<?php echo $row['enq_id']; ?>'" > SEND MAIL</a></button>
+                           </td>
+						   
 						</div>
-						
 						</tr>
 						<?php } ?>
 						  </div>

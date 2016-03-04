@@ -1,28 +1,35 @@
 <?php
 session_start();
+ if(empty($_SESSION['username']))
+{
+ header('Location:pages/examples/login.php');
+}
 $con=mysql_connect("localhost","root","");
-mysql_select_db("presales",$con);
+mysql_select_db("crm_sales",$con);
 error_reporting(0);
 if(isset($_POST['submit']))
 {
 $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,optionsRadios,city,salesperson,model,src,mop,optionsRadios1,optionsRadios2,follow_date,toc,next_foll,enquire) VALUES ('".$_POST['custname']."','".$_POST['doe']."','".$_POST['phone']."','".$_POST['addr']."','".$_POST['t_d']."','".$_POST['email']."','".$_POST['optionsRadios']."','".$_POST['city']."','".$_POST['salesperson']."','".$_POST['model']."','".$_POST['src']."','".$_POST['mop']."','".$_POST['optionsRadios1']."','".$_POST['optionsRadios2']."','".$_POST['follow_date']."','".$_POST['toc']."','".$_POST['next_foll']."','".$_POST['enquire']."')");
 #echo "insert into lead_details(custname,doe,phone,addr,t_d ,email,optionsRadios,city,salesperson,model,src,mop,optionsRadios1,optionsRadios2,follow_date,toc,next_foll,enquire) VALUES ('".$_POST['custname']."','".$_POST['doe']."','".$_POST['phone']."','".$_POST['addr']."','".$_POST['t_d']."','".$_POST['email']."','".$_POST['optionsRadios']."','".$_POST['city']."','".$_POST['salesperson']."','".$_POST['model']."','".$_POST['src']."','".$_POST['mop']."','".$_POST['optionsRadios1']."','".$_POST['optionsRadios2']."','".$_POST['follow_date']."','".$_POST['toc']."','".$_POST['next_foll']."','".$_POST['enquire']."')";
 #echo "value inserted";
+if($query)
+{
+ echo "updated!!!!!";
+ header("location:leaddetailsindex.php");
+ 
+}
 }
 ?>
-<!DOCTYPE html>
+
+
 <html>
   <head>
-    <<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <title>AdhiMaruti | Leaddetails</title>
+    <title>Adhi Maruti CRM</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<!-- Bootstrap 3.3.5 -->
+    <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -60,7 +67,7 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
 
       <header class="main-header">
         <!-- Logo -->
-        <a style="background-color: rgb(204, 238, 255);" href="index.html" class="logo">
+        <a style="background-color: rgb(204, 238, 255);" href="index.php" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>Aa</b>dhi</span>
           <!-- logo for regular state and mobile devices -->
@@ -74,66 +81,33 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
+				<li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
-                </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
-				<!-- User Account: style can be found in dropdown.less -->
-              <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                  <img src="dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
                   <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
                     <p>
 					  <?php echo $_SESSION['username'] ?>
                     </p>
                   </li>
-                  <!-- Menu Body -->
-                  <li class="user-body">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </li>
-                  <!-- Menu Footer-->
+             
                   <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
+                    
+                    <div class="text-center">
 					  <a href="pages/examples/logout.php">Sign out</a>
                     </div>
                   </li>
                 </ul>
               </li>
-              </li>
                </ul>
           </div>
         </nav>
       </header>
+	  </div>
       <!-- Left side column. contains the logo and sidebar -->
 	  <aside style="font-family: &quot;Comic Sans MS&quot;,cursive,sans-serif;" class="main-sidebar">
            <!-- sidebar: style can be found in sidebar.less -->
@@ -158,7 +132,7 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu" class="treeview-active">
-                <li class="active"><a href="leaddetails.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+                <li class="active"><a href="leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pages/forms/pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
@@ -169,50 +143,50 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
               </a>
               <ul class="treeview-menu">
                 <li><a href="pages/forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Delivery</a></li>
+				<li><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                <!--<li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>-->
+                <li><a href="deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
-              <a href="index.html">
+              <a href="index.php">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="index.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="index.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+                <li><a href="index.php"><i class="fa fa-circle-o"></i> Follow up</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="pages/forms/report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
             </li>
             <li class="treeview">
-              <a href="#index.html">
+              <a href="#index.php">
                 <i class="fa fa-inr"></i>
                 <span>Finance</span>
               </a>
               </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="pages/forms/post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-              <a href="index.html">
+              <a href="pages/calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
             <li>
-              <a href="index.html">
+              <a href="index.php">
                 <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
-            </li>  			
-        </section>
+            </li> 
+         </section>
         <!-- /.sidebar -->
       </aside>
 
@@ -238,15 +212,19 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
                   <h3 class="box-title">Enquiry Followup</h3>
                 </div><!-- /.box-header -->
 		<form role="form" method="post">
+	
                   <div class="box-body">
 				  <div class="col-xs-3">
-                    <div class="form-group">
-                      <label for="mail">Customer_Name</label><input type="text" style="width:70%" class="form-control input-sm" name="custname" id="mail1" placeholder="Enter name">
+				  
+				   <div class="form-group">
+                      <label for="mail">Customer_Name</label>
+					  <input type="text" style="width:70%" class="form-control input-sm"  name="custname" placeholder="Enter name" required>
                     </div>
-					<div class="form-group">
+									  
+				  <div class="form-group">
                     <label>Date of Enquiry</label>
 					<div class="input-group date" data-provide="datepicker" style="width:70%">
-                     <input type="text" class="form-control" name="doe">
+                     <input type="text" class="form-control" name="doe" required>
                       <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
                         </div>
@@ -254,14 +232,16 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
                     <!-- /.input group -->
                   </div>
 				  
+                   <div class="form-group">
+                      <label>Address</label>
+                      <textarea class="form-control input-sm" style="width:70%" rows="3" name="addr" placeholder="Enter ..."></textarea>
+                    </div>
+				  
 					 <div class="form-group">
                       <label for="phone">Phone</label>
-                      <input type="text" style="width:70%" class="form-control input-sm" name="phone" id="phone1" placeholder="Enter mobile number">
+                      <input type="text" style="width:70%" class="form-control input-sm"  placeholder="Enter mobile number" name="phone">
                     </div>
-					<div class="form-group">
-                      <label>Address</label>
-                      <textarea class="form-control input-sm" style="width:70%" name="addr" rows="3" placeholder="Enter ..."></textarea>
-                    </div>
+					
                     <div class="checkbox">
                       <label>
                         <input type="checkbox" name="t_d"> Test Drive
@@ -271,25 +251,25 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
 				   <div class="col-xs-3">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email</label>
-                      <input type="text" style="width:70%" class="form-control input-sm" name="email" id="exampleInputEmail1" placeholder="Enter mail">
+                      <input type="email" style="width:70%" class="form-control input-sm" id="exampleInputEmail1" name="email" placeholder="Enter mail" required>
                     </div>
 					<div class="form-group">
 				   <label>Gender</label><div class="radio">
                         <label>
-                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="Male">
                           Male
                         </label>
                       </div>
                       <div class="radio">
                         <label>
-                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="Female">
                           Female
                         </label>
                       </div>
                      </div>
 					 <div class="form-group">
                       <label>City</label>
-                      <select class="form-control" style="width:70%" name="city">
+                      <select class="form-control" style="width:70%" name="city" required>
 					    <option>Select a city</option>
                         <option>Chennai</option>
                         <option>Coimbatore</option>
@@ -297,35 +277,39 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
                         <option>Tirupur</option>
                         <option>Others</option>
                       </select>
-					  
 					  <div class="form-group">
                       <label>SalesPerson</label>
-					  <select class="form-control" style="width:70%" name="salesperson">
-					    <option>Select a sales person</option>
-                        <option>aaa</option>
-                        <option>bbb</option>
-                        <option>ccc</option>
-                        <option>ddd</option>
-                        <option>eee</option>
-                      </select>
+					  <select class="form-control" style="width:70%" name="salesperson" id="test" required>
+					    <option value="" disabled selected>Select a sales person</option>
+                        <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
+					$query = "SELECT * FROM salesperson"; 
+					$result = mysql_query($query); 
+					while ($line = mysql_fetch_array($result)) { ?>
+					<option value="<?php echo $line['name'];?>"> 
+					<?php echo $line['name'];?> </option>   <?php } ?> </select>
                     </div>
 					<div class="form-group">
                       <label>Model</label>
-					  <select class="form-control" style="width:70%" name="model">
+					  <select class="form-control" style="width:70%" name="model" required>
 					    <option>Select a car model</option>
-                        <option>swift</option>
-                        <option>ritz</option>
-                        <option>celerio</option>
-                        <option>s-cross</option>
-                        <option>sx4</option>
-                      </select>
+                         <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
+					$query = "SELECT * FROM carmodel"; 
+					$result = mysql_query($query); 
+					while ($line = mysql_fetch_array($result)) { ?>
+					<option value="<?php echo $line['modelname'];?>"> 
+					<?php echo $line['modelname'];?> </option>   <?php } ?>
+					  </select>
                     </div>
                     </div>
 					</div>	
                     <div class="col-xs-3">
                      <div class="form-group">
                       <label>Source</label>
-					  <select class="form-control" style="width:70%" name="src">
+					  <select class="form-control" style="width:70%" name="src" required>
 					    <option>Walk in</option>
                         <option>Reference</option>
                         <option>Incoming telephone</option>
@@ -336,7 +320,7 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
                     </div>
 					<div class="form-group">
                       <label>Mode of payment</label>
-					  <select class="form-control" style="width:70%" name="mop">
+					  <select class="form-control" style="width:70%" name="mop" required>
 					    <option>Cash</option>
                         <option>own finance</option>
                         <option>Maruti finance</option>
@@ -345,13 +329,13 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
 					<div class="form-group">
 				   <label>Status</label><div class="radio">
                         <label>
-                          <input type="radio" name="optionsRadios1" id="hot" value="option1">
+                          <input type="radio" name="optionsRadios1" id="hot" value="hot" required>
                           hot
                         </label>
                       </div>
                       <div class="radio">
                         <label>
-                          <input type="radio" name="optionsRadios1" id="cold" value="option2">
+                          <input type="radio" name="optionsRadios1" id="cold" value="cold" required>
                           cold
                         </label>
                       </div>
@@ -359,23 +343,26 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
 					 <div class="form-group">
 				   <label>Remarks</label><div class="radio">
                         <label>
-                          <input type="radio" name="optionsRadios2" id="b_r" value="option1">
+                          <input type="radio" name="optionsRadios2" id="b_r" value="Booked" required>
                           Booked
                         </label>
                       </div>
                       <div class="radio">
                         <label>
-                          <input type="radio" name="optionsRadios2" id="c_r" value="option2">
+                          <input type="radio" name="optionsRadios2" id="c_r" value="Closed" required>
                           Closed
                         </label>
                       </div>
                      </div>
                     </div>	
+					
+					
+					
                      <div class="col-xs-3">
 					 <div class="form-group">
                     <label>Followup Date</label>
 					<div class="input-group date" data-provide="datepicker" style="width:70%">
-                     <input type="text" class="form-control" name="follow_date">
+                     <input type="text" class="form-control" name="follow_date" required>
                       <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
                         </div>
@@ -384,7 +371,7 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
                   </div>
 				  <div class="form-group">
                       <label>Time of call</label>
-					  <select class="form-control" style="width:70%" name="toc">
+					  <select class="form-control" style="width:70%" name="toc" >
 					    <option>Morning</option>
                         <option>Afternoon</option>
                         <option>Evening</option>
@@ -393,52 +380,26 @@ $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,
                     <div class="form-group">
                       <label>Next Followup</label>
 					  <select class="form-control" style="width:70%" name="next_foll">
-					    <option></option>
-                        <option></option>
-                        <option></option>
+					    <option>After 3 days</option>
+                        <option>After 7 days</option>
+                        <option>After 15 days</option>
+						<option>After 21 days</option>
                       </select>
                     </div>
 				    <div class="form-group">
-                      <label for="enq">Enquiry_Id</label>
-					  <input type="text" style="width:70%" class="form-control input-sm" id="enq_id" name="enquire">
+                      <label for="enq">Enquiry_Id</label><input type="text" style="width:70%" class="form-control input-sm" id="enq_id" name="enquire" required>
                     </div>
 					</div>					 
 				  <!-- /.box-body -->
                   </div>
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-					<button type="button" class="btn btn-info btn-md" id="myBtn3">Delete</button>
+                    <button type="submit" class="btn btn-primary" name="submit" >Submit</button>
                   </div>
                 </form>
               </div>
         
-		</div></div><!-- /.content-wrapper -->
-      <div class="container">
-  <div class="modal fade" id="myModal3" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Static Backdrop</h4>
-        </div>
-        <div class="modal-body">
-          <p>You cannot click outside of this modal to close it.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-$(document).ready(function(){
-    $("#myBtn3").click(function(){
-        $("#myModal3").modal({backdrop: "static"});
-    });
-});
-</script>
+      </div><!-- /.content-wrapper -->
+      
 
       
 
@@ -481,13 +442,6 @@ $(document).ready(function(){
     <script src="dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
-	<script>
-      $(function () {
-        //Timepicker
-        $(".timepicker").timepicker({
-          showInputs: true
-        });
-      });
-    </script>
+	
   </body>
 </html>

@@ -117,7 +117,7 @@ th {
                  
                  <table class="table table-striped">
                 <tbody>
-                  <tr class="info">
+				  <tr class="info">
   
 				<br><br><br><br>
 				<h4 align="right">For Aadhi Maruthi</h4>

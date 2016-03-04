@@ -101,24 +101,6 @@ $errors= array();
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
-                </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
 				<!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -134,23 +116,11 @@ $errors= array();
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-body">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </li>
+                 
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
+                    
+                    <div class="text-center">
 					  <a href="../../pages/examples/logout.php">Sign out</a>
                     </div>
                   </li>
@@ -184,7 +154,7 @@ $errors= array();
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="leaddetails.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+                <li><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
@@ -195,9 +165,9 @@ $errors= array();
               </a>
               <ul class="treeview-menu" class="treeview-active">
                 <li  class="active"><a href="oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Delivery</a></li>
+			    <li><a href="../examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li> 
+              <!--  <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li> -->
+                <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
@@ -206,14 +176,14 @@ $errors= array();
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="../../amc.php"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="../../appointments.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-				<li><a href="../../servicedetails.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
-                <li><a href="../../followup.php"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href=""><i class="fa fa-circle-o"></i> Service Detail</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
@@ -225,12 +195,12 @@ $errors= array();
               </a>
               </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-              <a href="index.html">
+              <a href="../calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
@@ -238,7 +208,8 @@ $errors= array();
               <a href="index.html">
                 <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
-            </li>  			
+            </li>  	
+           </ul>			
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -315,27 +286,31 @@ function selection()
                     </div>
                     <div class="form-group">
                       <label >Customer_Name</label>
-					  <input type="text"  required pattern="[a-zA-Z]+" title="Name must in alphabets"  id="cun" style="width:70%" class="form-control input-sm" name="cus_name" >
+					  <input type="text"  required pattern="[a-zA-Z.\s ]+" title="Name must in alphabets"  id="cun" style="width:70%" class="form-control input-sm" name="cus_name" >
                     </div>
 					<div class="form-group">
                       <label>Date of Enquiry</label>
-					    <div class="input-group date" data-provide="datepicker" style="width:70%" required>
-                          <input type="text" class="form-control" name="doe"  >
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" name="doe" id="doe" title="required" data-toggle="tooltip">
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                             </div>
                          </div>
                     </div>
-					 <div class="form-group">
+					
+					<div class="form-group">
                       <label>SalesPerson</label>
-					  <select class="form-control" style="width:70%" name="salesperson" required>
+					  <select class="form-control" style="width:70%" name="salesperson" id="test" required>
 					    <option value="" disabled selected>Select a sales person</option>
-                        <option>aaa</option>
-                        <option>bbb</option>
-                        <option>ccc</option>
-                        <option>ddd</option>
-                        <option>eee</option>
-                      </select>
+                        <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
+					$query = "SELECT * FROM salesperson"; 
+					$result = mysql_query($query); 
+					while ($line = mysql_fetch_array($result)) { ?>
+					<option value="<?php echo $line['name'];?>"> 
+					<?php echo $line['name'];?> </option>   <?php } ?>
+					</select>
                     </div>
                   </div><!-- /.box-body -->
 
@@ -349,15 +324,15 @@ function selection()
                     <!-- text input -->
 					<div class="form-group">
                       <label>Company name</label>
-                      <input type="text" pattern="[a-zA-Z]+" title="Name must in alphabets" style="width:70%" class="form-control input-sm" id="off_name1" name="off_name" >
+                      <input type="text" pattern="[a-zA-Z.\s ]+" title="Name must in alphabets" style="width:70%" class="form-control input-sm" id="off_name1" name="off_name" >
                     </div>
 					<div class="form-group">
                       <label>Designation</label>
-                      <input type="text" pattern="[a-zA-Z]+" title="Designation must have only alphabets" style="width:70%" class="form-control input-sm" id="off_des11" name="off_des">
+                      <input type="text" pattern="[a-zA-Z.\s ]+" title="Designation must have only alphabets" style="width:70%" class="form-control input-sm" id="off_des11" name="off_des">
                     </div>
                     <div class="form-group">
                       <label>Office Address</label>
-                      <textarea pattern="[A-Za-z0-9./-,]+" title="Provide a valid address" class="form-control input-sm" style="width:70%" rows="3" name="off_add" id="off_add1"></textarea>
+                      <textarea pattern="[A-Za-z0-9./-,\s ]+" title="Provide a valid address" class="form-control input-sm" style="width:70%" rows="3" name="off_add" id="off_add1"></textarea>
                     </div>
 				    <div class="form-group">
                       <label for="phone">Phone</label>
@@ -460,6 +435,11 @@ JOIN testdrive as t2 ON t2.Enq_id = t1.Enq_id
 JOIN vehicle as t3 ON t3.Enq_id = t1.Enq_id
 JOIN upload as t4 ON t4.Enq_id = t1.Enq_id
 WHERE t1.Enq_id='".$did."'");
+
+if($query)
+{
+header("location:oppur.php"); 
+}
 }
 ?>
 </table>
@@ -504,9 +484,9 @@ WHERE t1.Enq_id='".$did."'");
                       <label for="inputEmail3" class="col-sm-2 control-label">Communicate-to</label>
                       <div class="col-sm-11">
                         <select class="form-control" style="width:50%" id="select" name="com" onchange="selection()" required>
-						<option value="" disabled selected>select a place for contact</option>
-					    <option value="residence">Residence</option>
-                        <option id="off_c" value="office">Office</option>
+					    	<option value="" disabled selected>select a place for contact</option>
+					       <option value="residence">Residence</option>
+                           <option id="off_c" value="office">Office</option>
                       </select>
                       </div>
                     </div>
@@ -535,6 +515,19 @@ WHERE t1.Enq_id='".$did."'");
 						   var z= document.getElementById("cun").value;
 						   document.getElementById("tcun").value= z;
                           }
+						  function geo()
+                            {    
+                              var cat = document.getElementById('address2').value;    
+                              //if (cat == "office") {
+                              document.getElementById("address1").value = cat;
+							 // alert('Occupational details are Mandatory');
+                                  //    return false;
+                                 //}
+
+                               //}
+                           //return true;
+                        }
+
                         </script>
 
                   </div><!-- /.box-body -->
@@ -548,9 +541,10 @@ WHERE t1.Enq_id='".$did."'");
                 <div class="box-body">
 				    <div class="form-group">
                       <label>Address</label>
+					   <textarea required onchange="geo()" class="form-control input-sm" style="width:70%" rows="3" placeholder="Enter ..." name="res_add" id="address2"></textarea>
 					  <form action="geo.php" method="post" target="_blank">
-                      <textarea required class="form-control input-sm" style="width:70%" rows="3" placeholder="Enter ..." name="res_add"></textarea>
-                       <input type='submit' class="btn btn-info pull-right" value='Geocode!' name="add"/>
+                        <input type="hidden" name="res_add" id="address1">                   
+					    <input type='submit' class="btn btn-info pull-right" value='Geocode!' name="add"/>
                      </form>
 				   </div>
 					<div class="form-group">
@@ -627,12 +621,15 @@ WHERE t1.Enq_id='".$did."'");
                        <label>Model</label>
      		            <select class="form-control select2"  style="width:70%" name="rad" id="mySelect" required onclick="myFunction()">
                         <option value="" disabled selected>select a car model</option>
-						<option data-toggle="modal" data-target="#my1">swift</option>
-                        <option data-toggle="modal" data-target="#my1">ritz</option>
-                        <option data-toggle="modal" data-target="#my1">celerio</option>
-                        <option data-toggle="modal" data-target="#my1">s-cross</option>
-                        <option data-toggle="modal" data-target="#my1">sx4</option>
-     			      </select>
+                        <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
+					$query = "SELECT * FROM carmodel"; 
+					$result = mysql_query($query); 
+					while ($line = mysql_fetch_array($result)) { ?>
+					<option value="<?php echo $line['modelname'];?>" data-toggle="modal" data-target="#my1"> 
+					<?php echo $line['modelname'];?> </option>   <?php } ?>
+					  </select>
                     </div>
 					
                 </div><!-- /.box-body -->
@@ -742,7 +739,7 @@ WHERE t1.Enq_id='".$did."'");
 					
 					<div class="form-group">
                       <label>Approx.date for booking</label>
-			            <div class="input-group date" data-provide="datepicker" style="width:70%">
+			            <div class="input-group date" style="width:70%">
                           <input type="text" class="form-control required" id="app" title="required" data-toggle="tooltip">
                         <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
@@ -836,5 +833,19 @@ WHERE t1.Enq_id='".$did."'");
       </div><!-- /.content-wrapper -->
  </div><!-- ./wrapper -->
     <!-- jQuery 2.1.4 -->
+	<script>
+	 $(document).ready(function () {
+                
+                $('#app').datepicker({
+                    format: "yyyy-mm-dd",
+					startDate: '-3d'
+                });  
+				$('#doe').datepicker({
+                    format: "yyyy-mm-dd",
+					startDate: '-3d'
+                });  
+            
+            });
+	</script>
   </body>
 </html>

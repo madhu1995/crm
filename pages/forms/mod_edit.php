@@ -6,7 +6,6 @@ error_reporting(0);
 if(isset($_GET[edi]))
 {
 $sql=mysql_query("select * from vehicle where Enq_id='".$_GET['edi']."'");
-echo "select * from lead_details where Enq_id='".$_GET['edi']."' ";
 $row=mysql_fetch_assoc($sql);
 }
 if(isset($_POST['submit']))
@@ -20,6 +19,7 @@ $quants=$_POST['quants'];
 $sta=$_POST['sta'];
 $vcu=$_POST['vcu'];
 $result=mysql_query(" UPDATE `vehicle` SET `fuel`='$fuel1',`color`='$col',`quant`='$quants',`status`='$sta',`Cust_id`='$vcu',`Cust_name`='$vcun',`app_date`='$app',`pri_model`='$pri' WHERE Enq_id='".$_GET['edi']."'");
+$event=mysql_query("UPDATE `events` SET `start`='$app' WHERE `title`='".$_GET['edi']."'");
 if($result)
 {
  echo "updated!!!!!";
@@ -34,7 +34,7 @@ if($result)
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AadhiMaruti | Opportunity Details</title>
+    <title>AadhiMaruti | Vehicle Details</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -82,25 +82,7 @@ if($result)
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
-                </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
-				<!-- User Account: style can be found in dropdown.less -->
+              <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="../../dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
@@ -115,23 +97,9 @@ if($result)
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-body">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
+                    <div class="text-center">
 					  <a href="../../pages/examples/logout.php">Sign out</a>
                     </div>
                   </li>
@@ -158,6 +126,7 @@ if($result)
           </form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
+         <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li class="treeview">
@@ -165,7 +134,7 @@ if($result)
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="leaddetails.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+                <li><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
@@ -176,9 +145,9 @@ if($result)
               </a>
               <ul class="treeview-menu" class="treeview-active">
                 <li  class="active"><a href="oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Delivery</a></li>
+			    <li><a href="../examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li> 
+              <!--  <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li> -->
+                <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
@@ -187,13 +156,14 @@ if($result)
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href=""><i class="fa fa-circle-o"></i> Service Detail</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
@@ -205,12 +175,12 @@ if($result)
               </a>
               </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-              <a href="index.html">
+              <a href="../calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
@@ -218,7 +188,8 @@ if($result)
               <a href="index.html">
                 <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
-            </li>  			
+            </li>  	
+           </ul>  			
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -228,7 +199,7 @@ if($result)
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Opportunity edit
+            Vehicle edit
             <small>(sales)</small>
           </h1>
           <ol class="breadcrumb">
@@ -293,8 +264,8 @@ if($result)
              </div>
 					<div class="form-group">
                       <label>Approx.date for booking</label>
-			            <div class="input-group date" data-provide="datepicker" style="width:70%">
-                          <input type="text" class="form-control" value="<?php echo $row['app_date'];?>" name="app" required>
+			            <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control" id="date" value="<?php echo $row['app_date'];?>" name="app" required>
                         <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                         </div>
@@ -334,5 +305,15 @@ if($result)
 	 <!-- DataTables -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+	<script>
+	 $(document).ready(function () {
+                
+                $('#date').datepicker({
+                    format: "yyyy-mm-dd",
+					startDate: '-3d'
+                });  
+            
+            });
+	</script>
   </body>
 </html>

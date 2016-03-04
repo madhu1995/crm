@@ -41,6 +41,8 @@ $res_city=$_POST['res_city'];
 $res=mysql_query("UPDATE `vehicle` SET `model`='$rad' where Enq_id='".$_GET['edi']."'");
 $mres=mysql_query("UPDATE `testdrive` SET `model`='$rad' where Enq_id='".$_GET['edi']."'");
 $result=mysql_query(" UPDATE `opp_details` SET `Cus_id`='$cus_id',`Cus_name`='$cus_name',`DOE`='$doe',`Salesperson`='$salesperson',`Res_addr`='$res_add',`Res_phone`='$res_ph1',`Res_phone2`='$res_ph2',`Email`='$res_em',`Pincode`='$res_pin',`DOB`='$dob',`Buyertype`='$buyer',`MOP`='$pay',`Gender`='$optionsRadios',`Commu_to`='$com',`Testdrive`='$t_d',`Off_name`='$off_name',`Off_addr`='$off_add',`Off_ph1`='$off_ph1',`Off_ph2`='$off_ph2',`Off_email`='$off_em',`Off_city`='$off_city',`Off_Pin`='$off_pin',`en_no`='$rad',`Res_city`='$res_city' where Enq_id='".$_GET['edi']."'");
+#echo "UPDATE `opp_details` SET `Cus_id`='$cus_id',`Cus_name`='$cus_name',`DOE`='$doe',`Salesperson`='$salesperson',`Res_addr`='$res_add',`Res_phone`='$res_ph1',`Res_phone2`='$res_ph2',`Email`='$res_em',`Pincode`='$res_pin',`DOB`='$dob',`Buyertype`='$buyer',`MOP`='$pay',`Gender`='$optionsRadios',`Commu_to`='$com',`Testdrive`='$t_d',`Off_name`='$off_name',`Off_addr`='$off_add',`Off_ph1`='$off_ph1',`Off_ph2`='$off_ph2',`Off_email`='$off_em',`Off_city`='$off_city',`Off_Pin`='$off_pin',`en_no`='$rad',`Res_city`='$res_city' where Enq_id='".$_GET['edi']."'";
+#exit;
 $errors= array();
 		$file_name = $_FILES['file']['name'];
 		$file_size =$_FILES['file']['size'];
@@ -128,24 +130,6 @@ if($result)
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
-                </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
 				<!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -161,23 +145,9 @@ if($result)
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-body">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
+                    <div class="text-center">
 					  <a href="../../pages/examples/logout.php">Sign out</a>
                     </div>
                   </li>
@@ -211,7 +181,7 @@ if($result)
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="leaddetails.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+                <li><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
@@ -222,9 +192,9 @@ if($result)
               </a>
               <ul class="treeview-menu" class="treeview-active">
                 <li  class="active"><a href="oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Delivery</a></li>
+			    <li><a href="../examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li> 
+              <!--  <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li> -->
+                <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
@@ -233,13 +203,14 @@ if($result)
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href=""><i class="fa fa-circle-o"></i> Service Detail</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
@@ -251,12 +222,12 @@ if($result)
               </a>
               </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-              <a href="index.html">
+              <a href="../calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
@@ -264,7 +235,8 @@ if($result)
               <a href="index.html">
                 <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
-            </li>  			
+            </li>  	
+           </ul>			
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -283,6 +255,12 @@ if($result)
 			<li class="active">Opportunity Edit</li>
           </ol>
         </section>
+		<script>
+		$('#fileupload').fileuploadobject({
+
+value:"hello"
+});
+		</script>
 
         <!-- Main content -->
         <section class="content">
@@ -302,7 +280,7 @@ if($result)
                           <i class="glyphicon glyphicon-plus"></i>
                            <span>Add an image...</span>
                         <!-- The file input field used as target for the file upload widget -->
-							  <input type='file' required id="fileupload" name="file" accept="image/gif, image/jpeg, image/png"  onchange="readURL(this);" />
+							  <input type='file'  alt="<?php echo $rowi['name']; ?>" required id="fileupload" name="file" accept="image/gif, image/jpeg, image/png"  onchange="readURL(this);" />
                            </span>
 						   <img id="blah" src="file/<?php echo $rowi['name']; ?>" width="70" height="70" alt="your image" />
 					 </div>
@@ -329,13 +307,16 @@ if($result)
 					 <div class="form-group">
                       <label>SalesPerson</label>
 					  <select class="form-control" style="width:70%" name="salesperson" required>
-					    <option>Select a sales person</option>
-                        <option value='aaa'<?php if('aaa'==$row['Salesperson']){ ?>selected="selected"<?php } ?>>aaa</option>
-                        <option value='bbb'<?php if('bbb'==$row['Salesperson']){ ?>selected="selected"<?php } ?>>bbb</option>
-                        <option value='ccc'<?php if('ccc'==$row['Salesperson']){ ?>selected="selected"<?php } ?>>ccc</option>
-                        <option value='ddd'<?php if('ddd'==$row['Salesperson']){ ?>selected="selected"<?php } ?>>ddd</option>
-                        <option value='eee'<?php if('eee'==$row['Salesperson']){ ?>selected="selected"<?php } ?>>eee</option>
-                      </select>
+                        <option value="" disabled selected>Select a sales person</option>
+                        <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
+					$query = "SELECT * FROM salesperson"; 
+					$result = mysql_query($query); 
+					while ($line = mysql_fetch_array($result)) { ?>
+					<option value="<?php echo $line['name'];?>" <?php if($line['name']==$row['Salesperson']){ ?>selected="selected"<?php } ?>> 
+					<?php echo $line['name'];?> </option>   <?php } ?>
+					</select>
                     </div>
                   </div><!-- /.box-body -->
 
@@ -460,11 +441,11 @@ function selection()
 					 </div>
                       <div class="radio" class="col-sm-14">
                         <label class="col-sm-3">
-                          <input type="radio" name="t_d" value="Yes" required onclick="Function()" data-toggle="modal" data-target="#myModal" value=""<?php if($row['Testdrive']=='Yes') { ?> checked="checked"<?php } ?> >
+                          <input type="radio" name="t_d" value="Yes" required onclick="Function();" data-toggle="modal" data-target="#myModal" value=""<?php if($row['Testdrive']=='Yes') { ?> checked="checked"<?php } ?> >
                           Yes
 						</label>
 						<label class="col-sm-6">
-						  <input type="radio" name="t_d" value="No" required onclick="func()" value=""<?php if($row['Testdrive']=='No') { ?> checked="checked"<?php } ?>>
+						  <input type="radio" name="t_d" id="radt" value="No" onclick="return test(<?php echo $_GET['edi']; ?>);" required value=""<?php if($row['Testdrive']=='No') { ?> checked="checked"<?php } ?>>
                           No
                         </label>
                       </div>
@@ -498,12 +479,15 @@ function selection()
               <label>Model</label>
      		    <select class="form-control" style="width:70%" id="model1">
 					    <option>Select a car model</option>
-                        <option>swift</option>
-                        <option>ritz</option>
-                        <option>celerio</option>
-                        <option>s-cross</option>
-                        <option>sx4</option>
-     			</select>
+                        <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
+					$query = "SELECT * FROM carmodel"; 
+					$result = mysql_query($query); 
+					while ($line = mysql_fetch_array($result)) { ?>
+					<option value="<?php echo $line['modelname'];?>"> 
+					<?php echo $line['modelname'];?> </option>   <?php } ?>
+					  </select>
              </div>
 		    <div class="form-group">
              <label for="mail">Duration(kms)</label><input type="text" style="width:70%" class="form-control input-sm" id="dur">
@@ -544,13 +528,17 @@ function selection()
 						   var z= document.getElementById("cun").value;
 						   document.getElementById("tcun").value= z;
                           }
-				  function func(){
-				  <?php
-				    $conn=mysql_connect(localhost,"root","");
-					mysql_select_db("sales",$conn);
-					$del=mysql_query("Delete From testdrive where Enq_id='".$_GET['edi']."'");
-				  ?>
-				  }
+				function test(edit_id) {						
+							var xmlhttp = new XMLHttpRequest();
+							xmlhttp.onreadystatechange = function() {
+								if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+									document.getElementById("test").innerHTML = xmlhttp.responseText;
+								}
+							};
+							xmlhttp.open("GET", "deletetest.php?id=" + edit_id, true);
+							xmlhttp.send();
+						
+					}
 				  </script>
               <!-- Form Element sizes -->
               <div class="box box-success">
@@ -636,12 +624,15 @@ function selection()
 					 <div class="form-group">
                        <label>Model</label>
      		            <select class="form-control select2"  style="width:70%" name="rad" id="mySelect" required >
-                        <option value='swift'<?php if('swift'==$row['en_no']){ ?>selected="selected"<?php } ?>>swift</option>
-                        <option value='ritz'<?php if('ritz'==$row['en_no']){ ?>selected="selected"<?php } ?>>ritz</option>
-                        <option value='celerio'<?php if('celerio'==$row['en_no']){ ?>selected="selected"<?php } ?>>celerio</option>
-                        <option value='s-cross'<?php if('s-cross'==$row['en_no']){ ?>selected="selected"<?php } ?>>s-cross</option>
-                        <option value='sx4'<?php if('sx4'==$row['en_no']){ ?>selected="selected"<?php } ?>>sx4</option>
-     			      </select>
+						<?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
+					$query = "SELECT * FROM carmodel"; 
+					$result = mysql_query($query); 
+					while ($line = mysql_fetch_array($result)) { ?>
+					<option value="<?php echo $line['modelname'];?>" <?php if($line['modelname']==$row['en_no']){ ?>selected="selected"<?php } ?>> 
+					<?php echo $line['modelname'];?> </option>   <?php } ?>
+					  </select>
                     </div>
 					
                 </div><!-- /.box-body -->

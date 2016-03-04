@@ -3,6 +3,18 @@ session_start();
 $con=mysql_connect("localhost","root","");
 mysql_select_db("sales",$con);
 error_reporting(0);
+if(isset($_GET['did']))
+{
+	$sql=mysql_query("delete from opp_details where Enq_id='".$_GET['did']."' ");
+	$res1=mysql_query("SELECT `name` FROM `upload` WHERE Enq_id='".$_GET['did']."'");
+    $rows=mysql_fetch_array($res1);
+    unlink("file/".$rows['name']);
+	$up=mysql_query("delete from upload where Enq_id='".$_GET['did']."' ");
+	if($sql)
+     {
+        header("location:oppur.php"); 
+     }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,24 +70,6 @@ error_reporting(0);
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
-                </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
 				<!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -91,23 +85,11 @@ error_reporting(0);
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-body">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </li>
+
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
+                   
+                    <div class="text-center">
 					  <a href="../../pages/examples/logout.php">Sign out</a>
                     </div>
                   </li>
@@ -141,7 +123,7 @@ error_reporting(0);
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="leaddetails.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+                <li><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
@@ -152,9 +134,9 @@ error_reporting(0);
               </a>
               <ul class="treeview-menu" class="treeview-active">
                 <li  class="active"><a href="oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Delivery</a></li>
+			    <li><a href="../examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li> 
+              <!--  <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li> -->
+                <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
@@ -163,13 +145,14 @@ error_reporting(0);
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href=""><i class="fa fa-circle-o"></i> Service Detail</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
@@ -181,12 +164,12 @@ error_reporting(0);
               </a>
               </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-              <a href="index.html">
+              <a href="../calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
@@ -194,8 +177,9 @@ error_reporting(0);
               <a href="index.html">
                 <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
-            </li>  			
-        </section>
+            </li>  	
+           </ul>			
+         </section>
         <!-- /.sidebar -->
       </aside>
 
@@ -233,7 +217,8 @@ error_reporting(0);
                         <th size="10" width="10%">DOB</th>
                         <th size="10" width="10%">MOP</th>
                         <th size="10" width="10%">Model</th>
-                        <th size="10" width="10%">Edit</th>
+                        <th size="10" width="8%">Edit</th>
+						<th size="10" width="10%">Delete</th>
 						</tr>
                     </thead> 
 					<tbody>
@@ -254,8 +239,12 @@ error_reporting(0);
 						<td><?php echo $row['MOP']; ?></td>
 						<td><?php echo $row['en_no']; ?></td>
 						<td> 
-							<button type="button" class="btn btn-primary" onClick="location.href='op_edit.php?edi=<?php echo $row['Enq_id']; ?>'">EDIT</a></button>
+							<button type="button" class="btn btn-primary" onClick="location.href='op_edit.php?edi=<?php echo $row['Enq_id']; ?>'"><i class="fa fa-pencil"></i></a></button>
 						</td>
+						<td>
+							<button type="button" class="btn btn-primary" onClick="location.href='op_fetch.php?did=<?php echo $row['Enq_id']; ?>'" ><i class="fa fa-trash-o"></i></a></button>
+                        </td>
+						
 						</tr>
 						<?php } ?>
 						  </tbody>

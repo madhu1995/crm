@@ -1,4 +1,5 @@
 <?php
+session_start();
 $con=mysql_connect("localhost","root","");
 mysql_select_db("invoice",$con);
 error_reporting(0);
@@ -18,6 +19,7 @@ $invoice_no=$_POST['invoice_no'];
 $booking_no=$_POST['booking_no'];
 $doe=$_POST['doe'];
 $doi=$_POST['doi'];
+$email=$_POST['email'];
 $addr=$_POST['addr'];
 $pin_code=$_POST['pin_code'];
 $delivery=$_POST['delivery'];
@@ -32,7 +34,10 @@ $tot_tax=$_POST['tot_tax'];
 $grs_tot=$_POST['grs_tot'];
 $adjust=$_POST['adjust'];
 $grand_tot=$_POST['grand_tot'];
-$result=mysql_query("update invoice_details SET enq_no='$enq_no',custname='$custname',title='$title',fathername='$fathername',invoice_no='$invoice_no',booking_no='$booking_no',doe='$doe' ,doi='$doi',addr='$addr',pin_code='$pin_code',delivery='$delivery',particulars='$particulars',qty='$qty',up='$up',amt='$amt',unit_concess='$unit_concess',tot_concess='$tot_concess',af_concess='$af_concess',grs_tot='$grs_tot',adjust='$adjust',grand_tot='$grand_tot' where invoice_no='".$_GET['edit']."'");
+$color=$_POST['color'];
+$eng_no=$_POST['eng_no'];
+$cha_no=$_POST['cha_no'];
+$result=mysql_query("update invoice_details SET enq_no='$enq_no',custname='$custname',title='$title',fathername='$fathername',invoice_no='$invoice_no',booking_no='$booking_no',doe='$doe' ,doi='$doi',email='$email',addr='$addr',pin_code='$pin_code',delivery='$delivery',particulars='$particulars',qty='$qty',up='$up',amt='$amt',unit_concess='$unit_concess',tot_concess='$tot_concess',af_concess='$af_concess',grs_tot='$grs_tot',adjust='$adjust',grand_tot='$grand_tot',color='$color',eng_no='$eng_no',cha_no='$cha_no' where invoice_no='".$_GET['edit']."'");
 #echo  "update invoice_details SET enq_no='$enq_no',custname='$custname',title='$title',fathername='$fathername',invoice_no='$invoice_no',booking_no='$booking_no',doe='$doe' ,doi='$doi',addr='$addr',pin_code='$pin_code',delivery='$delivery',particulars='$particulars',qty='$qty',up='$up',amt='$amt',unit_concess='$unit_concess',tot_concess='$tot_concess',af_concess='$af_concess',grs_tot='$grs_tot',adjust='$adjust',grand_tot='$grand_tot' where invoice_no='".$_GET['edit']."'";
 if($result)
 {
@@ -104,25 +109,32 @@ if($result)
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
+                  <img src="dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
+                  <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
                 </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                    <p>
+					  <?php echo $_SESSION['username'] ?>
+                    </p>
+                  </li>
+                 
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    
+                    <div class="pull-right">
+					  <a href="pages/examples/logout.php">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
                </ul>
+			   
           </div>
         </nav>
       </header>
@@ -146,46 +158,46 @@ if($result)
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
+            <li class="treeview" >
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu" class="treeview-active">
-                <li class="active"><a href="leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+              <ul class="treeview-menu">
+                <li><a href="leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pages/forms/pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="active treeview">
               <a href="#">
                 <i class="fa fa-cog"></i><span>Sales</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu">
+              <ul class="treeview-menu" class="treeview-active">
                 <li><a href="pages/forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
+				<li class="active"><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                <!-- <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li> -->
+                <li><a href="deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
-              <a href="index.php">
+              <a href="index.html">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.php">
+              <a href="pages/forms/report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
             </li>
             <li class="treeview">
-              <a href="#index.php">
+              <a href="#index.html">
                 <i class="fa fa-inr"></i>
                 <span>Finance</span>
               </a>
@@ -196,21 +208,16 @@ if($result)
               </a>
               </li>
             <li>
-              <a href="index.php">
+			  <a href="pages/calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
             <li>
-              <a href="index.php">
+                <a href="">
                 <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li> 
-<li class="treeview">
-              <a href="pages/examples/logout.php">
-                <i class="fa fa-circle-o-notch"></i>
-                <span>Logout</span>
-              </a>
-              </li> 			
+          </ul>			
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -219,7 +226,7 @@ if($result)
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-		 <a href="pages/examples/invoiceindex.php"><h3><i class="fa fa-reply"></i></h3></a> 
+		<!-- <a href="pages/examples/invoiceindex.php"><h3><i class="fa fa-reply"></i></h3></a> -->
           <h1>
             Invoice details
            
@@ -305,10 +312,16 @@ if($result)
                     <!-- /.input group -->
                   </div>
 				  
-				   <div class="form-group">
-				  <label>Time Picker</label>
-				   <input type="text" class="form-control" name="tp">
-				   </div>
+				      <!--<div class="form-group">
+                      <label for="exampleInputEmail1">Email</label>
+                      <input type="email" style="width:70%" class="form-control input-sm" id="exampleInputEmail1" name="email" placeholder="Enter mail" <?php echo $row['email']; ?> required>
+                    </div>-->
+					
+					<div class="form-group">
+                      <label for="exampleInputEmail1">Email</label>
+                      <input type="email" style="width:70%" class="form-control input-sm" id="exampleInputEmail1" name="email" placeholder="Enter mail" value="<?php echo $row['email']; ?>"required>
+                    </div>
+					
 					
 					<div class="form-group">
                       <label>Address</label>

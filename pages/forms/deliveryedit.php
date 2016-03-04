@@ -1,11 +1,12 @@
 <?php
+session_start();
 $con=mysql_connect("localhost","root","");
 mysql_select_db("delivery",$con);
 error_reporting(0);
 if(isset($_GET[edi]))
 {
 $sql=mysql_query("select * from deliv_detail where enq_id='".$_GET['edi']."' ");
-echo "select * from deliv_detail where enq_id='".$_GET['edi']."' ";
+#echo "select * from deliv_detail where enq_id='".$_GET['edi']."' ";
 $row=mysql_fetch_assoc($sql);
 }
 if(isset($_POST['submits']))
@@ -21,6 +22,8 @@ $res_ph2=$_POST['res_ph2'];
 $res_em=$_POST['res_em'];
 $res_pin=$_POST['res_pin'];
 $model1=$_POST['model1'];
+$model_year=$_POST['model_year'];
+$car_regno=$_POST['car_regno'];
 $model_fuel=$_POST['model_fuel'];
 $model_color=$_POST['model_color'];
 $model_gear=$_POST['model_gear'];
@@ -28,9 +31,10 @@ $chassis_no=$_POST['chassis_no'];
 $engine_no=$_POST['engine_no'];
 $ap_b_d=$_POST['ap_b_d'];
 $ap_b_e=$_POST['ap_b_e'];
+$amc_type=$_POST['amc_type'];
 $pay=$_POST['pay'];
-$result=mysql_query("UPDATE deliv_detail SET cus_id='$cus_id',book_id='$book_id',cust_name='$cust_name',deliv_id='$deliv_id',res_add='$res_add',res_ph1='$res_ph1',res_ph2='$res_ph2',res_em='$res_em',res_pin='$res_pin',model1='$model1',model_fuel='$model_fuel',model_color='$model_color',model_gear='$model_gear',chassis_no='$chassis_no',engine_no='$engine_no',ap_b_d='$ap_b_d',ap_b_e='$ap_b_e',pay='$pay' WHERE enq_id='".$_GET['edi']."'");
-echo "UPDATE deliv_detail SET cus_id='$cus_id',book_id='$book_id',cust_name='$cust_name',deliv_id='$deliv_id',res_add='$res_add',res_ph1='$res_ph1',res_ph2='$res_ph2',res_em='$res_em',res_pin='$res_pin',model1='$model1',model_fuel='$model_fuel',model_color='$model_color',model_gear='$model_gear',chassis_no='$chassis_no',engine_no='$engine_no',ap_b_d='$ap_b_d',ap_b_e='$ap_b_e',pay='$pay' WHERE enq_id='".$_GET['edi']."'"; 
+$result=mysql_query("UPDATE deliv_detail SET cus_id='$cus_id',book_id='$book_id',cust_name='$cust_name',deliv_id='$deliv_id',res_add='$res_add',res_ph1='$res_ph1',res_ph2='$res_ph2',res_em='$res_em',res_pin='$res_pin',model1='$model1',model_year='$model_year',car_regno='$car_regno',model_fuel='$model_fuel',model_color='$model_color',model_gear='$model_gear',chassis_no='$chassis_no',engine_no='$engine_no',ap_b_d='$ap_b_d',ap_b_e='$ap_b_e',amc_type='$amc_type',pay='$pay' WHERE enq_id='".$_GET['edi']."'");
+echo "UPDATE deliv_detail SET cus_id='$cus_id',book_id='$book_id',cust_name='$cust_name',deliv_id='$deliv_id',res_add='$res_add',res_ph1='$res_ph1',res_ph2='$res_ph2',res_em='$res_em',res_pin='$res_pin',model1='$model1',model_year='$model_year',car_regno='$car_regno',model_fuel='$model_fuel',model_color='$model_color',model_gear='$model_gear',chassis_no='$chassis_no',engine_no='$engine_no',ap_b_d='$ap_b_d',ap_b_e='$ap_b_e',amc_type='$amc_type',pay='$pay' WHERE enq_id='".$_GET['edi']."'"; 
 if($result)
 {
  echo "updated!!!!!";
@@ -91,24 +95,28 @@ if($result)
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
+				 <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
+                  <img src="../../dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
+                  <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
                 </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="../../dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                    <p>
+					  <?php echo $_SESSION['username'] ?>
+                    </p>
+                  </li>
+                  <!-- Menu Body -->
+                  <!-- Menu Footer-->
+                  <li class="user-footer">                    
+                    <div class="text-center">
+					  <a href="../../pages/examples/logout.php">Sign out</a>
+                    </div>
+                  </li>            
+               </ul>
+			   </li>
                </ul>
           </div>
         </nav>
@@ -136,9 +144,8 @@ if($result)
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-             </li>		 
               <ul class="treeview-menu">
-                <li><a href="../../leaddetails.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+                <li><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
@@ -149,9 +156,9 @@ if($result)
               </a>
               <ul class="treeview-menu" class="treeview-active">
                 <li><a href="oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li class="active"><a href="pages/forms/deliveryedit.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
+				<li><a href="../examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
+          <!--      <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li> -->
+                <li class="active"><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
             <li>
@@ -160,13 +167,13 @@ if($result)
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
@@ -178,12 +185,12 @@ if($result)
               </a>
               </li>
             <li class="treeview">
-              <a href="index.html">
+              <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-              <a href="index.html">
+              <a href="../calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
@@ -192,12 +199,7 @@ if($result)
                 <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li> 
-				 <li class="treeview">
-              <a href="../examples/logout.php">
-                <i class="fa fa-circle-o-notch"></i>
-                <span>Logout</span>
-              </a>
-              </li>
+			</ul>
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -210,7 +212,7 @@ if($result)
             Delivery
           </h1>
           <ol class="breadcrumb">
-            <li><a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="../../index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 			<li class="active">Delivery Details</li>
           </ol>
         </section>
@@ -298,13 +300,37 @@ if($result)
               <label>Model</label>
      		    <select class="form-control" style="width:70%" name="model1" >
 					    <option>Select a car model</option>
-                        <option value='swift'<?php if('swift'==$row['model1']){ ?>selected="selected"<?php } ?>>swift</option>
-                        <option value='ritz'<?php if('ritz'==$row['model1']){ ?>selected="selected"<?php } ?>>ritz</option>
-                        <option value='celerio'<?php if('celerio'==$row['model1']){ ?>selected="selected"<?php } ?>>celerio</option>
-                        <option value='s-cross'<?php if('s-cross'==$row['model1']){ ?>selected="selected"<?php } ?>>s-cross</option>
-                        <option value='sx4'<?php if('sx4'==$row['model1']){ ?>selected="selected"<?php } ?>>sx4</option>
-     			</select>
+						 <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
+					$query = "SELECT * FROM carmodel"; 
+					$result = mysql_query($query); 
+					while ($line = mysql_fetch_array($result)) { ?>
+					<option value="<?php echo $line['modelname'];?>" <?php if($line['modelname']==$row['model1']){ ?>selected="selected"<?php } ?>> 
+					<?php echo $line['modelname'];?> </option>   <?php } ?>
+					 </select>
              </div>
+			 <div class="form-group">
+			  <label>Model year</label>
+			   <?php
+  
+  $currently_selected = date('2016'); 
+ 
+  $earliest_year = 2016; 
+ 
+  $latest_year = date('1995'); 
+
+  print '<select>';
+  foreach ( range( $latest_year, $earliest_year ) as $i ) {
+    
+    print '<option value="'.$i.'"'.($i === $currently_selected ? ' selected="selected"' : '').'>'.$i.'</option>';
+  }
+  print '</select>';
+  ?>
+</div>
+ <div class="form-group">
+                      <label>Car Registration no</label><input type="text" style="width:70%" class="form-control input-sm" name="car_regno" value="<?php echo $row['car_regno']; ?>" required>
+                    </div>
 			 <div class="form-group">
               <label>Fuel type</label>
      		    <select class="form-control" style="width:70%" name="model_fuel">
@@ -359,6 +385,20 @@ if($result)
                       </div>
                 </div>
             </div>
+			<div class="form-group">
+				   <label>AMC Type</label><div class="radio">
+                        <label>
+                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="Yes" required>
+                          Yes
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="No" required>
+                          No
+                        </label>
+                      </div>
+			
 			
 			<div class="form-group">
 				<label>Mode of payment</label>
