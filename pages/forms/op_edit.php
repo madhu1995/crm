@@ -1,8 +1,5 @@
 <?php
-session_start();
-$con=mysql_connect("localhost","root","");
-mysql_select_db("sales",$con);
-error_reporting(0);
+require('../../sales_db.php');
 if(isset($_GET[edi]))
 {
 $sql=mysql_query("select * from opp_details where Enq_id='".$_GET['edi']."' ");
@@ -43,30 +40,6 @@ $mres=mysql_query("UPDATE `testdrive` SET `model`='$rad' where Enq_id='".$_GET['
 $result=mysql_query(" UPDATE `opp_details` SET `Cus_id`='$cus_id',`Cus_name`='$cus_name',`DOE`='$doe',`Salesperson`='$salesperson',`Res_addr`='$res_add',`Res_phone`='$res_ph1',`Res_phone2`='$res_ph2',`Email`='$res_em',`Pincode`='$res_pin',`DOB`='$dob',`Buyertype`='$buyer',`MOP`='$pay',`Gender`='$optionsRadios',`Commu_to`='$com',`Testdrive`='$t_d',`Off_name`='$off_name',`Off_addr`='$off_add',`Off_ph1`='$off_ph1',`Off_ph2`='$off_ph2',`Off_email`='$off_em',`Off_city`='$off_city',`Off_Pin`='$off_pin',`en_no`='$rad',`Res_city`='$res_city' where Enq_id='".$_GET['edi']."'");
 #echo "UPDATE `opp_details` SET `Cus_id`='$cus_id',`Cus_name`='$cus_name',`DOE`='$doe',`Salesperson`='$salesperson',`Res_addr`='$res_add',`Res_phone`='$res_ph1',`Res_phone2`='$res_ph2',`Email`='$res_em',`Pincode`='$res_pin',`DOB`='$dob',`Buyertype`='$buyer',`MOP`='$pay',`Gender`='$optionsRadios',`Commu_to`='$com',`Testdrive`='$t_d',`Off_name`='$off_name',`Off_addr`='$off_add',`Off_ph1`='$off_ph1',`Off_ph2`='$off_ph2',`Off_email`='$off_em',`Off_city`='$off_city',`Off_Pin`='$off_pin',`en_no`='$rad',`Res_city`='$res_city' where Enq_id='".$_GET['edi']."'";
 #exit;
-$errors= array();
-		$file_name = $_FILES['file']['name'];
-		$file_size =$_FILES['file']['size'];
-		$file_tmp =$_FILES['file']['tmp_name'];
-		$file_type=$_FILES['file']['type'];   
-		$file_ext=strtolower(end(explode('.',$_FILES['file']['name'])));
-		$expensions= array("jpeg","jpg","png"); 		
-		if(in_array($file_ext,$expensions)=== false){
-		 $errors[]="extension not allowed, please choose a php or txt or jpeg or png file.";
-		}
-		//if($file_size > 200000){
-		                
-		//$errors[]='File size must be excately 2 MB';
-		//}				
-		if(empty($errors)==true){
-		    unlink("file/".$rowi['name']);
-			move_uploaded_file($file_tmp,"file/".$file_name);
-			$sqlr=mysql_query("UPDATE `upload` SET `name`='$file_name' WHERE Enq_id='".$_GET['edi']."'");
-		}
-         else{
-			print_r($errors);
-		}
-		
-
 if($result)
 {
  echo "updated!!!!!";
@@ -232,8 +205,8 @@ if($result)
                </a>
             </li>                
             <li>
-              <a href="index.html">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+              <a href="mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
             </li>  	
            </ul>			
@@ -255,13 +228,7 @@ if($result)
 			<li class="active">Opportunity Edit</li>
           </ol>
         </section>
-		<script>
-		$('#fileupload').fileuploadobject({
-
-value:"hello"
-});
-		</script>
-
+		
         <!-- Main content -->
         <section class="content">
 		<form role="form" method="post" enctype="multipart/form-data" onsubmit="return selection();">
@@ -276,13 +243,8 @@ value:"hello"
                 <!-- form start enquiry-->
                   <div class="box-body">
 				    <div class="form-group">
-					    <span class="btn btn-success fileinput-button">
-                          <i class="glyphicon glyphicon-plus"></i>
-                           <span>Add an image...</span>
-                        <!-- The file input field used as target for the file upload widget -->
-							  <input type='file'  alt="<?php echo $rowi['name']; ?>" required id="fileupload" name="file" accept="image/gif, image/jpeg, image/png"  onchange="readURL(this);" />
-                           </span>
-						   <img id="blah" src="file/<?php echo $rowi['name']; ?>" width="70" height="70" alt="your image" />
+					    <label>User image</label>
+						   <img id="blah" src="file/<?php echo $rowi['name']; ?>" required width="70" height="70" alt="your image"></img>
 					 </div>
                     <div class="form-group">
 					  <input type="hidden" name="edi" value="<?php echo $_GET['edi']; ?>">
@@ -293,7 +255,7 @@ value:"hello"
                     </div>
                     <div class="form-group">
                       <label for="mail">Customer_Name</label>
-					  <input type="text" id="cun" required pattern="[a-zA-Z]+" title="Name must in alphabets" style="width:70%" class="form-control input-sm" name="cus_name" value="<?php echo $row['Cus_name'];?>">
+					  <input type="text" id="cun" required pattern="[a-zA-Z.\s ]+" title="Name must in alphabets" style="width:70%" class="form-control input-sm" name="cus_name" value="<?php echo $row['Cus_name'];?>">
                     </div>
 					<div class="form-group">
                       <label>Date of Enquiry</label>
@@ -309,8 +271,6 @@ value:"hello"
 					  <select class="form-control" style="width:70%" name="salesperson" required>
                         <option value="" disabled selected>Select a sales person</option>
                         <?php 
-					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
-					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM salesperson"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>
@@ -345,8 +305,7 @@ function selection()
         if (document.getElementById("off_add1").value == "" || document.getElementById("off_name1").value == "" || document.getElementById("off_des11").value == "" || document.getElementById("off_em1").value == "" || document.getElementById("off_phone1").value == "" || document.getElementById("off_phone2").value == "" || document.getElementById("off_city1").value == "" || document.getElementById("offpin1").value == "" || document.getElementById("off_em1").value == "") {
             alert('Occupational details are Mandatory');
             return false;
-        }
-
+        }  
     }
     return true;
 }
@@ -359,11 +318,11 @@ function selection()
                     <!-- text input -->
 					<div class="form-group">
                       <label>Company name</label>
-                      <input type="text" pattern="[a-zA-Z]+" title="Name must in alphabets" style="width:70%" value="<?php echo $row['Off_name'];?>" class="form-control input-sm" id="off-name1" name="off_name"  placeholder="Enter office name">
+                      <input type="text" pattern="[a-zA-Z.\s ]+" title="Name must in alphabets" style="width:70%" value="<?php echo $row['Off_name'];?>" class="form-control input-sm" id="off-name1" name="off_name"  placeholder="Enter office name">
                     </div>
 					<div class="form-group">
                       <label>Designation</label>
-                      <input type="text" pattern="[a-zA-Z]+" title="Designation must have only alphabets" style="width:70%" class="form-control input-sm" id="off_des11" name="off_des" value="<?php echo $row['Off_des11'];?>" >
+                      <input type="text" pattern="[a-zA-Z.\s ]+" title="Designation must have only alphabets" style="width:70%" class="form-control input-sm" id="off_des11" name="off_des" value="<?php echo $row['Off_des11'];?>" >
                     </div>
 					<div class="form-group">
                       <label>Office Address</label>
@@ -480,8 +439,6 @@ function selection()
      		    <select class="form-control" style="width:70%" id="model1">
 					    <option>Select a car model</option>
                         <?php 
-					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
-					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM carmodel"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>
@@ -625,8 +582,6 @@ function selection()
                        <label>Model</label>
      		            <select class="form-control select2"  style="width:70%" name="rad" id="mySelect" required >
 						<?php 
-					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
-					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM carmodel"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>

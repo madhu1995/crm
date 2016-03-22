@@ -1,12 +1,5 @@
 <?php
-session_start();
- if(empty($_SESSION['username']))
-{
- header('Location:pages/examples/login.php');
-}
-$con=mysql_connect("localhost","root","");
-mysql_select_db("presales",$con);
-error_reporting(0);
+require('sales_db.php');
 if(isset($_GET[edi]))
 {
 $sql=mysql_query("select * from lead_details where enquire='".$_GET['edi']."' ");
@@ -208,8 +201,8 @@ if($result)
                </a>
             </li>                
             <li>
-              <a href="index.php">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+              <a href="pages/forms/mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
             </li> 
         </section>
@@ -237,8 +230,8 @@ if($result)
                  <div class="box-header with-border">
                   <h3 class="box-title">Enquiry Followup</h3>
                 </div><!-- /.box-header -->
-		<form role="form" method="post">
-	<input type="hidden" name="edi" value="<?php echo $_GET['edi']; ?>">
+		     <form role="form" method="post">
+	              <input type="hidden" name="edi" value="<?php echo $_GET['edi']; ?>">
                   <div class="box-body">
 				  <div class="col-xs-3">
                     <div class="form-group">
@@ -307,10 +300,7 @@ if($result)
 					  <div class="form-group">
                       <label>SalesPerson</label>
 					  <select class="form-control" style="width:70%" name="salesperson" required>
-					     <option value="" disabled selected>Select a sales person</option>
                         <?php 
-					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
-					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM salesperson"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>
@@ -323,8 +313,6 @@ if($result)
 					  <select class="form-control" style="width:70%" name="model" required>
 					    <option>Select a car model</option>
                         <?php 
-					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
-					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM carmodel"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>

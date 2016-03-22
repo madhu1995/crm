@@ -171,8 +171,8 @@ if(isset($_GET['did']))
                </a>
             </li>                
             <li>
-                <a href="">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+                <a href="pages/forms/mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
             </li> 
           </ul>  	
@@ -186,8 +186,7 @@ if(isset($_GET['did']))
         <section class="content-header">
           <h1>
             Delivery Details
-            <small>Delivery</small>
-          </h1>
+			</h1>
           <ol class="breadcrumb">
             <li><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Delivery Details</li>
@@ -248,10 +247,10 @@ if(isset($_GET['did']))
 							<button type="button" class="btn btn-primary" onClick="location.href='deliverydetailindex.php?did=<?php echo $row['enq_id']; ?>'" >DELETE</a></button>
 							</td>
 							<td>
-							<button type="button" class="btn btn-primary" onClick="location.href='deliveryprint.php?did=<?php echo $row['enq_id']; ?>'" >PRINT</a></button>
+							<button type="button" class="btn btn-primary" onClick="window.open('http://localhost/new1/deliveryprint.php?did=<?php echo $row['enq_id']; ?>', '_blank')">PRINT</a></button>
                            </td>
 						   <td>
-							<button type="button" class="btn btn-primary" onClick="location.href='delivpdf.php?gdf=<?php echo $row['enq_id']; ?>'" > GENERATE PDF</a></button>
+							<button type="button" class="btn btn-primary" onClick="location.href='dompdf/delivpdf.php?gdf=<?php echo $row['enq_id']; ?>'" > GENERATE PDF</a></button>
                            </td>
 						   <td>
 							<button type="button" class="btn btn-primary" onClick="location.href='mails/deliverymail.php?smd=<?php echo $row['enq_id']; ?>'" > SEND MAIL</a></button>

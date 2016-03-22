@@ -1,12 +1,5 @@
 <?php
-session_start();
- if(empty($_SESSION['username']))
-{
- header('Location:pages/examples/login.php');
-}
-$con=mysql_connect("localhost","root","");
-mysql_select_db("crm_sales",$con);
-error_reporting(0);
+require('sales_db.php');
 if(isset($_POST['submit']))
 {
 $query=mysql_query("insert into lead_details(custname,doe,phone,addr,t_d ,email,optionsRadios,city,salesperson,model,src,mop,optionsRadios1,optionsRadios2,follow_date,toc,next_foll,enquire) VALUES ('".$_POST['custname']."','".$_POST['doe']."','".$_POST['phone']."','".$_POST['addr']."','".$_POST['t_d']."','".$_POST['email']."','".$_POST['optionsRadios']."','".$_POST['city']."','".$_POST['salesperson']."','".$_POST['model']."','".$_POST['src']."','".$_POST['mop']."','".$_POST['optionsRadios1']."','".$_POST['optionsRadios2']."','".$_POST['follow_date']."','".$_POST['toc']."','".$_POST['next_foll']."','".$_POST['enquire']."')");
@@ -16,8 +9,7 @@ if($query)
 {
  echo "updated!!!!!";
  header("location:leaddetailsindex.php");
- 
-}
+ }
 }
 ?>
 
@@ -55,6 +47,17 @@ if($query)
 	<!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
      <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.css">
+	 	<script>
+	function load1()
+	{
+     var stampmonths = new Array( "01","02","03","04","05","06","07","08","09","10", "11","12");
+     var thedate = new Date();
+	 var x = Math.floor((Math.random() * 1000) + 1);
+     var eid="ENQ"+ x + "" +stampmonths[ thedate.getMonth()] + "" + thedate.getDate() + "" + thedate.getFullYear() + thedate.getHours() + "" +thedate.getMinutes() + "" + thedate.getSeconds();
+	 document.getElementById('enq_id').value= eid;
+	}
+	window.onload = load1;
+	</script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -182,8 +185,8 @@ if($query)
                </a>
             </li>                
             <li>
-              <a href="index.php">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+             <a href="pages/forms/mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
             </li> 
          </section>
@@ -282,8 +285,6 @@ if($query)
 					  <select class="form-control" style="width:70%" name="salesperson" id="test" required>
 					    <option value="" disabled selected>Select a sales person</option>
                         <?php 
-					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
-					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM salesperson"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>
@@ -295,8 +296,6 @@ if($query)
 					  <select class="form-control" style="width:70%" name="model" required>
 					    <option>Select a car model</option>
                          <?php 
-					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
-					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM carmodel"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>
@@ -387,7 +386,7 @@ if($query)
                       </select>
                     </div>
 				    <div class="form-group">
-                      <label for="enq">Enquiry_Id</label><input type="text" style="width:70%" class="form-control input-sm" id="enq_id" name="enquire" required>
+                      <label for="enq">Enquiry_Id</label><input type="text" readonly style="width:70%" class="form-control input-sm" id="enq_id" name="enquire" required>
                     </div>
 					</div>					 
 				  <!-- /.box-body -->

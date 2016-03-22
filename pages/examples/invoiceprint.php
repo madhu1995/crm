@@ -1,18 +1,12 @@
 <?php
-$con=mysql_connect("localhost","root","");
-mysql_select_db("invoice",$con);
-#if(isset($_GET['print']))
-
-#$sql=mysql_query("select * from invoice_details where invoice_no='".$_GET['print']."' ");
-#echo "select * from invoice_details where invoice_no='".$_GET['print']."' ";
-#$row=mysql_fetch_assoc($sql);
+require('sales_db.php');
 
 ?>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Aadhi Maruthi | Invoice</title>
+    <<title>Aadhi Maruthi | Invoice</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -33,7 +27,7 @@ mysql_select_db("invoice",$con);
   </head>
   <?php
   $sql=mysql_query("select * from invoice_details where invoice_no='".$_GET['print']."' ");
-  echo "select * from invoice_details where invoice_no='".$_GET['print']."' ";
+ # echo "select * from invoice_details where invoice_no='".$_GET['print']."' ";
   $row=mysql_fetch_assoc($sql);
   ?>
   <body onload="window.print();">
@@ -43,9 +37,9 @@ mysql_select_db("invoice",$con);
         <!-- title row -->
         <div class="row">
           <div class="col-xs-12">
-            <h2 class="page-header">
+            <h2 class="page-header" class="header">
 			    
-              <b class="fa fa-globe"></b> Aadhi Maruthi
+              <i class="fa fa-globe"></i> Aadhi Maruthi
               <small class="pull-right">Date&nbsp;<?php echo $row['doi']; ?></small>
             </h2>
           </div><!-- /.col -->
@@ -163,6 +157,13 @@ mysql_select_db("invoice",$con);
 				  </tr>
 				  </tbody>
 				  </table>
+				  <br>
+				  <br>
+				  <br>
+				  <br>
+				  <br>
+				  <br>
+				  <br>
 					<h3 align="center">Terms And Conditions</h3>
 				  <table>
 				     <tbody>
@@ -204,22 +205,18 @@ mysql_select_db("invoice",$con);
 					 </tbody>
 				  </table>
 				<br><br><br><br>
+				<br><br><br><br>
+				<br><br><br><br>
+				<br><br><br><br>
+					<br><br><br><br>
+						<br><br><br><br>
+							
+								
 				<h4 align="right">For Aadhi Maruthi</h4>
 				<br>
 				
-							<p>_________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_________________________</p>
+							<p>_____________________</p>
+							<p align="right">______________________</p>
 						
             </div><!-- /.col -->
           </div><!-- /.row -->

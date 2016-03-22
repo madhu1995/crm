@@ -1,8 +1,5 @@
 <?php
-session_start();
-$con=mysql_connect("localhost","root","");
-mysql_select_db("sales",$con);
-error_reporting(0);
+require('../../sales_db.php');
 if(isset($_GET[edi]))
 {
 $sql=mysql_query("select * from vehicle where Enq_id='".$_GET['edi']."'");
@@ -185,8 +182,8 @@ if($result)
                </a>
             </li>                
             <li>
-              <a href="index.html">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+              <a href="mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
             </li>  	
            </ul>  			

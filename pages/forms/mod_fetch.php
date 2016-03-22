@@ -1,8 +1,13 @@
 <?php
-session_start();
-$con=mysql_connect("localhost","root","");
-mysql_select_db("sales",$con);
-error_reporting(0);
+require('../../sales_db.php');
+if(isset($_GET['did']))
+{
+	$sql=mysql_query("delete from `vehicle` where Enq_id='".$_GET['did']."' ");
+	if($sql)
+     {
+        header("location:oppur.php"); 
+     }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -161,8 +166,8 @@ error_reporting(0);
                </a>
             </li>                
             <li>
-              <a href="index.html">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+              <a href="mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
             </li>  	
            </ul> 			
@@ -207,6 +212,7 @@ error_reporting(0);
                         <th size="10" width="10%">app_date</th>
 						<th size="10" width="10%">pri_model</th>
                         <th size="10" width="10%">Edit</th>
+						<th size="10" width="10%">Delete</th>
 						</tr>
                     </thead> 
 					<tbody>
@@ -228,9 +234,11 @@ error_reporting(0);
 						<td><?php echo $row['pri_model']; ?></td>
 						<div class="btn-group">
 							<td>
-							<button type="button" class="btn btn-primary" onClick="location.href='mod_edit.php?edi=<?php echo $row['Enq_id']; ?>'" >Edit</a></button>
-
+							<button type="button" class="btn btn-primary" onClick="location.href='mod_edit.php?edi=<?php echo $row['Enq_id']; ?>'" ><i class="fa fa-pencil"></i></a></button>
 						</td>
+						<td>
+							<button type="button" class="btn btn-primary" onClick="location.href='mod_fetch.php?did=<?php echo $row['Enq_id']; ?>'" ><i class="fa fa-trash-o"></i></a></button>
+                        </td>
 						</div>
 						</tr>
 						<?php } ?>
@@ -256,8 +264,7 @@ error_reporting(0);
 	 <!-- DataTables -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
-   
-	<script>
+   	<script>
       $(function () {
 	  $('#example2').DataTable({
           "paging": true,

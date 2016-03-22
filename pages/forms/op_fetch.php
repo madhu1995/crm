@@ -1,8 +1,5 @@
 <?php
-session_start();
-$con=mysql_connect("localhost","root","");
-mysql_select_db("sales",$con);
-error_reporting(0);
+require('../../sales_db.php');
 if(isset($_GET['did']))
 {
 	$sql=mysql_query("delete from opp_details where Enq_id='".$_GET['did']."' ");
@@ -174,8 +171,8 @@ if(isset($_GET['did']))
                </a>
             </li>                
             <li>
-              <a href="index.html">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+              <a href="mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
             </li>  	
            </ul>			
@@ -244,7 +241,6 @@ if(isset($_GET['did']))
 						<td>
 							<button type="button" class="btn btn-primary" onClick="location.href='op_fetch.php?did=<?php echo $row['Enq_id']; ?>'" ><i class="fa fa-trash-o"></i></a></button>
                         </td>
-						
 						</tr>
 						<?php } ?>
 						  </tbody>

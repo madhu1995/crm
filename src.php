@@ -1,10 +1,5 @@
 <?php
-$con = mysql_connect("localhost","root","");
-
-if (!$con) {
-  die('Could not connect: ' . mysql_error());
-}
-mysql_select_db("presales", $con);
+require('sales_db.php');
 $result = mysql_query("SELECT COUNT( * )
 FROM lead_details
 WHERE src = 'Walk in'");
@@ -35,8 +30,6 @@ FROM lead_details
 WHERE src = 'Event/Advertisement'");
 $row5 = mysql_fetch_row($result5);
 $res5 =mysql_query("UPDATE `web_marketing` SET `val`='$row5[0]' WHERE `name`='Event'");
-
-mysql_close($con);
 ?> 
 
 

@@ -1,8 +1,5 @@
 <?php
-session_start();
-$con=mysql_connect("localhost","root","");
-mysql_select_db("delivery",$con);
-#error_reporting(0);
+require('../../sales_db.php');
 if(isset($_POST['submits']))
 {
                                                                                       
@@ -36,7 +33,17 @@ if($query)
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
-
+     	<script>
+	function load1()
+	{
+     var stampmonths = new Array( "01","02","03","04","05","06","07","08","09","10", "11","12");
+     var thedate = new Date();
+	 var x = Math.floor((Math.random() * 1000) + 1);
+     var did="DEL"+ "" + x + "" +stampmonths[ thedate.getMonth()] + "" + thedate.getDate() + "" + thedate.getFullYear() + thedate.getHours() + "" +thedate.getMinutes() + "" + thedate.getSeconds();
+	 document.getElementById('del_id').value= did;
+	}
+	window.onload = load1;
+	</script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -167,8 +174,8 @@ if($query)
                </a>
             </li>                
             <li>
-              <a href="index.html">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+              <a href="mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
             </li> 
 			</ul>
@@ -217,7 +224,7 @@ if($query)
                       <label for="mail">Customer_Name</label><input type="text" style="width:70%" class="form-control input-sm" name="cust_name">
                     </div>
 					<div class="form-group">
-                      <label for="enq">Delivery_Id</label><input type="text" style="width:70%" class="form-control input-sm" name="deliv_id">
+                      <label for="enq">Delivery_Id</label><input type="text" style="width:70%" class="form-control input-sm" name="deliv_id" id="del_id">
                     </div>
 					</div>
 	            </div>
@@ -272,8 +279,6 @@ if($query)
      		    <select class="form-control" style="width:70%" name="model1">
 					    <option>Select a car model</option>
                         <?php 
-					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
-					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM carmodel"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>

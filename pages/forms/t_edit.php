@@ -1,8 +1,5 @@
 <?php
-session_start();
-$con=mysql_connect("localhost","root","");
-mysql_select_db("sales",$con);
-error_reporting(0);
+require('../../sales_db.php');
 if(isset($_GET[edi]))
 {
 $sql=mysql_query("select * from testdrive where Enq_id='".$_GET['edi']."' ");
@@ -185,8 +182,8 @@ if($result)
                </a>
             </li>                
             <li>
-              <a href="index.html">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+              <a href="mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
             </li>  	
            </ul>  			
@@ -246,12 +243,12 @@ if($result)
 	        <div class="form-group">
               <label>Model</label>
      		    <select class="form-control" style="width:70%" name="model1" required>
-					    <option>Select a car model</option>
-                        <option value='swift'<?php if('swift'==$row['model']){ ?>selected="selected"<?php } ?>>swift</option>
-                        <option value='ritz'<?php if('ritz'==$row['model']){ ?>selected="selected"<?php } ?>>ritz</option>
-                        <option value='celerio'<?php if('celerio'==$row['model']){ ?>selected="selected"<?php } ?>>celerio</option>
-                        <option value='s-cross'<?php if('s-cross'==$row['model']){ ?>selected="selected"<?php } ?>>s-cross</option>
-                        <option value='sx4'<?php if('sx4'==$row['model']){ ?>selected="selected"<?php } ?>>sx4</option>
+					    <?php 
+					$query = "SELECT * FROM carmodel"; 
+					$result = mysql_query($query); 
+					while ($line = mysql_fetch_array($result)) { ?>
+					<option value="<?php echo $line['modelname'];?>" <?php if($line['modelname']==$row['model']){ ?>selected="selected"<?php } ?>> 
+					<?php echo $line['modelname'];?> </option>   <?php } ?>
      			</select>
              </div>
 		    <div class="form-group">

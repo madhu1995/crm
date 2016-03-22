@@ -34,8 +34,7 @@
                     </thead> 
 					<tbody>
 					<?php
-					mysql_connect("localhost", "root", ""); //server , username , password
-                	mysql_select_db("sales");
+					    require('../../sales_db.php');
 						$query=mysql_query("SELECT * FROM `opp_details`");
 						#echo "select Enq_id,Cus_id,Cus_name,DOE,Salesperson,Testdrive,DOB,MOP,en_no FROM opp_details";
 						while($row=mysql_fetch_assoc($query))
