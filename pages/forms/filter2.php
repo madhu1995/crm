@@ -25,12 +25,10 @@
                     </thead> 
 					<tbody>
 					<?php
-					mysql_connect("localhost", "root", ""); //server , username , password
-                	mysql_select_db("presales");
+                        require('../../sales_db.php');
 						$query=mysql_query("SELECT *
                          FROM `lead_details`
-                        WHERE `doe` >= DATE_SUB( now( ) , INTERVAL 1
-                         MONTH )");
+                        WHERE `doe` >=DATE_SUB( now( ) , INTERVAL 1 MONTH ) AND DOE <=now()");
 						while($row=mysql_fetch_assoc($query))
 						{
 						?>

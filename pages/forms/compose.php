@@ -1,8 +1,5 @@
 <?php
-session_start();
-$con=mysql_connect("localhost","root","");
-mysql_select_db("sales",$con);
-error_reporting(0);
+require('../../sales_db.php');
 ?>
 <!DOCTYPE html>
 <html>

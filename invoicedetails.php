@@ -1,8 +1,5 @@
 <?php
-session_start();
-$con=mysql_connect("localhost","root","");
-mysql_select_db("invoice",$con);
-error_reporting(0);
+require('sales_db.php');
 if(isset($_POST['submit']))
 {
 $query=mysql_query("insert into invoice_details(enq_no,custname,title,fathername,invoice_no,booking_no ,doe,doi,email,addr,pin_code,delivery,particulars,qty,up,amt,unit_concess,tot_concess,af_concess,tot_tax,grs_tot,adjust,grand_tot,color,eng_no,cha_no) VALUES ('".$_POST['enq_no']."','".$_POST['custname']."','".$_POST['title']."','".$_POST['fathername']."','".$_POST['invoice_no']."','".$_POST['booking_no']."','".$_POST['doe']."','".$_POST['doi']."','".$_POST['email']."','".$_POST['addr']."','".$_POST['pin_code']."','".$_POST['delivery']."','".$_POST['particulars']."','".$_POST['qty']."','".$_POST['up']."','".$_POST['amt']."','".$_POST['unit_concess']."','".$_POST['tot_concess']."','".$_POST['af_concess']."','".$_POST['tot_tax']."','".$_POST['grs_tot']."','".$_POST['adjust']."','".$_POST['grand_tot']."','".$_POST['color']."','".$_POST['eng_no']."','".$_POST['cha_no']."')");
