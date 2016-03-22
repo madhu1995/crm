@@ -1,12 +1,18 @@
 <?php
-require('sales_db.php');
+$con=mysql_connect("localhost","root","");
+mysql_select_db("invoice",$con);
+#if(isset($_GET['print']))
+
+#$sql=mysql_query("select * from invoice_details where invoice_no='".$_GET['print']."' ");
+#echo "select * from invoice_details where invoice_no='".$_GET['print']."' ";
+#$row=mysql_fetch_assoc($sql);
 
 ?>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <<title>Aadhi Maruthi | Invoice</title>
+    <title>Aadhi Maruthi | Invoice</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -27,7 +33,7 @@ require('sales_db.php');
   </head>
   <?php
   $sql=mysql_query("select * from invoice_details where invoice_no='".$_GET['print']."' ");
- # echo "select * from invoice_details where invoice_no='".$_GET['print']."' ";
+  echo "select * from invoice_details where invoice_no='".$_GET['print']."' ";
   $row=mysql_fetch_assoc($sql);
   ?>
   <body onload="window.print();">
@@ -37,9 +43,9 @@ require('sales_db.php');
         <!-- title row -->
         <div class="row">
           <div class="col-xs-12">
-            <h2 class="page-header" class="header">
+            <h2 class="page-header">
 			    
-              <i class="fa fa-globe"></i> Aadhi Maruthi
+              <b class="fa fa-globe"></b> Aadhi Maruthi
               <small class="pull-right">Date&nbsp;<?php echo $row['doi']; ?></small>
             </h2>
           </div><!-- /.col -->
@@ -157,13 +163,6 @@ require('sales_db.php');
 				  </tr>
 				  </tbody>
 				  </table>
-				  <br>
-				  <br>
-				  <br>
-				  <br>
-				  <br>
-				  <br>
-				  <br>
 					<h3 align="center">Terms And Conditions</h3>
 				  <table>
 				     <tbody>
@@ -205,18 +204,22 @@ require('sales_db.php');
 					 </tbody>
 				  </table>
 				<br><br><br><br>
-				<br><br><br><br>
-				<br><br><br><br>
-				<br><br><br><br>
-					<br><br><br><br>
-						<br><br><br><br>
-							
-								
 				<h4 align="right">For Aadhi Maruthi</h4>
 				<br>
 				
-							<p>_____________________</p>
-							<p align="right">______________________</p>
+							<p>_________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_________________________</p>
 						
             </div><!-- /.col -->
           </div><!-- /.row -->

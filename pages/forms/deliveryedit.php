@@ -1,5 +1,8 @@
 <?php
-require('../../sales_db.php');
+session_start();
+$con=mysql_connect("localhost","root","");
+mysql_select_db("delivery",$con);
+error_reporting(0);
 if(isset($_GET[edi]))
 {
 $sql=mysql_query("select * from deliv_detail where enq_id='".$_GET['edi']."' ");
@@ -192,8 +195,8 @@ if($result)
                </a>
             </li>                
             <li>
-              <a href="mailbox.php">
-                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
+              <a href="index.html">
+                <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li> 
 			</ul>
@@ -298,6 +301,8 @@ if($result)
      		    <select class="form-control" style="width:70%" name="model1" >
 					    <option>Select a car model</option>
 						 <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM carmodel"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>

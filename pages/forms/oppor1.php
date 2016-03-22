@@ -1,5 +1,8 @@
 <?php
-require('../../sales_db.php');
+session_start();
+$con=mysql_connect("localhost","root","");
+mysql_select_db("sales",$con);
+error_reporting(0);
 if(isset($_GET[enq]))
 {
 $sql=mysql_query("SELECT `custname`, `enquire` FROM `lead_details` where enquire='".$_GET['enq']."' ");
@@ -69,17 +72,7 @@ $errors= array();
 	 <!-- datepicker -->
     <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 	<script src="../../js/upgraded.js"></script>
-	<script>
-	function load1()
-	{
-     var stampmonths = new Array( "01","02","03","04","05","06","07","08","09","10", "11","12");
-     var thedate = new Date();
-	 var x = Math.floor((Math.random() * 1000) + 1);
-     var cid="CUS"+x+stampmonths[ thedate.getMonth()] + "" + thedate.getDate() + "" + thedate.getFullYear() + thedate.getHours() + "" +thedate.getMinutes() + "" + thedate.getSeconds();
-	 document.getElementById('cu').value= cid;
-	}
-	window.onload = load1;
-	</script>
+	
 	<style> .red-tooltip + .tooltip > .tooltip-inner {
       background-color: rgb(102, 204, 255); 
       color: #FFFFFF; 
@@ -290,10 +283,10 @@ function selection()
 						   <img id="blah" src="#" alt="your image" />
 					 </div>
                     <div class="form-group">
-                      <label for="enq">Enquiry_Id</label><input type="text" readonly required id="enq" style="width:70%" class="form-control input-sm" name="Enq_id" value="<?php echo $row['enquire'];?>">
+                      <label for="enq">Enquiry_Id</label><input type="text" required id="enq" style="width:70%" class="form-control input-sm" name="Enq_id" value="<?php echo $row['enquire'];?>">
                     </div>
 					<div class="form-group">
-                      <label for="enq">Customer_Id</label><input type="text" readonly required id="cu" style="width:70%" class="form-control input-sm" name="cus_id" >
+                      <label for="enq">Customer_Id</label><input type="text" required id="cu" style="width:70%" class="form-control input-sm" name="cus_id" >
                     </div>
                     <div class="form-group">
                       <label >Customer_Name</label>
@@ -314,6 +307,8 @@ function selection()
 					  <select class="form-control" style="width:70%" name="salesperson" id="test" required>
 					    <option value="" disabled selected>Select a sales person</option>
                         <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM salesperson"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>
@@ -431,6 +426,8 @@ while($row=mysql_fetch_assoc($sql))
 </tr>
 <?php } ?>
 <?php
+$con=mysql_connect("localhost","root","");
+mysql_select_db("sales",$con);
 if(isset($_GET['did']))
 {
 $did=$_GET['did'];
@@ -629,6 +626,8 @@ header("location:oppur.php");
      		            <select class="form-control select2"  style="width:70%" name="rad" id="mySelect" required onclick="myFunction()">
                         <option value="" disabled selected>select a car model</option>
                         <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM carmodel"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>

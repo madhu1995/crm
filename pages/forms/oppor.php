@@ -1,5 +1,8 @@
 <?php
-require('../../sales_db.php');
+session_start();
+$con=mysql_connect("localhost","root","");
+mysql_select_db("sales",$con);
+error_reporting(0);
 if(isset($_POST['submits']))
 {
 $query=mysql_query("insert into opp_details(Enq_id,Cus_id,Cus_name,DOE,Salesperson,Res_addr,Res_phone,Res_phone2,Email,Pincode,DOB,Buyertype,MOP,Gender,Commu_to,Testdrive,Off_name,Off_addr,Off_ph1,Off_ph2,Off_email,Off_city,Off_Pin,en_no,Res_city) VALUES ('".$_POST['Enq_id']."','".$_POST['cus_id']."','".$_POST['cus_name']."','".$_POST['doe']."','".$_POST['salesperson']."','".$_POST['res_add']."','".$_POST['res_ph1']."','".$_POST['res_ph2']."','".$_POST['res_em']."','".$_POST['res_pin']."','".$_POST['dob']."','".$_POST['buyer']."','".$_POST['pay']."','".$_POST['optionsRadios']."','".$_POST['com']."','".$_POST['t_d']."','".$_POST['off_name']."','".$_POST['off_add']."','".$_POST['off_ph1']."','".$_POST['off_ph2']."','".$_POST['off_em']."','".$_POST['off_city']."','".$_POST['off_pin']."','".$_POST['rad']."','".$_POST['res_city']."')");
@@ -65,19 +68,7 @@ $errors= array();
 	 <!-- datepicker -->
     <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 	<script src="../../js/upgraded.js"></script>
-	<script>
-	function load1()
-	{
-     var stampmonths = new Array( "01","02","03","04","05","06","07","08","09","10", "11","12");
-     var thedate = new Date();
-	 var x = Math.floor((Math.random() * 1000) + 1);
-     var eid="ENQ"+x+stampmonths[ thedate.getMonth()] + "" + thedate.getDate() + "" + thedate.getFullYear() + thedate.getHours() + "" +thedate.getMinutes() + "" + thedate.getSeconds();
-	 document.getElementById('enq').value= eid;
-	 var cid="CUS"+x+stampmonths[ thedate.getMonth()] + "" + thedate.getDate() + "" + thedate.getFullYear() + thedate.getHours() + "" +thedate.getMinutes() + "" + thedate.getSeconds();
-	 document.getElementById('cu').value= cid;
-	}
-	window.onload = load1;
-	</script>
+	
 	<style> .red-tooltip + .tooltip > .tooltip-inner {
       background-color: rgb(102, 204, 255); 
       color: #FFFFFF; 
@@ -288,10 +279,10 @@ function selection()
 						   <img id="blah" src="#" alt="your image" />
 					 </div>
                     <div class="form-group">
-                      <label for="enq">Enquiry_Id</label><input type="text" readonly required id="enq" style="width:70%" class="form-control input-sm" name="Enq_id">
+                      <label for="enq">Enquiry_Id</label><input type="text" required id="enq" style="width:70%" class="form-control input-sm" name="Enq_id">
                     </div>
 					<div class="form-group">
-                      <label for="enq">Customer_Id</label><input type="text" readonly required id="cu" style="width:70%" class="form-control input-sm" name="cus_id" >
+                      <label for="enq">Customer_Id</label><input type="text" required id="cu" style="width:70%" class="form-control input-sm" name="cus_id" >
                     </div>
                     <div class="form-group">
                       <label >Customer_Name</label>
@@ -312,6 +303,8 @@ function selection()
 					  <select class="form-control" style="width:70%" name="salesperson" id="test" required>
 					    <option value="" disabled selected>Select a sales person</option>
                         <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM salesperson"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>
@@ -429,6 +422,8 @@ while($row=mysql_fetch_assoc($sql))
 </tr>
 <?php } ?>
 <?php
+$con=mysql_connect("localhost","root","");
+mysql_select_db("sales",$con);
 if(isset($_GET['did']))
 {
 $did=$_GET['did'];
@@ -627,6 +622,8 @@ header("location:oppur.php");
      		            <select class="form-control select2"  style="width:70%" name="rad" id="mySelect" required onclick="myFunction()">
                         <option value="" disabled selected>select a car model</option>
                         <?php 
+					$conn=mysql_connect("localhost","root","") or die("Connection Failed");
+					mysql_select_db("select")or die("Connection Failed"); 
 					$query = "SELECT * FROM carmodel"; 
 					$result = mysql_query($query); 
 					while ($line = mysql_fetch_array($result)) { ?>

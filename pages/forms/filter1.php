@@ -44,8 +44,9 @@
                     </thead> 
 					<tbody>
 					<?php
-					    require('../../sales_db.php');
-						$query=mysql_query("SELECT * FROM `opp_details` WHERE `DOE` >=DATE_SUB( now( ) , INTERVAL 1 MONTH ) AND DOE <=now()");
+					mysql_connect("localhost", "root", ""); //server , username , password
+                	mysql_select_db("sales");
+						$query=mysql_query("SELECT * FROM `opp_details` WHERE `DOE` >= DATE_SUB( now( ) , INTERVAL 1 MONTH )");
 						#echo "select Enq_id,Cus_id,Cus_name,DOE,Salesperson,Testdrive,DOB,MOP,en_no FROM opp_details";
 						
 						while($row=mysql_fetch_assoc($query))

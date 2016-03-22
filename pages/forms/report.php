@@ -1,5 +1,8 @@
 <?php
-require('../../sales_db.php');
+session_start();
+$con=mysql_connect("localhost","root","");
+mysql_select_db("sales",$con);
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html>
@@ -158,8 +161,8 @@ require('../../sales_db.php');
                </a>
             </li>                
             <li>
-              <a href="mailbox.php">
-                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
+              <a href="index.html">
+                <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li>  	
            </ul>  			
@@ -303,36 +306,7 @@ require('../../sales_db.php');
 				  </div>
 				  </div>
 		          </div>
-		         <div class="row">
-		          <div class="col-xs-6">
-					<div class="box box-info">
-						<div class="box-header with-border">
-							<h5>Report generation -AMC Warranty exipry</h5>
-						</div><!-- /.box-header -->
-					<!-- form start -->
-                  <div class="box-body">
-				   	<div class="btn-group">
-                      <button type="button" class="btn btn-info btn-flat">AMC warranty expiry</button>
-                      <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                      </button>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="amc1_export.php"> AMC details</a></li>
-						<li class="divider"></li>
-					</ul>
-                    </div> &nbsp
-					<div class="btn-group">
-					<a href="war_export.php">
-					<button type="button" style="background:transparent; border:none; color:transparent;">
-					<i class="fa fa-file-text fa-2x text-info"></i>
-					</button>
-					</a>
-                    </div>
-				</div><!-- /.box-body -->
-				  </div>
-				  </div>
-				  </div>
+		
 				 </section>
     <!-- jQuery 2.1.4 -->
     <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>

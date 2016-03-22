@@ -1,8 +1,12 @@
+
 <?php
-require('../../sales_db.php');
+session_start();
+$con=mysql_connect("localhost","root","");
+mysql_select_db("feedback",$con);
+error_reporting(0);
 if(isset($_POST['submit']))
 {
-$query=mysql_query("insert into post_feedback(custname,Cus_id,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10) VALUES ('".$_POST['custname']."','".$_POST['delivery_id']."','".$_POST['r1']."','".$_POST['r2']."','".$_POST['r3']."','".$_POST['r4']."','".$_POST['r5']."','".$_POST['r6']."','".$_POST['r7']."','".$_POST['r8']."','".$_POST['r9']."','".$_POST['r10']."')");
+$query=mysql_query("insert into post_feed(custname,delivery_id,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10) VALUES ('".$_POST['custname']."','".$_POST['delivery_id']."','".$_POST['r1']."','".$_POST['r2']."','".$_POST['r3']."','".$_POST['r4']."','".$_POST['r5']."','".$_POST['r6']."','".$_POST['r7']."','".$_POST['r8']."','".$_POST['r9']."','".$_POST['r10']."')");
 #echo "insert into presales_fb(r3,r4,r5,r6,r7,r7,r9,r1) VALUES ('".$_POST['r3']."','".$_POST['r4']."','".$_POST['r5']."','".$_POST['r6']."','".$_POST['r7']."','".$_POST['r7']."','".$_POST['r9']."','".$_POST['r1']."')";
 }
 ?>
@@ -165,8 +169,8 @@ $query=mysql_query("insert into post_feedback(custname,Cus_id,r1,r2,r3,r4,r5,r6,
                </a>
             </li>                
             <li>
-              <a href="mailbox.php">
-                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
+              <a href="index.html">
+                <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li>  
         </section>
@@ -200,7 +204,7 @@ $query=mysql_query("insert into post_feedback(custname,Cus_id,r1,r2,r3,r4,r5,r6,
 					</div>
 					<div class="col-xs-3">
 						<div class="form-group">
-                      <label for="enq">Customer id</label><input type="text" style="width:70%" class="form-control input-sm" id="delivery_id" name="delivery_id" required>
+                      <label for="enq">Delivery_Id</label><input type="text" style="width:70%" class="form-control input-sm" id="delivery_id" name="delivery_id" required>
                     </div>
 					</div>
 					</div>

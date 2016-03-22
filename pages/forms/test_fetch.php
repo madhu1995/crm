@@ -1,13 +1,8 @@
 <?php
-require('../../sales_db.php');
-if(isset($_GET['did']))
-{
-	$sql=mysql_query("delete from `testdrive` where Enq_id='".$_GET['did']."' ");
-	if($sql)
-     {
-        header("location:oppur.php"); 
-     }
-}
+session_start();
+$con=mysql_connect("localhost","root","");
+mysql_select_db("sales",$con);
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +10,7 @@ if(isset($_GET['did']))
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AadhiMaruti | Testdrive Details</title>
+    <title>AadhiMaruti | Opportunity Details</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -166,8 +161,8 @@ if(isset($_GET['did']))
                </a>
             </li>                
             <li>
-             <a href="mailbox.php">
-                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
+              <a href="index.html">
+                <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li>  	
            </ul>  			
@@ -180,7 +175,7 @@ if(isset($_GET['did']))
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Testdrive edit
+            Opportunity edit
             <small>(sales)</small>
           </h1>
           <ol class="breadcrumb">
@@ -209,7 +204,6 @@ if(isset($_GET['did']))
                         <th size="10" width="10%">Cus_name</th>
                         <th size="10" width="10%">Place</th>
                         <th size="10" width="10%">Edit</th>
-						<th size="10" width="10%">Delete</th>
 						</tr>
                     </thead> 
 					<tbody>
@@ -229,10 +223,7 @@ if(isset($_GET['did']))
 						<td><?php echo $row['Cus_name']; ?></td>
 						<td><?php echo $row['place_td']; ?></td>
 						<td> 
-							<button type="button" class="btn btn-primary" onClick="location.href='t_edit.php?edi=<?php echo $row['Enq_id']; ?>'"><i class="fa fa-pencil"></i></a></button>
-						</td>
-						<td> 
-							<button type="button" class="btn btn-primary" onClick="location.href='test_fetch.php?did=<?php echo $row['Enq_id']; ?>'"><i class="fa fa-trash-o"></i></a></button>
+							<button type="button" class="btn btn-primary" onClick="location.href='t_edit.php?edi=<?php echo $row['Enq_id']; ?>'">EDIT</a></button>
 						</td>
 						</tr>
 						<?php } ?>

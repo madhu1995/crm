@@ -1,8 +1,14 @@
 <?php
-require('sales_db.php');
+ session_start();
+  if(empty($_SESSION['username']))
+{
+ header('Location:pages/examples/login.php');
+}
 if(isset($_GET['did']))
 {
-    $sql=mysql_query("DELETE FROM `salesperson` WHERE `id`='".$_GET['did']."'");
+    $con=mysql_connect("localhost","root","");
+    mysql_select_db("select",$con);
+	$sql=mysql_query("DELETE FROM `salesperson` WHERE `id`='".$_GET['did']."'");
 	if($sql)
      {
        header("location:index.php"); 
@@ -10,12 +16,15 @@ if(isset($_GET['did']))
 }
 if(isset($_GET['eid']))
 {
-    $sql=mysql_query("DELETE FROM `carmodel` WHERE `modelno`='".$_GET['eid']."'");
+    $con=mysql_connect("localhost","root","");
+    mysql_select_db("select",$con);
+	$sql=mysql_query("DELETE FROM `carmodel` WHERE `modelno`='".$_GET['eid']."'");
 	if($sql)
      {
        header("location:index.php"); 
      }
 }
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html>
@@ -83,6 +92,9 @@ if(isset($_GET['eid']))
                  </a>
 				 </li>
 				 <?php
+				   
+				  $con=mysql_connect("localhost","root","");
+                  mysql_select_db("sales",$con);
 				 $count=mysql_query("SELECT count(title) FROM `events` WHERE START = CURDATE()");
 				 $fetch = mysql_fetch_array($count)
 				 ?>
@@ -94,6 +106,9 @@ if(isset($_GET['eid']))
                 </a>
 				</li>
 				<?php
+				   
+				  $con=mysql_connect("localhost","root","");
+                  mysql_select_db("service1",$con);
 				 $count=mysql_query("SELECT count(title) FROM `events` WHERE START = CURDATE()");
 				 $fetch = mysql_fetch_array($count)
 				 ?>
@@ -208,8 +223,8 @@ if(isset($_GET['eid']))
                </a>
             </li>                
             <li>
-                <a href="pages/forms/mailbox.php">
-                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
+                <a href="">
+                <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li>  			
         </section>
@@ -246,6 +261,9 @@ if(isset($_GET['eid']))
                     </div><!-- /.box-header -->
                     <div class="box-body no-padding">
 <?php 
+$con=mysql_connect("localhost","root","");
+mysql_select_db("sales",$con);
+error_reporting(0);
 $query = mysql_query("SELECT `name`,`Enq_id` FROM `upload` ORDER BY Enq_id DESC limit 8" );
 while( $row = mysql_fetch_assoc($query) )
 {
@@ -275,6 +293,9 @@ while( $row = mysql_fetch_assoc($query) )
                     </div><!-- /.box-header -->
 <div class="box-body">
 <?php 
+$con=mysql_connect("localhost","root","");
+mysql_select_db("select",$con);
+error_reporting(0);
 if(isset($_POST['submits']))
 {
 $query = mysql_query("INSERT INTO `salesperson`(`id`,`name`) VALUES ('".$_POST['id']."','".$_POST['name']."')");
@@ -306,6 +327,10 @@ $query = mysql_query("INSERT INTO `salesperson`(`id`,`name`) VALUES ('".$_POST['
                       </div>
                     </div><!-- /.box-header -->
 <div class="box-body">
+<?php 
+$con=mysql_connect("localhost","root","");
+mysql_select_db("select",$con);
+?>
 
 				   <table class="table table-bordered table-hover">
 					<thead style="background-color:#00C0EF;">
@@ -362,6 +387,9 @@ $query = mysql_query("INSERT INTO `salesperson`(`id`,`name`) VALUES ('".$_POST['
                     </div><!-- /.box-header -->
 <div class="box-body">
 <?php 
+$con=mysql_connect("localhost","root","");
+mysql_select_db("select",$con);
+error_reporting(0);
 if(isset($_POST['submit1']))
 {
 $query = mysql_query("INSERT INTO `carmodel`(`modelno`,`modelname`) VALUES ('".$_POST['mno']."','".$_POST['mname']."')");
@@ -393,6 +421,10 @@ $query = mysql_query("INSERT INTO `carmodel`(`modelno`,`modelname`) VALUES ('".$
                       </div>
                     </div><!-- /.box-header -->
 <div class="box-body">
+<?php 
+$con=mysql_connect("localhost","root","");
+mysql_select_db("select",$con);
+?>
 
 				   <table class="table table-bordered table-hover">
 					<thead style="background-color:#00C0EF;">

@@ -1,5 +1,12 @@
 <?php
-require('sales_db.php');
+session_start();
+ if(empty($_SESSION['username']))
+{
+ header('Location:pages/examples/login.php');
+}
+$con=mysql_connect("localhost","root","");
+mysql_select_db("presales",$con);
+
 if(isset($_GET['did']))
 {
 	$sql=mysql_query("delete from lead_details where enquire='".$_GET['did']."' ");
@@ -166,8 +173,8 @@ if(isset($_GET['did']))
                </a>
             </li>                
             <li>
-              <a href="pages/forms/mailbox.php">
-                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
+              <a href="">
+                <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li> 
 		   </section>

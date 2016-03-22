@@ -1,5 +1,12 @@
 <?php
-require('../../sales_db.php');
+session_start();
+ if(empty($_SESSION['username']))
+{
+ header('Location:login.php');
+}
+$con=mysql_connect("localhost","root","");
+mysql_select_db("invoice",$con);
+
 if(isset($_GET['did']))
 {
 	$sql=mysql_query("delete from invoice_details where invoice_no='".$_GET['did']."' ");

@@ -25,7 +25,8 @@
                     </thead> 
 					<tbody>
 					<?php
-                        require('../../sales_db.php');
+					mysql_connect("localhost", "root", ""); //server , username , password
+                	mysql_select_db("presales");
 						$query=mysql_query("SELECT * FROM `lead_details`");
 						while($row=mysql_fetch_assoc($query))
 						{

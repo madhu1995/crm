@@ -1,5 +1,6 @@
 <?php
-require('sales_db.php');
+$con=mysql_connect("localhost","root","");
+mysql_select_db("delivery",$con);
 #if(isset($_GET['did']))
 
 #$sql=mysql_query("select * from invoice_details where invoice_no='".$_GET['print']."' ");

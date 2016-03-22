@@ -1,5 +1,8 @@
 <?php
-require('sales_db.php');
+session_start();
+$con=mysql_connect("localhost","root","");
+mysql_select_db("invoice",$con);
+error_reporting(0);
 if(isset($_GET[edit]))
 {
 $sql=mysql_query("select * from invoice_details where invoice_no='".$_GET['edit']."' ");

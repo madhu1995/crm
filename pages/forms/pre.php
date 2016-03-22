@@ -1,11 +1,17 @@
+
 <?php
-require('../../sales_db.php');
+session_start();
+$con=mysql_connect("localhost","root","");
+mysql_select_db("presales",$con);
+error_reporting(0);
 if(isset($_POST['submit']))
 {
-$query=mysql_query("insert into feedback(custname,Enq_id,r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_POST['custname']."','".$_POST['enquire']."','".$_POST['r3']."','".$_POST['r4']."','".$_POST['r5']."','".$_POST['r6']."','".$_POST['r7']."','".$_POST['r8']."','".$_POST['r9']."','".$_POST['r1']."')");
+$query=mysql_query("insert into feedback(custname,enquire,r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_POST['custname']."','".$_POST['enquire']."','".$_POST['r3']."','".$_POST['r4']."','".$_POST['r5']."','".$_POST['r6']."','".$_POST['r7']."','".$_POST['r8']."','".$_POST['r9']."','".$_POST['r1']."')");
 #echo "insert into presales_fb(r3,r4,r5,r6,r7,r8,r9,r1) VALUES ('".$_POST['r3']."','".$_POST['r4']."','".$_POST['r5']."','".$_POST['r6']."','".$_POST['r7']."','".$_POST['r8']."','".$_POST['r9']."','".$_POST['r1']."')";
 }
 ?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -165,8 +171,8 @@ $query=mysql_query("insert into feedback(custname,Enq_id,r3,r4,r5,r6,r7,r8,r9,r1
                </a>
             </li>                
             <li>
-              <a href="mailbox.php">
-                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
+              <a href="index.html">
+                <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li>  			
         </section>

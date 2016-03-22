@@ -1,5 +1,9 @@
-<?php
- require('../../sales_db.php');
+
+
+ <?php
+ $con=mysql_connect("localhost","root","");
+ mysql_select_db("login",$con);
+ session_start();
    if(isset($_POST['submit']))
 	{
 	 $sql=mysql_query("select * from validate where username = '".$_POST['username']."' and password = '".$_POST['password']."'");
@@ -15,6 +19,8 @@
 	 }
 	 }
 	 ?>
+
+
 <html>
   <head>
     <meta charset="utf-8">

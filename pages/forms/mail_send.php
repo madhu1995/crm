@@ -1,5 +1,7 @@
 <?php
-require('../../sales_db.php');
+$con=mysql_connect("localhost","root","");
+mysql_select_db("sales",$con);
+error_reporting(0);
 require_once('class.phpmailer.php');
 include("class.smtp.php"); 
 //ini_set('smtp_port',25);
@@ -20,7 +22,8 @@ $mail->IsSMTP();
 //$mail->SMTPAuth = true; // authentication enabled
 $mail->Host = "10.100.1.209";  
 $mail->From = "kitecrm@kggroup.com";
-$mail->FromName = 'Aadhi Maruti';	
+$mail->FromName = 'Aadhi Maruti';		
+//$mail->AddAddress($to_email);
 $mail->AddAddress($row['Email']);	
 $mail->AddReplyTo('madhumitha.r@kgkite.ac.in', 'Madhu');
 $mail->IsHTML(true);    

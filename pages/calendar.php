@@ -151,8 +151,8 @@
                </a>
             </li>                
             <li>
-                <a href="forms/mailbox.php">
-                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
+                <a href="">
+                <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li>  			
         </section>
