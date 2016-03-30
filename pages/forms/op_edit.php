@@ -10,7 +10,6 @@ $rowi=mysql_fetch_assoc($sqli);
 }
 if(isset($_POST['submit']))
 {
-
 $cus_id=$_POST['cus_id'];
 $cus_name=$_POST['cus_name'];
 $doe=$_POST['doe'];
@@ -42,7 +41,7 @@ $result=mysql_query(" UPDATE `opp_details` SET `Cus_id`='$cus_id',`Cus_name`='$c
 #exit;
 if($result)
 {
- echo "updated!!!!!";
+
  header("location:op_fetch.php");
  
 }

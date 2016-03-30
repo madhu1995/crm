@@ -7,7 +7,7 @@ require('../../sales_db.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AadhiMaruti | Opportunity Details</title>
+    <title>AadhiMaruti | Compose</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -16,16 +16,49 @@ require('../../sales_db.php');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	 <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="../../plugins/iCheck/all.css">
+	<!-- fullCalendar 2.2.5-->
+    <link rel="stylesheet" href="../../plugins/fullcalendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="../../plugins/fullcalendar/fullcalendar.print.css" media="print">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
-	 <!-- Date Picker -->
-    <link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
-
+    <!-- iCheck -->
+    <link rel="stylesheet" href="../../plugins/iCheck/flat/blue.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<script type="text/javascript">
+function onsubmitform()
+{
+  if(document.pressed == 'send')
+  {
+   if (document.getElementById("to").value == "" || document.getElementById("subject").value == "" || document.getElementById("compose-textarea").value == "") {
+         if(document.getElementById("to").value == ""){           
+		   alert('Recipient address is Mandatory');
+            return false;
+			}
+	     else if(document.getElementById("subject").value == ""){           
+		   alert('subject is Mandatory');
+            return false;
+			}
+			else if(document.getElementById("compose-textarea").value == ""){           
+		   alert('mail body is Mandatory');
+            return false;
+			}
+        }
+    else{
+   document.myform.action ="mail.php";
+   }
+  }
+  else if(document.pressed == 'drafts')
+  {
+   alert(document.pressed);
+   document.myform.action ="drafts.php";
+  }
+   return true;
+}
+</script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -176,7 +209,7 @@ require('../../sales_db.php');
           </h1>
           <ol class="breadcrumb">
             <li><a href="../../index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-			<li class="active">Mailbox</li>
+			<li class="active">Compose</li>
           </ol>
         </section>
     <!-- main content -->
@@ -191,46 +224,77 @@ require('../../sales_db.php');
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                   </div>
                 </div>
+                <?php
+				 $count=mysql_query("SELECT count(*) FROM `emails`");
+				 $fetch = mysql_fetch_array($count);
+				 $count1=mysql_query("SELECT count(*) FROM `sent_email`");
+				 $fetch1 = mysql_fetch_array($count1);
+				 $count2=mysql_query("SELECT count(*) FROM `drafts`");
+				 $fetch2 = mysql_fetch_array($count2);
+				 ?>
                 <div class="box-body no-padding">
                   <ul class="nav nav-pills nav-stacked">
-                    <li><a href="mailbox.html"><i class="fa fa-inbox"></i> Inbox <span class="label label-primary pull-right">12</span></a></li>
-                    <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-                    <li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
-                    </ul>
+                    <li class="active"><a href="mailbox.php"><i class="fa fa-inbox"></i>
+      					Inbox <span class="label label-primary pull-right"><?php echo $fetch[0]; ?></span></a>
+					</li>
+                    <li><a href="sent_mail.php"><i class="fa fa-envelope-o"></i> Sent<span class="label label-primary pull-right"><?php echo $fetch1[0]; ?></span></a></li>
+                     <li><a href="drafts_mail.php"><i class="fa fa-file-text-o"></i> Drafts<span class="label label-primary pull-right"><?php echo $fetch2[0]; ?></span></a></li>
+                   
+				   </ul>
                 </div><!-- /.box-body -->
               </div><!-- /. box -->
             </div><!-- /.col -->
             <div class="col-md-9">
-			<form method="post" action="mail.php" class="form" id="form1" enctype="multipart/form-data">
+			<form method="post" name="myform" onsubmit="return onsubmitform();" class="form" id="form1" enctype="multipart/form-data">
               <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">Compose New Message</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <div class="form-group">
-                    <input class="form-control" placeholder="To:" name="to" required>
+                    <input class="form-control" placeholder="To:" name="to" id="to">
+                  </div>
+				  <div class="form-group">
+                    <input class="form-control" placeholder="Cc:" name="cc">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" style="font-weight: bold;" placeholder="Subject:" name="subject" value="Aadhi Maruti - " required>
+                    <input class="form-control" style="font-weight: bold;" placeholder="Subject:" name="subject" value="Aadhi Maruti - " id="subject">
                   </div>
                   <div class="form-group">
-                    <textarea id="compose-textarea" class="form-control" style="height: 300px" name="content" required>
-                      
+                    <textarea id="compose-textarea" class="form-control" style="height: 300px" name="content">
 					  </textarea>
                   </div>
                   <div class="form-group">
                     <div class="btn btn-default btn-file">
                       <i class="fa fa-paperclip"></i> Attachment
-                      <input type="file" name="file" accept="image/gif, image/jpeg, image/png" id='uploaded_file'>
+                      <input type="file" name="file" id='uploaded_file' accept="image/gif, image/jpeg, image/png" value="C:\xampp\htdocs\new1\pages\forms\sent mails\chart.jpeg" onchange="readURL(this);">
                     </div>
+					<span><img id="blah" src="#" alt="your image" /></span>
 					</div>
+					<script>
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(70)
+                    .height(70);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+ 
+</script>
                 </div><!-- /.box-body -->
                 <div class="box-footer">
                   <div class="pull-right">
-                    <button class="btn btn-default"><i class="fa fa-pencil"></i> Draft</button>
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
+                    <button type="submit" class="btn btn-primary" onclick="document.pressed=this.value" value="send"><i class="fa fa-envelope-o"></i> Send</button>
                   </div>
                  <a href="mailbox.php" class="btn btn-default"><i class="fa fa-times"></i> Discard</a>
+				 <button type="submit" class="btn btn-default" onclick="document.pressed=this.value" value="drafts"><i class="fa fa-pencil"></i> Drafts</button>
                 </div><!-- /.box-footer -->
               </div><!-- /. box -->
 			  </form>
@@ -250,6 +314,16 @@ require('../../sales_db.php');
     <script src="../../dist/js/demo.js"></script>
 	 <!-- datepicker -->
     <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
-	<script src="../../js/upgraded.js"></script>
+	<!-- iCheck -->
+    <script src="../../plugins/iCheck/icheck.min.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    
+	<script>
+      $(function () {
+        //Add text editor
+        $("#compose-textarea").wysihtml5();
+      });
+    </script>
   </body>
 </html>

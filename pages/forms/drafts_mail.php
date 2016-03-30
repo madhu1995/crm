@@ -1,19 +1,18 @@
 <?php
 require('../../sales_db.php');
-// Check if delete button active, start this
-$query=mysql_query("SELECT * FROM `emails` ORDER BY `received_date`");
+$query=mysql_query("SELECT * FROM `drafts` ORDER BY `created_at`");
 $counts=mysql_query("SELECT MAX( `email_number` )
-FROM `emails`");
+FROM `drafts`");
 $fetchs = mysql_fetch_array($counts);
 // Check if delete button active, start this
 if(isset($_POST['delete'])){
 for($i=0;$i<$fetchs[0];$i++){
 $del_id=$_POST['checkbox'][$i];
-$sql = "DELETE FROM `emails` WHERE `email_number`='".$del_id."'";
+$sql = "DELETE FROM `drafts` WHERE `email_number`='".$del_id."'";
 $result = mysql_query($sql);
 if($result)
 {
-header("location:mailbox.php");
+header("location:drafts_mail.php");
 }
 }
 }
@@ -24,7 +23,7 @@ header("location:mailbox.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AadhiMaruti | Mailbox</title>
+    <title>AadhiMaruti | drafts</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -71,6 +70,7 @@ return true;
 
 }
 </script>
+
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -241,11 +241,11 @@ return true;
 				 ?>
                 <div class="box-body no-padding">
                   <ul class="nav nav-pills nav-stacked">
-                    <li class="active"><a href="mailbox.php"><i class="fa fa-inbox"></i>
+                    <li><a href="mailbox.php"><i class="fa fa-inbox"></i>
       					Inbox <span class="label label-primary pull-right"><?php echo $fetch[0]; ?></span></a>
 					</li>
                     <li><a href="sent_mail.php"><i class="fa fa-envelope-o"></i> Sent<span class="label label-primary pull-right"><?php echo $fetch1[0]; ?></span></a></li>
-                     <li><a href="drafts_mail.php"><i class="fa fa-file-text-o"></i> Drafts<span class="label label-primary pull-right"><?php echo $fetch2[0]; ?></span></a></li>
+                     <li class="active"><a href=""><i class="fa fa-file-text-o"></i> Drafts<span class="label label-primary pull-right"><?php echo $fetch2[0]; ?></span></a></li>
                    
 				   </ul>
                 </div><!-- /.box-body -->
@@ -254,7 +254,7 @@ return true;
             <div class="col-md-9">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Inbox</h3>
+                  <h3 class="box-title">Drafts</h3>
                   
                 </div><!-- /.box-header -->
 				<form method="post" onSubmit="return validate();">
@@ -262,19 +262,18 @@ return true;
                   <div class="mailbox-controls">
 				    <!-- Check all button -->
                     <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
-                    <button class="btn btn-default btn-sm" onclick="self.location='imap.php'"><i class="fa fa-refresh"></i></button>
-                   <button name="delete" type="submit" id="delete" value="Delete" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><i class="fa fa-trash-o"></i></button>
-                  </div>
+                    <button name="delete" type="submit" id="delete" value="Delete" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><i class="fa fa-trash-o"></i></button>
+                       </div>
+				  
                   <div class="table-responsive mailbox-messages">
                     <table class="table table-hover table-striped">
                       <tbody>
 					  <?php
-						
-						while($row=mysql_fetch_assoc($query))
+					  while($row=mysql_fetch_assoc($query))
 						{
 						?>
-                        <tr onclick="document.location = 'read-mail.php?did=<?php echo $row['email_number']; ?>';">
-                          <td><input type="checkbox" name="checkbox[]" id="checkbox[]" value="<? echo $row['email_number']; ?>" class="icheckbox_flat-blue"></td>
+                        <tr onclick="document.location = 'drafts_send.php?did=<?php echo $row['email_number']; ?>';">
+                          <td><input type="checkbox" name="checkbox[]" id="checkbox[]" value="<? echo $row['email_number']; ?>"  class="icheckbox_flat-blue"></td>
                           <td class="mailbox-name"><?php echo $row['from_name']; ?></td>
                           <td class="mailbox-subject"><b><?php echo $row['subject']; ?></b> </td>
                           <td class="mailbox-attachment"><i class="fa fa-paperclip"><?php echo $row['attachments']; ?></i></td>
@@ -319,11 +318,12 @@ return true;
         $(".checkbox-toggle").click(function () {
           var clicks = $(this).data('clicks');
           if (clicks) {
-            //Uncheck all checkboxes
+          //Uncheck all checkboxes
             $(".mailbox-messages input[type='checkbox']").iCheck("uncheck");
             $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
           } else {
             //Check all checkboxes
+			alert('checked');
             $(".mailbox-messages input[type='checkbox']").iCheck("check");
             $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
           }
@@ -332,5 +332,7 @@ return true;
 
       });
     </script>
-    </body>
-  </html>
+    
+  </body>
+  
+</html>

@@ -266,8 +266,7 @@ if(isset($_GET['did']))
 	 <!-- DataTables -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
-   
-	<script>
+   	<script>
       $(function () {
 	  $('#example2').DataTable({
           "paging": true,

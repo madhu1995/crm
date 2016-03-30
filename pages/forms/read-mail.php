@@ -1,20 +1,16 @@
 <?php
 require('../../sales_db.php');
-// Check if delete button active, start this
-$query=mysql_query("SELECT * FROM `emails` ORDER BY `received_date`");
-$counts=mysql_query("SELECT MAX( `email_number` )
-FROM `emails`");
-$fetchs = mysql_fetch_array($counts);
-// Check if delete button active, start this
-if(isset($_POST['delete'])){
-for($i=0;$i<$fetchs[0];$i++){
-$del_id=$_POST['checkbox'][$i];
-$sql = "DELETE FROM `emails` WHERE `email_number`='".$del_id."'";
-$result = mysql_query($sql);
-if($result)
+if(isset($_GET['did']))
 {
-header("location:mailbox.php");
+	$res1=mysql_query("SELECT * FROM `emails` WHERE `email_number`='".$_GET['did']."'");
+    $rows=mysql_fetch_array($res1);
 }
+if(isset($_POST['delete']))
+{
+$query=mysql_query("DELETE FROM `emails` WHERE `email_number`='".$_GET['did']."'");
+if($query)
+{
+ header("location:mailbox.php");
 }
 }
 ?>
@@ -24,13 +20,13 @@ header("location:mailbox.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AadhiMaruti | Mailbox</title>
+    <title>AadhiMaruti | Read mail</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	 <!-- iCheck for checkboxes and radio inputs -->
@@ -49,28 +45,6 @@ header("location:mailbox.php");
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<script language="javascript">
-function validate()
-{
-var chks = document.getElementsByName('checkbox[]');
-var hasChecked = false;
-for (var i = 0; i < chks.length; i++)
-{
-if (chks[i].checked)
-{
-hasChecked = true;
-break;
-}
-}
-if (hasChecked == false)
-{
-alert("Please select at least one.");
-return false;
-}
-return true;
-
-}
-</script>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -211,14 +185,14 @@ return true;
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Mailbox
+            Read Mail
           </h1>
           <ol class="breadcrumb">
-            <li><a href="../../index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-			<li class="active">Mailbox</li>
+           <li><a href="../../index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+		  <li class="active">Inbox</li>
           </ol>
         </section>
-    <!-- main content -->
+
         <!-- Main content -->
         <section class="content">
           <div class="row">
@@ -231,7 +205,7 @@ return true;
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                   </div>
                 </div>
-				<?php
+                <?php
 				 $count=mysql_query("SELECT count(*) FROM `emails`");
 				 $fetch = mysql_fetch_array($count);
 				 $count1=mysql_query("SELECT count(*) FROM `sent_email`");
@@ -250,47 +224,74 @@ return true;
 				   </ul>
                 </div><!-- /.box-body -->
               </div><!-- /. box -->
-               </div><!-- /.col -->
+            </div><!-- /.col -->
+			<form method="post">
             <div class="col-md-9">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Inbox</h3>
+                  <h3 class="box-title">Read Inbox Mails</h3>
                   
                 </div><!-- /.box-header -->
-				<form method="post" onSubmit="return validate();">
                 <div class="box-body no-padding">
-                  <div class="mailbox-controls">
-				    <!-- Check all button -->
-                    <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
-                    <button class="btn btn-default btn-sm" onclick="self.location='imap.php'"><i class="fa fa-refresh"></i></button>
-                   <button name="delete" type="submit" id="delete" value="Delete" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><i class="fa fa-trash-o"></i></button>
-                  </div>
-                  <div class="table-responsive mailbox-messages">
-                    <table class="table table-hover table-striped">
-                      <tbody>
-					  <?php
-						
-						while($row=mysql_fetch_assoc($query))
-						{
-						?>
-                        <tr onclick="document.location = 'read-mail.php?did=<?php echo $row['email_number']; ?>';">
-                          <td><input type="checkbox" name="checkbox[]" id="checkbox[]" value="<? echo $row['email_number']; ?>" class="icheckbox_flat-blue"></td>
-                          <td class="mailbox-name"><?php echo $row['from_name']; ?></td>
-                          <td class="mailbox-subject"><b><?php echo $row['subject']; ?></b> </td>
-                          <td class="mailbox-attachment"><i class="fa fa-paperclip"><?php echo $row['attachments']; ?></i></td>
-                          <td class="mailbox-date"><?php echo $row['received_date']; ?></td>
-                        </tr>
-						<?php } ?>
-                        </tbody>
-                    </table><!-- /.table -->
-                  </div><!-- /.mail-box-messages -->
+                  <div class="mailbox-read-info">
+                    <h3><b><?php echo $rows['subject']; ?></b></h3>
+                    <h5>From: <?php echo $rows['from_email']; ?> <span class="mailbox-read-time pull-right"><?php echo $rows['received_date']; ?></span></h5>
+                  </div><!-- /.mailbox-read-info -->
+                  <div class="mailbox-controls with-border text-center">
+                    <div class="btn-group">
+                      <button type="submit" name="delete" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><i class="fa fa-trash-o"></i></button>
+                      <a href="reply.php?to=<?php echo $rows['email_number']; ?>" class="btn btn-default btn-sm" data-toggle="tooltip" title="Reply"><i class="fa fa-reply"></i></a>
+                      <a href="forward.php?fwd=<?php echo $rows['email_number']; ?>" class="btn btn-default btn-sm" data-toggle="tooltip" title="Forward"><i class="fa fa-share"></i></a>
+                    </div><!-- /.btn-group -->
+                    <a href="inboxprint.php?print=<?php echo $_GET['did']; ?>" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-default"><i class="fa fa-print"></i></a>
+                  </div><!-- /.mailbox-controls -->
+                  <div class="mailbox-read-message">
+                    <p><?php echo $rows['mail_body']; ?></p>
+                  </div><!-- /.mailbox-read-message -->
                 </div><!-- /.box-body -->
-                </form>
-              </div><!-- /. box -->
+                <div class="box-footer">
+				 <?php
+				if(preg_match('[.(jpeg|jpg|png)]',$rows['attachments']))
+                 {?>
+                  <ul class="mailbox-attachments clearfix">
+                    <li>
+			    	 <span class="mailbox-attachment-icon has-img"><img src="attachments/<?php echo $rows['attachments'];?>" alt="Attachment"></span>
+                      <div class="mailbox-attachment-info">
+                        <a href="attachments/<?php echo $rows['attachments'];?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-camera"></i><?php echo $rows['attachments']; ?></a>
+   					  </div>
+                    </li>
+                  </ul>
+				  <?php }
+                else if(preg_match('[.(doc|docx)]',$rows['attachments']))
+				{
+				  ?>
+				  <ul class="mailbox-attachments clearfix">
+				   <li>
+                      <span class="mailbox-attachment-icon"><i class="fa fa-file-word-o"></i></span>
+                      <div class="mailbox-attachment-info">
+                        <a href="attachments/<?php echo $rows['attachments'];?>" class="mailbox-attachment-name"><i class="fa fa-paperclip"><?php echo $rows['attachments']; ?></i></a>
+                      </div>
+                    </li>
+                   </ul>
+				  <?php } else if(preg_match('[.(pdf)]',$rows['attachments']))
+				  {
+				  ?>
+				  <ul class="mailbox-attachments clearfix">
+				  <li>
+                      <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+                      <div class="mailbox-attachment-info">
+                        <a href="attachments/<?php echo $rows['attachments'];?>" class="mailbox-attachment-name"><i class="fa fa-paperclip"><?php echo $rows['attachments'];?></i></a>
+                      </div>
+                    </li>
+				  </ul>
+				  <?php }?>
+                </div><!-- /.box-footer -->
+               </div><!-- /. box -->
             </div><!-- /.col -->
+			</form>
           </div><!-- /.row -->
         </section><!-- /.content -->
-		</div>
+      </div><!-- /.content-wrapper -->
     <!-- jQuery 2.1.4 -->
     <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
@@ -303,34 +304,7 @@ return true;
     <script src="../../dist/js/demo.js"></script>
 	 <!-- datepicker -->
     <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
-	<!-- iCheck -->
-    <script src="../../plugins/iCheck/icheck.min.js"></script>
-    <!-- Page Script -->
-    <script>
-      $(function () {
-        //Enable iCheck plugin for checkboxes
-        //iCheck for checkbox and radio inputs
-        $('.mailbox-messages input[type="checkbox"]').iCheck({
-          checkboxClass: 'icheckbox_flat-blue',
-          radioClass: 'iradio_flat-blue'
-        });
-
-        //Enable check and uncheck all functionality
-        $(".checkbox-toggle").click(function () {
-          var clicks = $(this).data('clicks');
-          if (clicks) {
-            //Uncheck all checkboxes
-            $(".mailbox-messages input[type='checkbox']").iCheck("uncheck");
-            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
-          } else {
-            //Check all checkboxes
-            $(".mailbox-messages input[type='checkbox']").iCheck("check");
-            $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
-          }
-          $(this).data("clicks", !clicks);
-        });
-
-      });
-    </script>
-    </body>
-  </html>
+	<script src="../../js/upgraded.js"></script>
+  </body>
+  
+</html>

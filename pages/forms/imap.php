@@ -8,16 +8,15 @@ $partno = "2";
 $partno1 = '1';
 $partno2 = '1';
 $partno3 = '2.2';
-$hostname = '{10.100.1.209:993/imap/ssl/novalidate-cert}INBOX';
+$hostname = '{10.100.1.7:993/imap/ssl/novalidate-cert}INBOX';
 $username = 'madhumitha.r@kgkite.ac.in';
 $password = 'Madhu@19';
 $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to mail: ' . imap_last_error());
-$emails = imap_search($inbox,'RECENT');
+$emails = imap_search($inbox,'UNSEEN TEXT "Aadhi Maruti"');
 if($emails) 
 {
   $output = '';
   rsort($emails);  
-
   foreach($emails as $email_number) 
   {  
 	$overview = imap_fetch_overview($inbox,$email_number,0);	
@@ -401,8 +400,18 @@ if($headers->from[0]->host != 'youtube.com' && $headers->from[0]->host !='mss3.m
 	    
 		$sql = mysql_query("INSERT INTO `emails` (`from_email`, `from_name`, `to_emails`,`cc_emails`,`subject`,`mail_body`,`received_date`, `created_at`, `email_number`,`attachments`,`folder_id`,`mail_type`) VALUES ('".$frommail."', '".$from_name."', '".$to_emails."', '".$cc_emails."', '".$subject."','".$message."','".$received_date."', '".$datetime."', '".$email_number."','".$files."','1','".$mail_type."')");			
 		$file = '';
+		if($sql)
+		{
+		 header("location:mailbox.php"); 
+		}
+		
 	}	
+	
   }  
 }
+else
+	{
+	 header("location:mailbox.php"); 
+	}
 imap_close($inbox);
 ?>

@@ -35,9 +35,12 @@ $mail->WordWrap = 50;
 	}
 	else
 	{ 
-	   move_uploaded_file($_FILES['file']['tmp_name'],"sent mails/".$_FILES['file']['name']);
 	   $query=mysql_query("INSERT INTO `sent_email`(`to_emails`, `cc_emails`, `subject`, `mail_body`, `created_at`, `email_number`, `attachments`) VALUES ('".$_POST['to']."','".$_POST['cc']."','".$_POST['subject']."','".$_POST['content']."',NOW(),'','".$_FILES['file']['name']."')");
-	   header( 'location: mailbox.php');
+       if(isset($_GET['eid']))
+       {
+	   $sql=mysql_query("DELETE FROM `drafts` WHERE `email_number`='".$_GET['eid']."'");	  
+	   }
+	  header( 'location: mailbox.php');
 	   
    } 			
  ?>

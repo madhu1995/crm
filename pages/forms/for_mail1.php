@@ -26,8 +26,8 @@ $mail->Subject = $_POST['subject'];
 print_r($_POST['subject']);
 $mail->Body =$title.$_POST['content'].$foot;
 print_r($_POST['content']);
-$mail->addAttachment($_FILES['file']['tmp_name'],$_FILES['file']['name']);
-print_r($_FILES['file']['name']);
+$mail->addAttachment($_SERVER["DOCUMENT_ROOT"] . '/new1/pages/forms/sent mails/'.$_POST['attach']);
+print_r($_SERVER["DOCUMENT_ROOT"] .  '/new1/pages/forms/sent mails/'.$_POST['attach']);
 $mail->WordWrap = 50;
 	if(!$mail->Send())
 	{ 
@@ -35,8 +35,7 @@ $mail->WordWrap = 50;
 	}
 	else
 	{ 
-	   move_uploaded_file($_FILES['file']['tmp_name'],"sent mails/".$_FILES['file']['name']);
-	   $query=mysql_query("INSERT INTO `sent_email`(`to_emails`, `cc_emails`, `subject`, `mail_body`, `created_at`, `email_number`, `attachments`) VALUES ('".$_POST['to']."','".$_POST['cc']."','".$_POST['subject']."','".$_POST['content']."',NOW(),'','".$_FILES['file']['name']."')");
+	   $query=mysql_query("INSERT INTO `sent_email`(`to_emails`, `cc_emails`, `subject`, `mail_body`, `created_at`, `email_number`, `attachments`) VALUES ('".$_POST['to']."','".$_POST['cc']."','".$_POST['subject']."','".$_POST['content']."',NOW(),'','".$_POST['attach']."')");
 	   header( 'location: mailbox.php');
 	   
    } 			
