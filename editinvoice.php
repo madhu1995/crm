@@ -1,5 +1,8 @@
 <?php
-require('sales_db.php');
+session_start();
+$con=mysql_connect("localhost","root","");
+mysql_select_db("invoice",$con);
+error_reporting(0);
 if(isset($_GET[edit]))
 {
 $sql=mysql_query("select * from invoice_details where invoice_no='".$_GET['edit']."' ");
@@ -106,16 +109,34 @@ if($result)
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- User Account: style can be found in dropdown.less -->
+              <!-- Messages: style can be found in dropdown.less-->
+              <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-envelope-o"></i>
+                 </a>
+				 </li>
+                 <!-- Notifications: style can be found in dropdown.less -->
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
+                </a>
+				</li>
+               <!-- Tasks: style can be found in dropdown.less -->
+              <li class="dropdown tasks-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-flag-o"></i>
+                </a>
+				</li>
+				 <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
+                  <img src="dist/img/account.jpeg" class="user-image" alt="User Image">
                   <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                    <img src="dist/img/account.jpeg" class="img-circle" alt="User Image">
                     <p>
 					  <?php echo $_SESSION['username'] ?>
                     </p>
@@ -123,7 +144,9 @@ if($result)
                  
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    
+                    <div class="pull-left">
+                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    </div>
                     <div class="pull-right">
 					  <a href="pages/examples/logout.php">Sign out</a>
                     </div>
@@ -155,46 +178,47 @@ if($result)
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview" >
+            <li class="active treeview">
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu">
-                <li><a href="leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+              <ul class="treeview-menu" class="treeview-active">
+                <li class="active"><a href="leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pages/forms/pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
-            <li class="active treeview">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-cog"></i><span>Sales</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu" class="treeview-active">
+              <ul class="treeview-menu">
                 <li><a href="pages/forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li class="active"><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <!-- <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li> -->
-                <li><a href="deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
+				<li><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                <!--<li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>-->
+                <li><a href="deliverydetailindex.php.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.html">
+             <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="pages/forms/amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="pages/forms/appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="pages/forms/ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="pages/forms/ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="pages/forms/report.php">
+              <a href="index.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
             </li>
             <li class="treeview">
-              <a href="#index.html">
+              <a href="#index.php">
                 <i class="fa fa-inr"></i>
                 <span>Finance</span>
               </a>
@@ -205,16 +229,21 @@ if($result)
               </a>
               </li>
             <li>
-			  <a href="pages/calendar.php">
+              <a href="index.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
             <li>
-                <a href="">
+              <a href="index.php">
                 <i class="fa fa-phone"></i> <span>Alerts</span>
                </a>
             </li> 
-          </ul>			
+<li class="treeview">
+              <a href="pages/examples/logout.php">
+                <i class="fa fa-circle-o-notch"></i>
+                <span>Logout</span>
+              </a>
+              </li> 			
         </section>
         <!-- /.sidebar -->
       </aside>

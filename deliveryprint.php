@@ -1,10 +1,10 @@
 <?php
 require('sales_db.php');
-#if(isset($_GET['did']))
+$sql=mysql_query("select * from deliv_detail where enq_id='".$_GET['did']."' ");
+$row=mysql_fetch_assoc($sql);
 
-#$sql=mysql_query("select * from invoice_details where invoice_no='".$_GET['print']."' ");
-#echo "select * from invoice_details where invoice_no='".$_GET['print']."' ";
-#$row=mysql_fetch_assoc($sql);
+$sql1=mysql_query("select *from invoice_details where Enq_id='".$_GET['did']."' ");
+$row1=mysql_fetch_assoc($sql1);
 
 ?>
 <html>
@@ -39,11 +39,7 @@ th {
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <?php
-  $sql=mysql_query("select * from deliv_detail where enq_id='".$_GET['did']."' ");
- # echo "select * from invoice_details where invoice_no='".$_GET['print']."' ";
-  $row=mysql_fetch_assoc($sql);
-  ?>
+  
   <body onload="window.print();">
     <div class="wrapper">
       <!-- Main content -->
@@ -73,9 +69,9 @@ th {
           <div class="col-sm-4 delivery-col"><br><br>
            To<br>
               <address>
-                <strong><?php echo $row['cust_name']; ?></strong><br>
-               <strong><?php echo $row['res_add']; ?></strong><br>
-			    <b>Pincode&nbsp;&nbsp;</b><?php echo $row['res_pin']; ?><br><br><br>
+                <strong><?php echo $row1['Cus_name']; ?></strong><br>
+               <strong><?php echo $row1['Res_addr']; ?></strong><br>
+			    <b>Pincode&nbsp;&nbsp;</b><?php echo $row1['Pincode']; ?><br><br><br>
               </address>
           </div><!-- /.col -->
          
@@ -91,25 +87,26 @@ th {
 				  <th>Customer_id</th>
 				  <th>Delivery_id</th>
 				   <th>Car Model</th>
+				   <th>Car Registration no</th>
 					  <th>Color</th>
-					  <th>Gear type</th>
+					
 					  <th>Chassis_No</th>
 					  <th>Engine_No</th>
-					  <th>Mode Of Payment</th>
+					  <th>Amount</th>
                   </tr>
 				  <tr>
-				  <td><?php echo $row['cus_id']; ?></td>
+				  <td><?php echo $row1['Cus_id']; ?></td>
 						
 						
 						<td><?php echo $row['deliv_id']; ?></td>
 				
 						<td><?php echo $row['model1']; ?></td>
-						
-						<td><?php echo $row['model_color']; ?></td>
-						<td><?php echo $row['model_gear']; ?></td>
-						<td><?php echo $row['chassis_no']; ?></td>
-						<td><?php echo $row['engine_no']; ?></td>
-						<td><?php echo $row['pay']; ?></td>
+						<td><?php echo $row['car_registration_no']; ?></td>
+						<td><?php echo $row1['color']; ?></td>
+					
+						<td><?php echo $row1['cha_no']; ?></td>
+						<td><?php echo $row1['eng_no']; ?></td>
+						<td><?php echo $row1['grand_tot']; ?></td>
 				  </tr>
 				  </tbody>
 				  </table

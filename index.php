@@ -1,5 +1,9 @@
 <?php
 require('sales_db.php');
+if(empty($_SESSION['username']))
+{
+ header('Location:pages/examples/login.php');
+}
 if(isset($_GET['did']))
 {
     $sql=mysql_query("DELETE FROM `salesperson` WHERE `id`='".$_GET['did']."'");
@@ -20,7 +24,29 @@ if(isset($_GET['eid']))
 <!DOCTYPE html>
 <html>
   <head>
-    
+<script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Adhi Maruti CRM</title>
@@ -76,10 +102,15 @@ if(isset($_GET['eid']))
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+			<?php
+				 $countm=mysql_query("SELECT count(*) FROM `emails`");
+				 $fetchm = mysql_fetch_array($countm);
+				 ?>
               <!-- Messages: style can be found in dropdown.less-->
               <li class="dropdown messages-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
+                <a href="pages/forms/mailbox.php">
+                  <span title="Inbox"><i class="fa fa-envelope-o"></i></span>
+				   <span class="label label-primary" ><?php echo $fetchm[0]; ?></span>
                  </a>
 				 </li>
 				 <?php
@@ -94,7 +125,7 @@ if(isset($_GET['eid']))
                 </a>
 				</li>
 				<?php
-				 $count=mysql_query("SELECT count(title) FROM `events` WHERE START = CURDATE()");
+				 $count=mysql_query("SELECT count(title) FROM `ser_events` WHERE START = CURDATE()");
 				 $fetch = mysql_fetch_array($count)
 				 ?>
                <!-- Tasks: style can be found in dropdown.less -->
@@ -124,7 +155,7 @@ if(isset($_GET['eid']))
                   <li class="user-footer">
                     
                     <div class="text-center">
-					  <a href="pages/examples/logout.php">
+					  <a href="pages/examples/login.php">
                       Sign out</a>
                     </div>
                   </li>
@@ -141,14 +172,15 @@ if(isset($_GET['eid']))
           <!-- Sidebar user panel -->
           
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+		  <form class="sidebar-form" autocomplete="off">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
+              <input type="text" id="q" class="form-control" placeholder="Search..." onkeyup="showResult(this.value)">
+			  <span class="input-group-btn">
+                <button type="button" id="search" class="btn btn-flat" onclick="javascript:eraseText();"><i class="fa fa-times"></i></button>
+              </span>              
+			   </div>
+			   <div id="livesearch"></div>
+			</form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
@@ -174,15 +206,16 @@ if(isset($_GET['eid']))
                 <li><a href="deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.html">
+             <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="pages/forms/amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="pages/forms/appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="pages/forms/ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="pages/forms/ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -192,7 +225,7 @@ if(isset($_GET['eid']))
                 </a>
             </li>
             <li class="treeview">
-              <a href="#index.html">
+              <a href="pages/forms/finance.php">
                 <i class="fa fa-inr"></i>
                 <span>Finance</span>
               </a>
@@ -232,6 +265,78 @@ if(isset($_GET['eid']))
 
         <!-- Main content -->
 		      <section class="content">
+			  <!-- Small boxes (Stat box) -->
+          <div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua" title="Today's car booking">
+			  <?php
+				 $countp=mysql_query("SELECT count('Enq_id') FROM `downpayment` WHERE app_date = CURDATE()");
+				 $fetchp= mysql_fetch_array($countp)
+				 ?>
+                <div class="inner">
+                  <h3><?php echo $fetchp[0]; ?></h3>
+                  <p>New booking</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-shopping-cart"></i>
+                </div>
+                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green" title="Today's Opportunity">
+			  <?php
+				 $counto=mysql_query("SELECT count(`Enq_id`)  FROM `opp_details` WHERE DOE=CURDATE()");
+				 $fetcho= mysql_fetch_array($counto)
+				 ?>
+			     <div class="inner">
+                  <h3><?php echo $fetcho[0];?></h3>
+                  <p>Opportunity Customers</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-ios-people-outline"></i>
+                </div>
+                 </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow" title="Today's LEADS">
+			  <?php
+				 $countl=mysql_query("SELECT count(`enquire`)  FROM `lead_details` WHERE doe=CURDATE()");
+				 $fetchl= mysql_fetch_array($countl)
+				 ?>
+                <div class="inner">
+                  <h3><?php echo $fetchl[0]; ?></h3>
+                  <p>Lead customers</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+			<?php
+				 $countsp=mysql_query("SELECT `Salesperson`, COUNT( * ) AS count
+FROM opp_details
+GROUP BY `Salesperson`
+ORDER BY count DESC
+LIMIT 1 , 1");
+				 $fetchsp= mysql_fetch_array($countsp)
+				 ?>
+			 <!-- small box -->
+              <div class="small-box bg-red" title="Salesperson who tops first in sales">
+                <div class="inner">
+                  <h3><?php echo $fetchsp[0]; ?></h3>
+                  <p><?php echo $fetchsp[1]; ?></p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                
+              </div>
+            </div><!-- ./col -->
+          </div><!-- /.row -->
                <div class="row">
 			   <br>
                 <div class="col-md-6">
@@ -332,6 +437,50 @@ $query = mysql_query("INSERT INTO `salesperson`(`id`,`name`) VALUES ('".$_POST['
 						  </tbody>
 						</table>
                   </div><!--/.box -->
+				  
+				  <div class="box box-inverse">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Update service price</h3>
+                      <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                      </div>
+                    </div><!-- /.box-header -->
+                     <div class="box-body">
+                    <?php 
+                      $con=mysql_connect("localhost","root","");
+                      mysql_select_db("service1",$con);
+                     ?>
+
+				   <table class="table table-bordered table-hover">
+					<thead style="background-color:#00C0EF;">
+                      <tr>
+                        <th size="10" width="10%">Part no</th>
+						<th size="10" width="10%">service type</th>
+						<th size="10" width="10%">Edit</th>
+						</tr>
+                    </thead> 
+					<tbody>
+					<?php
+						$query=mysql_query("SELECT * FROM `parts`");
+						while($row=mysql_fetch_assoc($query))
+						{
+						?>
+						<tr>
+						<td><?php echo $row['part_no']; ?></td>
+						<td><?php echo $row['service_type']; ?></td>
+						<td>
+							<button type="button" class="btn btn-primary" onClick="location.href='pages/forms/price.php?prt=<?php echo $row['part_no']; ?>'" ><i class="fa fa-pencil"></i></a></button>
+                        </td>						
+						</tr>
+						<?php } ?>
+						  </tbody>
+
+						</table>
+                  </div><!--/.box -->
+				  </div>				  
+				  
+				  
 				  </div><!-- /.col -->
 				  </div>
 			<div class="col-md-6">
@@ -520,6 +669,11 @@ $query = mysql_query("INSERT INTO `carmodel`(`modelno`,`modelname`) VALUES ('".$
                 + "<br>"
                 + Math.round(series.percent) + "%</div>";
       }
-    </script>
+	 </script>
+	<script>
+	function eraseText() {
+    document.getElementById("q").value = "";
+}
+	</script>
   </body>
 </html>

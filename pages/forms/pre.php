@@ -9,6 +9,29 @@ $query=mysql_query("insert into feedback(custname,Enq_id,r3,r4,r5,r6,r7,r8,r9,r1
 <!DOCTYPE html>
 <html>
   <head>
+  <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","../../livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AadhiMaruti | Pre-Sales Feedback</title>
@@ -98,14 +121,15 @@ $query=mysql_query("insert into feedback(custname,Enq_id,r3,r4,r5,r6,r7,r8,r9,r1
           <!-- Sidebar user panel -->
           
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+           <form class="sidebar-form" autocomplete="off">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
+              <input type="text" id="q" class="form-control" placeholder="Search..." onkeyup="showResult(this.value)">
+			  <span class="input-group-btn">
+                <button type="button" id="search" class="btn btn-flat" onclick="javascript:eraseText();"><i class="fa fa-times"></i></button>
+              </span>              
+			   </div>
+			   <div id="livesearch"></div>
+			</form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
@@ -131,15 +155,16 @@ $query=mysql_query("insert into feedback(custname,Enq_id,r3,r4,r5,r6,r7,r8,r9,r1
                 <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.html">
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -148,12 +173,7 @@ $query=mysql_query("insert into feedback(custname,Enq_id,r3,r4,r5,r6,r7,r8,r9,r1
                 <span>Report</span>
                 </a>
             </li>
-            <li class="treeview">
-              <a href="#index.html">
-                <i class="fa fa-inr"></i>
-                <span>Finance</span>
-              </a>
-              </li>
+            
             <li class="treeview">
               <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
@@ -508,5 +528,10 @@ $query=mysql_query("insert into feedback(custname,Enq_id,r3,r4,r5,r6,r7,r8,r9,r1
         });
       });
     </script>
+	<script>
+	function eraseText() {
+    document.getElementById("q").value = "";
+}
+	</script>
   </body>
 </html>

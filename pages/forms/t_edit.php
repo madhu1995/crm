@@ -28,6 +28,29 @@ if($result)
 <!DOCTYPE html>
 <html>
   <head>
+  <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","../../livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -113,14 +136,15 @@ if($result)
           <!-- Sidebar user panel -->
           
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+          <form class="sidebar-form" autocomplete="off">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
+              <input type="text" id="q" class="form-control" placeholder="Search..." onkeyup="showResult(this.value)">
+			  <span class="input-group-btn">
+                <button type="button" id="search" class="btn btn-flat" onclick="javascript:eraseText();"><i class="fa fa-times"></i></button>
+              </span>              
+			   </div>
+			   <div id="livesearch"></div>
+			</form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -280,8 +304,11 @@ if($result)
 	 <!-- DataTables -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
-   
-  
+     <script>
+	function eraseText() {
+    document.getElementById("q").value = "";
+}
+	</script>  
   </body>
   
 </html>

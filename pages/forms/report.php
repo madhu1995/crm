@@ -4,6 +4,29 @@ require('../../sales_db.php');
 <!DOCTYPE html>
 <html>
   <head>
+  <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","../../livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,6 +55,19 @@ require('../../sales_db.php');
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<!-- jQuery 2.1.4 -->
+    <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../../plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../dist/js/demo.js"></script>
+	 <!-- datepicker -->
+    <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
+	<script src="../../js/upgraded.js"></script>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -73,7 +109,7 @@ require('../../sales_db.php');
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="text-center">
-					  <a href="../../pages/examples/logout.php">Sign out</a>
+					  <a href="../../pages/examples/login.php">Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -89,14 +125,15 @@ require('../../sales_db.php');
           <!-- Sidebar user panel -->
           
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+           <form class="sidebar-form" autocomplete="off">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
+              <input type="text" id="q" class="form-control" placeholder="Search..." onkeyup="showResult(this.value)">
+			  <span class="input-group-btn">
+                <button type="button" id="search" class="btn btn-flat" onclick="javascript:eraseText();"><i class="fa fa-times"></i></button>
+              </span>              
+			   </div>
+			   <div id="livesearch"></div>
+			</form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
          <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -123,16 +160,16 @@ require('../../sales_db.php');
                 <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.html">
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-				<li><a href=""><i class="fa fa-circle-o"></i> Service Detail</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="active treeview">
@@ -142,9 +179,8 @@ require('../../sales_db.php');
                 </a>
             </li>
             <li class="treeview">
-              <a href="#index.html">
-                <i class="fa fa-inr"></i>
-                <span>Finance</span>
+              <a href="">
+                <i class="fa fa-edit"></i> <span>Finance</span>
               </a>
               </li>
             <li class="treeview">
@@ -190,6 +226,41 @@ require('../../sales_db.php');
                 </div><!-- /.box-header -->
                 <!-- form start -->
                   <div class="box-body">
+				   <div class="form-group">
+                      <label>Start Date</label>
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" onblur="func()" name="doe" id="doe1" title="required" data-toggle="tooltip">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
+					<div class="form-group">
+                      <label>End date</label>
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" name="doe" id="doe" title="required" data-toggle="tooltip">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
+					<script>
+					function openpage(){
+					var start= document.getElementById('doe1').value;
+					var end=document.getElementById('doe').value;
+					location.href="f1_export.php?start="+start+"&end="+end;
+					}
+					function leadfun(){
+					var start= document.getElementById('doel1').value;
+					var end=document.getElementById('doel').value;
+					location.href="f2_export.php?start="+start+"&end="+end;
+					}
+					function war(){
+					var start= document.getElementById('doew1').value;
+					var end=document.getElementById('doew').value;
+					location.href="war_export.php?start="+start+"&end="+end;
+					}
+					</script>
 				   	<div class="btn-group">
                       <button type="button" class="btn btn-primary btn-flat">Opportunity details</button>
                       <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
@@ -205,7 +276,7 @@ require('../../sales_db.php');
                       </ul>
                     </div> &nbsp
 					<div class="btn-group">
-					<a href="f1_export.php">
+					<a href="javascript:openpage()">
 					<button type="button" style="background:transparent; border:none; color:transparent;">
 					<i class="fa fa-file-text fa-2x text-primary"></i>
 					</button>
@@ -222,6 +293,24 @@ require('../../sales_db.php');
                 </div><!-- /.box-header -->
                 <!-- form start -->
                   <div class="box-body">
+				    <div class="form-group">
+                      <label>Start Date</label>
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" name="doe" id="doel1" title="required" data-toggle="tooltip">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
+					<div class="form-group">
+                      <label>End date</label>
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" name="doe" id="doel" title="required" data-toggle="tooltip">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
 				   	<div class="btn-group">
                       <button type="button" class="btn btn-danger btn-flat">Lead details</button>
                       <button type="button" class="btn btn-danger btn-flat dropdown-toggle" data-toggle="dropdown">
@@ -234,7 +323,7 @@ require('../../sales_db.php');
                       </ul>
                     </div> &nbsp
 					<div class="btn-group">
-					<a href="f2_export.php">
+					<a href="javascript:leadfun()">
 					<button type="button" style="background:transparent; border:none; color:transparent;">
 					<i class="fa fa-file-text fa-2x text-danger"></i>
 					</button>
@@ -253,6 +342,24 @@ require('../../sales_db.php');
                 </div><!-- /.box-header -->
                 <!-- form start -->
                   <div class="box-body">
+				  <div class="form-group">
+                      <label>Start Date</label>
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" name="doe" id="does1" title="required" data-toggle="tooltip">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
+					<div class="form-group">
+                      <label>End date</label>
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" name="doe" id="does" title="required" data-toggle="tooltip">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
 				   	<div class="btn-group">
                       <button type="button" class="btn btn-success btn-flat">Service details</button>
                       <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown">
@@ -260,16 +367,18 @@ require('../../sales_db.php');
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu" role="menu">
-                        <li><a href=""> AMC details</a></li>
+                        <li><a href="rpt_export.php"> AMC details</a></li>
 						<li class="divider"></li>
-						<li><a href=""> service details</a></li>
+						<li><a href="rpt_exp1.php"> service details</a></li>
 						<li class="divider"></li>
 					</ul>
                     </div> &nbsp
 					<div class="btn-group">
+					<a href="javascript:service()"> 
 					<button type="button" style="background:transparent; border:none; color:transparent;">
 					<i class="fa fa-file-text fa-2x text-success"></i>
 					</button>
+					</a>
                     </div>
 				</div><!-- /.box-body -->
 				  </div>
@@ -282,6 +391,24 @@ require('../../sales_db.php');
                 </div><!-- /.box-header -->
                 <!-- form start -->
                   <div class="box-body">
+				  <div class="form-group">
+                      <label>Start Date</label>
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" name="doe" id="doed1" title="required" data-toggle="tooltip">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
+					<div class="form-group">
+                      <label>End date</label>
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" name="doe" id="doed" title="required" data-toggle="tooltip">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
 				   	<div class="btn-group">
                       <button type="button" class="btn btn-warning btn-flat">Delivery details</button>
                       <button type="button" class="btn btn-warning btn-flat dropdown-toggle" data-toggle="dropdown">
@@ -311,6 +438,24 @@ require('../../sales_db.php');
 						</div><!-- /.box-header -->
 					<!-- form start -->
                   <div class="box-body">
+				  <div class="form-group">
+                      <label>Start Date</label>
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" name="doe" id="doew1" title="required" data-toggle="tooltip">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
+					<div class="form-group">
+                      <label>End date</label>
+					   <div class="input-group date" style="width:70%">
+                          <input type="text" class="form-control required" name="doe" id="doew" title="required" data-toggle="tooltip">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                            </div>
+                         </div>
+                    </div>
 				   	<div class="btn-group">
                       <button type="button" class="btn btn-info btn-flat">AMC warranty expiry</button>
                       <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown">
@@ -323,7 +468,7 @@ require('../../sales_db.php');
 					</ul>
                     </div> &nbsp
 					<div class="btn-group">
-					<a href="war_export.php">
+					<a href="javascript:war()">
 					<button type="button" style="background:transparent; border:none; color:transparent;">
 					<i class="fa fa-file-text fa-2x text-info"></i>
 					</button>
@@ -334,19 +479,46 @@ require('../../sales_db.php');
 				  </div>
 				  </div>
 				 </section>
-    <!-- jQuery 2.1.4 -->
-    <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="../../bootstrap/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../../plugins/fastclick/fastclick.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../../dist/js/demo.js"></script>
-	 <!-- datepicker -->
-    <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
-	<script src="../../js/upgraded.js"></script>
+    
   </body>
-  
+  <script>
+	 $(document).ready(function () {
+                
+                $('#doe1').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+				$('#doe').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+				$('#doel1').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+				$('#doel').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+                $('#doew1').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+				$('#doew').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+				$('#doed1').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+				$('#doed').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+				$('#does1').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+				$('#does').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+            });
+	</script>
+	<script>
+	function eraseText() {
+    document.getElementById("q").value = "";
+}
+	</script>
 </html>

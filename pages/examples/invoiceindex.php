@@ -1,13 +1,31 @@
 <?php
 require('../../sales_db.php');
-if(isset($_GET['did']))
-{
-	$sql=mysql_query("delete from invoice_details where invoice_no='".$_GET['did']."' ");
-}
-
 ?>
 <html>
-  <head>
+  <head>  
+    <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","../../livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Aadhi Maruthi | Invoice</title>
@@ -31,12 +49,18 @@ if(isset($_GET['did']))
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<style>.disabled {
+   pointer-events: none;
+   cursor: default;
+   color:black;
+}</style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-     <header class="main-header">
+      
+      <header class="main-header">
         <!-- Logo -->
-        <a style="background-color: rgb(204, 238, 255);" href="index.php" class="logo">
+        <a style="background-color: rgb(204, 238, 255);" href="index.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>Aa</b>dhi</span>
           <!-- logo for regular state and mobile devices -->
@@ -50,7 +74,10 @@ if(isset($_GET['did']))
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-			 <li class="dropdown user user-menu">
+              <!-- Messages: style can be found in dropdown.less-->
+              
+				<!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="../../dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
                   <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
@@ -64,12 +91,13 @@ if(isset($_GET['did']))
                     </p>
                   </li>
                   <!-- Menu Body -->
-                 
+                  
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     
-                    <div class="pull-right">
-					  <a href="logout.php">Sign out</a>
+                    <div class="text-center">
+					  <a href="pages/examples/login.php">
+                      Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -78,22 +106,22 @@ if(isset($_GET['did']))
           </div>
         </nav>
       </header>
-	  
-	  <!-- Left side column. contains the logo and sidebar -->
+      <!-- Left side column. contains the logo and sidebar -->
 	  <aside style="font-family: &quot;Comic Sans MS&quot;,cursive,sans-serif;" class="main-sidebar">
            <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar" style="height:auto; padding-bottom:369px">
+        <section class="sidebar">
           <!-- Sidebar user panel -->
           
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+                <form class="sidebar-form" autocomplete="off">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
+              <input type="text" id="q" class="form-control" placeholder="Search..." onkeyup="showResult(this.value)">
+			  <span class="input-group-btn">
+                <button type="button" id="search" class="btn btn-flat" onclick="javascript:eraseText();"><i class="fa fa-times"></i></button>
+              </span>              
+			   </div>
+			   <div id="livesearch"></div>
+			</form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
@@ -102,8 +130,8 @@ if(isset($_GET['did']))
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu" >
-                <li ><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+              <ul class="treeview-menu">
+                <li><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="../forms/pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
@@ -115,19 +143,19 @@ if(isset($_GET['did']))
               <ul class="treeview-menu" class="treeview-active">
                 <li><a href="../forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
 				<li class="active"><a href="invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-               <!-- <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>-->
                 <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.php">
+             <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="../forms/amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="../forms/appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="../forms/ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="../forms/ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -136,33 +164,27 @@ if(isset($_GET['did']))
                 <span>Report</span>
                 </a>
             </li>
-            <li class="treeview">
-              <a href="#index.php">
-                <i class="fa fa-inr"></i>
-                <span>Finance</span>
-              </a>
-              </li>
+            
             <li class="treeview">
               <a href="../forms/post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-              <a href="../calendar.php">
+			  <a href="../calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
             <li>
-              <a href="index.php">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+                <a href="../forms/mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
-            </li> 
+            </li>  			
         </section>
         <!-- /.sidebar -->
       </aside>
 	  
-	  
-      </div>
+     
       <!-- Left side column. contains the logo and sidebar -->
      
 
@@ -181,206 +203,190 @@ if(isset($_GET['did']))
         </section>
 		
 		
-		<div class="box">
-<div class="box-header">
-<h3 class="box-title"></h3>
-</div>
-
-
-<div class="box-body">
-<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-<div class="row">
-<div class="col-sm-6">
-<div id="example1_length" class="dataTables_length">
-     <label>Show 
-	 
-	 <select class="form-control input-sm" name="example1_length" aria-controls="example1">
-	   <option value="10">10</option>
-	   <option value="25">25</option>
-	   <option value="50">50</option>
-	   <option value="100">100</option>
-	   </select>
-	    entries</label>
- 
-</div>
-</div>
-<!--<div class="box-header">-->
-      <button type="button" class="btn btn-primary" name="insert" onClick="location.href='../../invoicedetails.php'"  value="Add Entry">Add Entry</button>
-                <!-- </div>-->
-				  </div>
-<div class="col-sm-6">
-
-</div>
-</div>
+<br>
+<section class="content">
 <div class="row">
 <div class="col-sm-12">
+ <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">Pre invoice for Advance paid customers</h3>
+                </div><!-- /.box-header -->
+                <!-- form start enquiry-->
+                  <div class="box-body">
+<form method="post">
 <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
 <thead>
 <tr role="row">
-<th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 181px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Invoice No</th>
+<th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 181px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Enquiry No</th>
 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 224px;" aria-label="Browser: activate to sort column ascending">Customer Name</th>
 
 </tr>
 </thead>
-
- <?php
-						$query=mysql_query("select * from invoice_details");
+<tbody>
+						<?php
+						$query=mysql_query("select * from opp_details where MOP='Pay advance'");
 						while($row=mysql_fetch_assoc($query))
 						{
+						$query11=mysql_query("SELECT * FROM downpayment WHERE Enq_id LIKE '%".$row['Enq_id']."%'");
+						$row11=mysql_fetch_assoc($query11);
+					    if ($row11 == NULL) {
 						?>
 						<tr>
-						<td><?php echo $row['invoice_no']; ?></td>
-						<td><?php echo $row['custname']; ?></td>
+						<td><a href="../../viewpmt.php?pmt=<?php echo $row['Enq_id'] ?>" class="disabled"><?php echo $row['Enq_id']; ?></a></td>
+						<td><?php echo $row['Cus_name']; ?></td>
+						<td>
+							<a href="../../preinvoice.php?pre=<?php echo $row['Enq_id'] ?>" id="dwn_pmt" >Down Payment</a>
+							<!--<button onclick="location.href='../../preinvoice.php?pre=<?php echo $row['Enq_id'] ?>'" type="submit" id="dwn_pmt">Down payment</button>-->
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="../../cancelpay.php?cancel=<?php echo $row['Enq_id'] ?>" class="disabled">Cancel Payment</a>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="../../invoicedetails.php?detail=<?php echo $row['Enq_id'] ?>" class="disabled">Add invoice</a>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="viewinvoice.php?view=<?php echo $row['Enq_id'] ?>" class="disabled">View invoice</a>
+						</td>
+						
+						<?php 
+						$query11=mysql_query("SELECT * FROM cancelpay WHERE Enq_id LIKE '%".$row['Enq_id']."%'");
+						$row11=mysql_fetch_assoc($query11);
+					    if ($row11 != NULL) { ?>
+						<td>
+					     <button type="submit" name="delete" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><i class="fa fa-trash-o"></i></button>
+                        </td>	
+						<?php 
+if(isset($_POST['delete']))
+{
+$res1=mysql_query("SELECT `name` FROM `upload` WHERE Enq_id='".$row['Enq_id']."'");
+$rows=mysql_fetch_array($res1);
+unlink("../forms/file/".$rows['name']);
+$del=mysql_query("DELETE FROM opp_details 
+WHERE Enq_id='".$row['Enq_id']."'");
+$del1=mysql_query("DELETE FROM testdrive 
+WHERE Enq_id='".$row['Enq_id']."'");
+$del2=mysql_query("DELETE FROM vehicle 
+WHERE Enq_id='".$row['Enq_id']."'");
+$del3=mysql_query("DELETE FROM upload 
+WHERE Enq_id='".$row['Enq_id']."'");
+if($del)
+	{
+		header("location:invoiceindex.php");
+	}
+}}
+						}
+						else{
+						$query111=mysql_query("SELECT * FROM `invoice_details` WHERE `Enq_id` LIKE '%".$row['Enq_id']."%'");
+						$row111=mysql_fetch_assoc($query111);
+					    if ($row111 != NULL) { 
 							
-						<td class=back>
-							<button type="button" class="btn btn-primary" onclick="location.href='../../editinvoice.php?edit=<?php echo $row['invoice_no']; ?>'"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn btn-primary" onclick="location.href='viewinvoice.php?view=<?php echo $row['invoice_no']; ?>'"><i class="fa fa-files-o"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
-							<a class="btn btn-primary" href="dompdf/genpdf.php?pdf=<?php echo $row['invoice_no']; ?>" target="_blank"><i class="fa fa-file-pdf-o"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn btn-primary" onclick="location.href='invoiceindex.php?did=<?php echo $row['invoice_no']; ?>'"><i class="fa fa-trash-o"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
-						    <button type="button" class="btn btn-primary" onClick="location.href='../../mails/sendinvoice.php?send=<?php echo $row['invoice_no']; ?>'" ><i class="fa fa-envelope-o"></i></a></button>
-						</td> 	
+						?>
+						</tr>
+						<tr>
+						<td><a href="../../viewpmt.php?pmt=<?php echo $row['Enq_id'] ?>" ><?php echo $row['Enq_id']; ?></a></td>
+						<td><?php echo $row['Cus_name']; ?></td>
+						<td>
+							<a href="../../preinvoice.php?pre=<?php echo $row['Enq_id'] ?>" id="dwn_pmt" class="disabled">Down Payment</a>
+							<!--<button onclick="location.href='../../preinvoice.php?pre=<?php echo $row['Enq_id'] ?>'" type="submit" id="dwn_pmt">Down payment</button>-->
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="../../cancelpay.php?cancel=<?php echo $row['Enq_id'] ?>" >Cancel Payment</a>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="../../invoicedetails.php?detail=<?php echo $row['Enq_id'] ?>" class="disabled">Add invoice</a>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="viewinvoice.php?view=<?php echo $row['Enq_id'] ?>">View invoice</a>
+						</td>
+						</tr>
+						<?php 
+						}else{?>
+						<tr>
+						<td><a href="../../viewpmt.php?pmt=<?php echo $row['Enq_id'] ?>" ><?php echo $row['Enq_id']; ?></a></td>
+						<td><?php echo $row['Cus_name']; ?></td>
+						<td>
+							<a href="../../preinvoice.php?pre=<?php echo $row['Enq_id'] ?>" id="dwn_pmt" class="disabled">Down Payment</a>
+							<!--<button onclick="location.href='../../preinvoice.php?pre=<?php echo $row['Enq_id'] ?>'" type="submit" id="dwn_pmt">Down payment</button>-->
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="../../cancelpay.php?cancel=<?php echo $row['Enq_id'] ?>" >Cancel Payment</a>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="../../invoicedetails.php?detail=<?php echo $row['Enq_id'] ?>">Add invoice</a>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="viewinvoice.php?view=<?php echo $row['Enq_id'] ?>" class="disabled">View invoice</a>
+						</td>
+						</tr>
+                        <?php 
+						}}}?>
 						
-						
-						
-						<?php } ?>
-<tbody>
-
-
 </tbody>
-<tfoot>
-<tr>
-<th rowspan="1" colspan="1">Invoice No</th>
-<th rowspan="1" colspan="1">Customer Name</th>
+</table>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<br>
+<section class="content">
+<div class="row">
+<div class="col-sm-12">
+ <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">Invoice for non advancers</h3>
+                </div><!-- /.box-header -->
+                <!-- form start enquiry-->
+                  <div class="box-body">
+	
+<table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+<thead>
+<tr role="row">
+<th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 181px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Enquiry No</th>
+<th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 224px;" aria-label="Browser: activate to sort column ascending">Customer Name</th>
 
 </tr>
-</tfoot>
+</thead>
+<tbody>
+						<?php
+						$query=mysql_query("SELECT *
+FROM `opp_details`
+WHERE `MOP` != 'Pay advance'");
+						while($row=mysql_fetch_assoc($query))
+						{
+						$query11=mysql_query("SELECT * FROM invoice_details WHERE Enq_id LIKE '%".$row['Enq_id']."%'");
+						$row11=mysql_fetch_assoc($query11);
+					    if ($row11!= NULL) {
+						?>
+						<tr>
+						<td><?php echo $row['Enq_id']; ?></td>
+						<td><?php echo $row['Cus_name']; ?></td>
+						<td>
+							<a href="../../invoicedetails1.php?detail=<?php echo $row['Enq_id'] ?>" class="disabled">Add invoice</a>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="viewinvoice.php?view=<?php echo $row['Enq_id'] ?>" >View invoice</a>
+						</td>
+						</tr>
+						<?php } 
+						else{ ?>
+						<tr>
+						<td><?php echo $row['Enq_id']; ?></td>
+						<td><?php echo $row['Cus_name']; ?></td>
+						<td>
+							<a href="../../invoicedetails1.php?detail=<?php echo $row['Enq_id'] ?>">Add invoice</a>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<a href="viewinvoice.php?view=<?php echo $row['Enq_id'] ?>" class="disabled">View invoice</a>
+						</td>
+						</tr>
+						<?php }
+						
+						} ?>
+						
+						
+</tbody>
 </table>
 </div>
 </div>
-<div class="row">
-<!--<div class="col-sm-5">-->
-<!--<div id="example1_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>-->
-<!--</div>-->
-<div class="col-sm-7">
-<div id="example1_paginate" class="dataTables_paginate paging_simple_numbers">
-<ul class="pagination">
-<li id="example1_previous" class="paginate_button previous disabled">
-<a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a>
-</li>
-<li class="paginate_button active">
-<a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0">1</a>
-</li>
-<li class="paginate_button ">
-<a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0">2</a>
-</li>
-<li class="paginate_button ">
-<a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0">3</a>
-</li>
-<li class="paginate_button ">
-<a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0">4</a>
-</li>
-<li class="paginate_button ">
-<a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0">5</a>
-</li>
-<li class="paginate_button ">
-<a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0">6</a>
-</li>
-<li id="example1_next" class="paginate_button next">
-<a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a>
-</li>
-</ul>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
 </div>
 </section>
 </div>
 </div>
-<footer class="main-footer">
-<div class="pull-right hidden-xs">
-<b>Version</b>
-2.3.0
 </div>
-<strong>
-Copyright © 2015-2016-2015
-Aadhi Maruthi
-.
-</strong>
-All rights reserved.
-</footer>
-<aside class="control-sidebar control-sidebar-dark">
-<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-<li class="active">
-<a data-toggle="tab" href="#control-sidebar-theme-demo-options-tab">
-<i class="fa fa-wrench"></i>
-</a>
-</li>
-<li>
-<a data-toggle="tab" href="#control-sidebar-home-tab">
-<i class="fa fa-home"></i>
-</a>
-</li>
-<li>
-<a data-toggle="tab" href="#control-sidebar-settings-tab">
-<i class="fa fa-gears"></i>
-</a>
-</li>
-</ul>
-<div class="tab-content">
-<div id="control-sidebar-home-tab" class="tab-pane">
-<h3 class="control-sidebar-heading">Recent Activity</h3>
-<ul class="control-sidebar-menu">
-<h3 class="control-sidebar-heading">Tasks Progress</h3>
-<ul class="control-sidebar-menu">
 </div>
-<div id="control-sidebar-theme-demo-options-tab" class="tab-pane active">
-<div id="control-sidebar-stats-tab" class="tab-pane">Stats Tab Content</div>
-<div id="control-sidebar-settings-tab" class="tab-pane">
-</div>
-</aside>
-<div class="control-sidebar-bg" style="position: fixed; height: auto;"></div>
-</div>
-<script src="../../plugins/jQuery/jQuery-2.1.4.min.js">
-<script src="../../bootstrap/js/bootstrap.min.js">
-<script src="../../plugins/datatables/jquery.dataTables.min.js">
-<script src="../../plugins/datatables/dataTables.bootstrap.min.js">
-<script src="../../plugins/slimScroll/jquery.slimscroll.min.js">
-<script src="../../plugins/fastclick/fastclick.min.js">
-<script src="../../dist/js/app.min.js">
-<script src="../../dist/js/demo.js">
-<script>
-		
-         <br></br>
-        <!-- Content Header (Page header) -->
-        <!-- /.content -->
-        <div class="clearfix"></div>
-      </div><!-- /.content-wrapper -->
-      <footer class="main-footer no-print">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.3.0
-        </div>
-        <strong>Copyright &copy; 2015-2016 Aadhi Maruthi</a>.</strong> All rights reserved.
-      </footer>
-
-      <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        <!-- Create the tabs -->
-        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-          <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-          <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-        </ul>
-        <!-- Tab panes -->
-       
-      </aside><!-- /.control-sidebar -->
-      <!-- Add the sidebar's background. This div must be placed
-           immediately after the control sidebar -->
-      <div class="control-sidebar-bg"></div>
-    </div><!-- ./wrapper -->
-
     <!-- jQuery 2.1.4 -->
     <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
@@ -391,5 +397,10 @@ All rights reserved.
     <script src="../../dist/js/app.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
+	      <script>
+	function eraseText() {
+    document.getElementById("q").value = "";
+}
+	</script>
   </body>
 </html>

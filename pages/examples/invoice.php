@@ -25,9 +25,10 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+ <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-<header class="main-header">
+
+      <header class="main-header">
         <!-- Logo -->
         <a style="background-color: rgb(204, 238, 255);" href="index.php" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -43,30 +44,35 @@
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
+				<li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
+                  <img src="dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
+                  <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
                 </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                    <p>
+					  <?php echo $_SESSION['username'] ?>
+                    </p>
+                  </li>
+                  <!-- Menu Body -->
+				  
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    
+                    <div class="text-center">
+					  <a href="pages/examples/logout.php">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
                </ul>
           </div>
         </nav>
       </header>
-	  
-	  <!-- Left side column. contains the logo and sidebar -->
+      <!-- Left side column. contains the logo and sidebar -->
 	  <aside style="font-family: &quot;Comic Sans MS&quot;,cursive,sans-serif;" class="main-sidebar">
            <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
@@ -85,71 +91,65 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu" class="treeview-active">
-                <li class="active"><a href="leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+              <ul class="treeview-menu">
+                <li><a href="leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pages/forms/pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="active treeview">
               <a href="#">
                 <i class="fa fa-cog"></i><span>Sales</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="pages/examples/invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
+              <ul class="treeview-menu" class="treeview-active">
+                <li><a href="../forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
+				<li class="active"><a href="invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.php">
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="../forms/amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="../forms/appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="../forms/ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="../forms/ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.php">
+              <a href="report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
             </li>
             <li class="treeview">
-              <a href="#index.php">
+              <a href="#index.html">
                 <i class="fa fa-inr"></i>
                 <span>Finance</span>
               </a>
               </li>
             <li class="treeview">
-              <a href="index.php">
+              <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-              <a href="index.php">
+              <a href="../calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
             <li>
-              <a href="index.php">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+              <a href="mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
-            </li> 
-<li class="treeview">
-              <a href="pages/examples/logout.php">
-                <i class="fa fa-circle-o-notch"></i>
-                <span>Logout</span>
-              </a>
-              </li> 			
+            </li>  	 			
         </section>
         <!-- /.sidebar -->
       </aside>

@@ -1,9 +1,8 @@
 <?php
 #ob_start();
-	$con=mysql_connect("localhost","root","");
-	mysql_select_db("delivery",$con);
-	$sql=mysql_query("select * from deliv_detail where enq_id='".$_GET['gdf']." ' ");
-	$row=mysql_fetch_assoc($sql);
+require('sales_db.php');
+$sql=mysql_query("select * from deliv_detail where enq_id='".$_GET['gdf']." ' ");
+$row=mysql_fetch_assoc($sql);
 	 
 require_once("pages/examples/dompdf/dompdf_config.inc.php");
 #require_once("dompdf_config.custom.inc.php");
@@ -74,7 +73,7 @@ $content .='<table align="right" style="line-height:30px;">
 
 <tr>
 	<td>
-		<br><br>	<br><br><br><br><br><br><span><strong style="color:#00008B">Customer Signature : </strong>..................................................</span>
+		<br><span><strong style="color:#00008B">Customer Signature : </strong>..................................................</span>
 	</td>
 </tr>
 </tbody></table>';

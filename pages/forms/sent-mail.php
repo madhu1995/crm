@@ -136,16 +136,16 @@ if($query)
                 <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.html">
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-				<li><a href=""><i class="fa fa-circle-o"></i> Service Detail</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">

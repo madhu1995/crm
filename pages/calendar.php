@@ -134,12 +134,7 @@
                 <span>Report</span>
                 </a>
             </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-inr"></i>
-                <span>Finance</span>
-              </a>
-              </li>
+           
             <li class="treeview">
               <a href="forms/post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>

@@ -49,6 +49,22 @@ header("location:mailbox.php");
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<!-- jQuery 2.1.4 -->
+    <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../../plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../dist/js/demo.js"></script>
+	 <!-- datepicker -->
+    <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
+	<!-- iCheck -->
+    <script src="../../plugins/iCheck/icheck.min.js"></script>
+    <!-- Page Script -->
+	
 	<script language="javascript">
 function validate()
 {
@@ -162,16 +178,16 @@ return true;
                 <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.html">
+             <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-				<li><a href=""><i class="fa fa-circle-o"></i> Service Detail</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -181,11 +197,11 @@ return true;
                 </a>
             </li>
             <li class="treeview">
-              <a href="#index.html">
-                <i class="fa fa-inr"></i>
+              <a href="report.php">
+                <i class="fa fa-pie-chart"></i>
                 <span>Finance</span>
-              </a>
-              </li>
+                </a>
+            </li>
             <li class="treeview">
               <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
@@ -291,21 +307,7 @@ return true;
           </div><!-- /.row -->
         </section><!-- /.content -->
 		</div>
-    <!-- jQuery 2.1.4 -->
-    <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="../../bootstrap/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../../plugins/fastclick/fastclick.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../../dist/js/demo.js"></script>
-	 <!-- datepicker -->
-    <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
-	<!-- iCheck -->
-    <script src="../../plugins/iCheck/icheck.min.js"></script>
-    <!-- Page Script -->
+    
     <script>
       $(function () {
         //Enable iCheck plugin for checkboxes

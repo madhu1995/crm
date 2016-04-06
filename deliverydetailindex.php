@@ -1,17 +1,32 @@
 <?php
-session_start();
-$con=mysql_connect("localhost","root","");
-mysql_select_db("delivery",$con);
-
-if(isset($_GET['did']))
-{
-	$sql=mysql_query("delete from deliv_detail where enq_id='".$_GET['did']."' ");
-}
-
+require('sales_db.php');
+$sql=mysql_query ("select * from invoice_details");
 ?>
-
 <html>
   <head>
+      <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Adhi Maruti CRM</title>
@@ -53,20 +68,24 @@ if(isset($_GET['did']))
 
       <header class="main-header">
         <!-- Logo -->
-        <a style="background-color: rgb(204, 238, 255);" href="index.php" class="logo">
+        <a style="background-color: rgb(204, 238, 255);" href="index.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>Aa</b>dhi</span>
           <!-- logo for regular state and mobile devices -->
-         <span style="background-color: rgb(102, 204, 255);" class="logo-lg"><b>Aadhi</b>MARUTI</span>
+          <span style="background-color: rgb(102, 204, 255);" class="logo-lg"><b>Aadhi</b>MARUTI</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
-       <nav style="background-color: rgb(102, 204, 255);" class="navbar navbar-static-top" role="navigation">
+        <nav style="background-color: rgb(102, 204, 255);" class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+              
 				<!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -81,13 +100,11 @@ if(isset($_GET['did']))
 					  <?php echo $_SESSION['username'] ?>
                     </p>
                   </li>
-                  <!-- Menu Body -->
-                  
+                 
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    
-                    <div class="text-center">
-					  <a href="pages/examples/logout.php">
+                   <div class="text-center">
+					  <a href="../../pages/examples/login.php">
                       Sign out</a>
                     </div>
                   </li>
@@ -104,19 +121,20 @@ if(isset($_GET['did']))
           <!-- Sidebar user panel -->
           
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+          <form class="sidebar-form" autocomplete="off">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
+              <input type="text" id="q" class="form-control" placeholder="Search..." onkeyup="showResult(this.value)">
+			  <span class="input-group-btn">
+                <button type="button" id="search" class="btn btn-flat" onclick="javascript:eraseText();"><i class="fa fa-times"></i></button>
+              </span>              
+			   </div>
+			   <div id="livesearch"></div>
+			</form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview" >
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -130,22 +148,23 @@ if(isset($_GET['did']))
                 <i class="fa fa-cog"></i><span>Sales</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu" class="treeview-active">
+              <ul class="treeview-menu">
                 <li><a href="pages/forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li ><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <!-- <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li> -->
+				<li><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
+               <!-- <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>-->
                 <li class="active"><a href="deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.html">
+             <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="pages/forms/amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="pages/forms/appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="pages/forms/ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="pages/forms/ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -154,28 +173,22 @@ if(isset($_GET['did']))
                 <span>Report</span>
                 </a>
             </li>
+            
             <li class="treeview">
-              <a href="#index.html">
-                <i class="fa fa-inr"></i>
-                <span>Finance</span>
-              </a>
-              </li>
-            <li class="treeview">
-              <a href="pages/forms/post.php">
+              <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-			  <a href="pages/calendar.php">
+              <a href="pages/calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
             <li>
-                <a href="pages/forms/mailbox.php">
+              <a href="pages/forms/mailbox.php">
                 <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
-            </li> 
-          </ul>  	
+            </li>  
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -186,18 +199,15 @@ if(isset($_GET['did']))
         <section class="content-header">
           <h1>
             Delivery Details
-			</h1>
+            <small>Delivery</small>
+          </h1>
           <ol class="breadcrumb">
             <li><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Delivery Details</li>
           </ol>
         </section>
-		<form>
-		<div class="box-header">
-                    <button type="button" class="btn btn-primary" name="insert" onClick="location.href='pages/forms/delivery.php'"  value="Add Entry">Add Entry</button>
-                  </div>
-				  </form>
-		<br><br>
+		
+	
 		<section class="content">
 		<div class="row" style="overflow-x:scroll;">
 		<div class="box box-primary">
@@ -207,59 +217,66 @@ if(isset($_GET['did']))
 				       <div class="form-group">
 					  <!-- <th style="padding: 25px;"></th>-->
 					  <tr class="info">
-                      <th>Enquiry_Id</th>
-					
-
+                     <!-- <th>Enquiry_Id</th>-->
+					 <!-- <th>Customer_Id</th>-->
+					 <!-- <th>Booking_Id</th>-->
 					   <th>Customer_Name</th>
 					  
-					   <th>Delivery_Id</th>
+					   <th>Enquiry_Id</th>
 					  
-					  
-					  <th>Model</th>
-					 
-					
+					 <!--  <th>Address</th>
+					   <th>Phone</th>
+					   <th>Alternate Phone</th>
+					   <th>Email</th>
+					  <th>Pincode</th>
+					  <th>Model</th>-->
+					 <!-- <th>Model year</th>
+					  <th>Car registration no</th>
+					  <th>Fuel type</th>
+					  <th>Color</th>
+					  <th>Gear type</th>
+					  <th>Chassis_No</th>
+					  <th>Engine_No</th>
+					  <th>Date of Sale</th>
+					  <th>Approx.date for Delivery</th>
+					  <th> Amc Type</th>-->
 					 <!--  <th>ModeofPayment</th>-->
                        </tr>
-                        <?php
-						$query=mysql_query("select * from deliv_detail");
-						while($row=mysql_fetch_assoc($query))
-						{
-						?>
+						<?php
+
+while($row=mysql_fetch_assoc($sql))
+{
+
+?>
+
 						<tr>
-						<td><?php echo $row['enq_id']; ?></td>
-						
-						
-						<td><?php echo $row['cust_name']; ?></td>
-						
-						<td><?php echo $row['deliv_id']; ?></td>
-						
-						
-					    <td><?php echo $row['model1']; ?></td>
-						
+						<td><?php echo $row['Cus_name']; ?></td>						
+						<td><?php echo $row['Enq_id']; ?></td>
 						
 						
 						
 						<div class="btn-group">
-						<td> 
-							<button type="button" class="btn btn-primary" onClick="location.href='pages/forms/deliveryedit.php?edi=<?php echo $row['enq_id']; ?>'">EDIT</a></button>
+						<td>
+							 <button type="button" class="btn btn-primary" name="insert" onClick="location.href='pages/forms/delivery.php?det=<?php echo $row['Enq_id'];
+							 ?>'"  value="Add Entry">Add Entry</button>
+
 							</td>
 							<td>
-							<button type="button" class="btn btn-primary" onClick="location.href='deliverydetailindex.php?did=<?php echo $row['enq_id']; ?>'" >DELETE</a></button>
-							</td>
-							<td>
-							<button type="button" class="btn btn-primary" onClick="window.open('http://localhost/new1/deliveryprint.php?did=<?php echo $row['enq_id']; ?>', '_blank')">PRINT</a></button>
+							<a class="btn btn-primary" target="_blank" href='deliveryprint.php?did=<?php echo $row['Enq_id']; ?>' >PRINT</a>
                            </td>
 						   <td>
-							<button type="button" class="btn btn-primary" onClick="location.href='dompdf/delivpdf.php?gdf=<?php echo $row['enq_id']; ?>'" > GENERATE PDF</a></button>
+							<button type="button" class="btn btn-primary" onClick="location.href='delivpdf.php?gdf=<?php echo $row['Enq_id']; ?>'" > GENERATE PDF</button>
                            </td>
-						   <td>
-							<button type="button" class="btn btn-primary" onClick="location.href='mails/deliverymail.php?smd=<?php echo $row['enq_id']; ?>'" > SEND MAIL</a></button>
+						    <td>
+							<button type="button" class="btn btn-primary" onClick="location.href='deliverymail.php?smd=<?php echo $row['Enq_id']; ?>'" > Send Mail</a></button>
                            </td>
 						   
+						
 						</div>
+						<?php }?>
 						</tr>
-						<?php } ?>
-						  </div>
+					
+					</div>
 						  </tbody>
 						</table>
 					
@@ -313,5 +330,10 @@ if(isset($_GET['did']))
     <script src="dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
+	 <script>
+	function eraseText() {
+    document.getElementById("q").value = "";
+}
+	</script>	
   </body>
 </html>

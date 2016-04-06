@@ -1,26 +1,108 @@
 <?php
 require('sales_db.php');
+$sql=mysql_query("select * from downpayment where Enq_id='".$_GET['detail']."'");
+$row=mysql_fetch_assoc($sql);
 if(isset($_POST['submit']))
 {
-$query=mysql_query("insert into invoice_details(enq_no,custname,title,fathername,invoice_no,booking_no ,doe,doi,email,addr,pin_code,delivery,particulars,qty,up,amt,unit_concess,tot_concess,af_concess,tot_tax,grs_tot,adjust,grand_tot,color,eng_no,cha_no) VALUES ('".$_POST['enq_no']."','".$_POST['custname']."','".$_POST['title']."','".$_POST['fathername']."','".$_POST['invoice_no']."','".$_POST['booking_no']."','".$_POST['doe']."','".$_POST['doi']."','".$_POST['email']."','".$_POST['addr']."','".$_POST['pin_code']."','".$_POST['delivery']."','".$_POST['particulars']."','".$_POST['qty']."','".$_POST['up']."','".$_POST['amt']."','".$_POST['unit_concess']."','".$_POST['tot_concess']."','".$_POST['af_concess']."','".$_POST['tot_tax']."','".$_POST['grs_tot']."','".$_POST['adjust']."','".$_POST['grand_tot']."','".$_POST['color']."','".$_POST['eng_no']."','".$_POST['cha_no']."')");
-#echo "insert into lead_details(custname,doe,phone,addr,t_d ,email,optionsRadios,city,salesperson,model,src,mop,optionsRadios1,optionsRadios2,follow_date,toc,next_foll,enquire) VALUES ('".$_POST['custname']."','".$_POST['doe']."','".$_POST['phone']."','".$_POST['addr']."','".$_POST['t_d']."','".$_POST['email']."','".$_POST['optionsRadios']."','".$_POST['city']."','".$_POST['salesperson']."','".$_POST['model']."','".$_POST['src']."','".$_POST['mop']."','".$_POST['optionsRadios1']."','".$_POST['optionsRadios2']."','".$_POST['follow_date']."','".$_POST['toc']."','".$_POST['next_foll']."','".$_POST['enquire']."')";
-#echo "value inserted";
+$query=mysql_query("insert into invoice_details(Enq_id,Cus_id,Book_id,Invoice_id,Cus_name,title,Father_name,app_date,inv_date,Email,Res_addr,Pincode,Deliv_at,particulars,quant,unit_price,price,unit_concess,tot_concess,af_concess,tot_tax,grs_tot,adjust,grand_tot,color,eng_no,cha_no,MOP) VALUES ('".$_POST['Enq_id']."','".$_POST['Cus_id']."','".$_POST['Book_id']."','".$_POST['Invoice_id']."','".$_POST['Cus_name']."','".$_POST['title']."','".$_POST['Father_name']."','".$_POST['app_date']."','".$_POST['inv_date']."','".$_POST['Email']."','".$_POST['Res_addr']."','".$_POST['Pincode']."','".$_POST['Deliv_at']."','".$_POST['particulars']."','".$_POST['quant']."','".$_POST['unit_price']."','".$_POST['price']."','".$_POST['unit_concess']."','".$_POST['tot_concess']."','".$_POST['af_concess']."','".$_POST['tot_tax']."','".$_POST['grs_tot']."','".$_POST['adjust']."','".$_POST['grand_tot']."','".$_POST['color']."','".$_POST['eng_no']."','".$_POST['cha_no']."','".$_POST['mop']."')");
+$sql1=mysql_query("select * from invoice_details where Enq_id='".$_GET['detail']."'");
+$row1=mysql_fetch_assoc($sql1);
+
+{
+		$contents="";
+		$foot="";
+		$title ='<h3 align="center"><font color="#063998">- Invoice--Purchase -</font></h3>';
+		
+		$contents .='Dear <strong style="font-size:16px">'.$row1['Cus_name'].'</strong><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You have booked the vehicle with the following details at 
+					<strong style="font-size:18px;color:#00008B">Aadhi</strong>
+					<strong style="font-size:18px;color:#FF0000"> Maruthi</strong> , Sivanandhapuram
+					<br><br>
+					Your booking details are <br><br>
+					<b>Invoice No </b>'.$row1['Invoice_id'].' 
+					<br>
+					
+					'.$row['particulars'].' in '.$row['color'].' color with ENGINE NUMBER '.$row['eng_no'].' and CHASSIS NUMBER '.$row['cha_no'].'
+					<br>
+					
+					The total price of your purchase is <b>'.$row['grand_tot'].'</b> which is inclusive of 14.5% tax that amounts to '.$row['tot_tax'].'		
+					<br><br><br>';
+					
+					$foot .='Thanks <br>';
+					$foot .='<strong style="font-size:20px;color:#00008B">Aadhi</strong>
+					<strong style="font-size:20px;color:#FF0000"> Maruthi</strong>';
+
+		
+		$mail = new PHPMailer();
+		$mail->IsSMTP(); 
+		$mail->Host = "10.100.1.209";  
+		$mail->From = "mahalakshmi.s2012@kgkite.ac.in";
+		$mail->FromName = 'Aadhi Maruthi';		
+		//$mail->AddAddress($to_email);
+		$mail->AddAddress($row['Email']);				
+		$mail->IsHTML(true);    
+		$mail->Subject = "Invoice--Purchase";
+		$mail->Body = $title.$contents.$foot;;
+		//$mail->WordWrap = 50;
+	
+			if(!$mail->Send())
+			{
+			   echo 'Message was not sent.';
+			
+			}
+			else
+			{
+			  echo 'Message has been sent.';
+			  header("location:invoiceindex.php");
+			} 
+			
+			$contents .="";
+	}
+	
+
+
 if($query)
 {
- echo "updated!!!!!";
+ 
  header("location:pages/examples/invoiceindex.php");
+ 
  
 }
 }
+
 ?>
 
 
 <html>
+  <html>
   <head>
- 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Adhi Maruti CRM</title>
+	
+    <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
+	 <title>Adhi Maruti CRM</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=100, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -75,8 +157,7 @@ if($query)
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown user user-menu">
+				<li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
                   <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
@@ -90,12 +171,12 @@ if($query)
                     </p>
                   </li>
                   <!-- Menu Body -->
-                 
+				  
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     
-                    <div class="pull-right">
-					  <a href="logout.php">Sign out</a>
+                    <div class="text-center">
+					  <a href="pages/examples/logout.php">Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -104,23 +185,23 @@ if($query)
           </div>
         </nav>
       </header>
-	  </div>
       <!-- Left side column. contains the logo and sidebar -->
 	  <aside style="font-family: &quot;Comic Sans MS&quot;,cursive,sans-serif;" class="main-sidebar">
            <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar" style="height:auto; padding-bottom:300px">
+        <section class="sidebar">
           <!-- Sidebar user panel -->
           
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+                <form class="sidebar-form" autocomplete="off">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
-          <!-- /.search form -->
+              <input type="text" id="q" class="form-control" placeholder="Search..." onkeyup="showResult(this.value)">
+			  <span class="input-group-btn">
+                <button type="button" id="search" class="btn btn-flat" onclick="javascript:eraseText();"><i class="fa fa-times"></i></button>
+              </span>              
+			   </div>
+			   <div id="livesearch"></div>
+			</form>
+     <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
@@ -133,37 +214,37 @@ if($query)
                 <li><a href="pages/forms/pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
-            <li class="active treeview">
+            <li class="active treeview" >
               <a href="#">
                 <i class="fa fa-cog"></i><span>Sales</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu" class="treeview-active">
                 <li><a href="pages/forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li  class="active"><a href="pages/examples/invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-             <!--   <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>-->
+				<li class="active"><a href="pages/examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
                 <li><a href="deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.php">
+             <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="pages/forms/amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="pages/forms/appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="pages/forms/ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="pages/forms/ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
-            <li class="treeview">
-              <a href="index.php">
+             <li class="treeview">
+              <a href="pages/forms/report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
             </li>
             <li class="treeview">
-              <a href="#index.php">
+              <a href="#index.html">
                 <i class="fa fa-inr"></i>
                 <span>Finance</span>
               </a>
@@ -174,21 +255,15 @@ if($query)
               </a>
               </li>
             <li>
-              <a href="index.php">
+              <a href="pages/calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
             <li>
-              <a href="index.php">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+              <a href="mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
-            </li> 
-<li class="treeview">
-              <a href="pages/examples/logout.php">
-                <i class="fa fa-circle-o-notch"></i>
-                <span>Logout</span>
-              </a>
-              </li> 			
+            </li>  	
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -219,109 +294,88 @@ if($query)
                  <div class="box-header with-border">
                   
                <!-- /.box-header -->
-		<form role="form" method="post" oninput=" amt.value=qty.value*up.value; tot_concess.value=qty.value*unit_concess.value; af_concess.value=amt.value-tot_concess.value; tot_tax.value=(14.50*amt.value)/100; grs_tot.value=parseInt(af_concess.value)+parseInt(tot_tax.value); grand_tot.value=grs_tot.value-adjust.value;">
+		<form role="form" method="post" oninput="tot_concess.value=quant.value*unit_concess.value; af_concess.value=price.value-tot_concess.value; tot_tax.value=(14.50*price.value)/100; grs_tot.value=parseInt(af_concess.value)+parseInt(tot_tax.value); grand_tot.value=grs_tot.value-adjust.value;">
 	
               
 				   <div class="box-body">
 				  <div class="col-xs-3">
 				 
 				  <div class="form-group">
-				  <label>Enquiry_No</label>
-					  <input type="text" style="width:70%" class="form-control input-sm"  name="enq_no" placeholder="Enter Enquiry no.." required>
+				  <label>Enquiry Id</label>
+					  <input type="text" style="width:70%" class="form-control input-sm"  name="Enq_id"  value="<?php echo $row['Enq_id'] ?>"  required>
+				  </div>
 				  
-                   <!-- <button type="submit" class="btn btn-primary" name="search" onClick="location.href='invoicedetails.php?search=<?php echo $row['enquire']; ?>'">Search</button>-->
-                
+				  <div class="form-group">
+				  <label>Customer Id</label>
+					  <input type="text" style="width:70%" class="form-control input-sm"  name="Cus_id" value="<?php echo $row['Cus_id'] ?>"  required>
+				  </div>
+				  <div class="form-group">
+				  <label>Booking_No</label>
+					  <input type="text" style="width:70%" class="form-control input-sm"  name="Book_id" value="<?php echo $row['Book_id'] ?>"   required>
+				  </div>
+				  <div class="form-group">
+				  <label>Invoice_No</label>
+					  <input type="text" style="width:70%" class="form-control input-sm"  name="Invoice_id" placeholder="Enter Invoice no.." required>
 				  </div>
 				  
 				   <div class="form-group">
                       <label for="mail">Customer_Name</label>
-					  <input type="text" style="width:70%" class="form-control input-sm"  name="custname" placeholder="Enter name" required>
+					  <input type="text" style="width:70%" class="form-control input-sm"  name="Cus_name"  value="<?php echo $row['Cus_name'] ?>"  required>
                     </div>
 				   
-				   <div class="form-group">
-                      <label for="mail">Title</label>
-					   <select class="form-control" style="width:70%" name="title" required>
-					   <option value='S/O'<?php if('S/O'==$row['title']){ ?>selected="selected"<?php } ?>>S/O</option>
-					   <option value='D/O'<?php if('D/O'==$row['title']){ ?>selected="selected"<?php } ?>>D/O</option>
+					 <div class="form-group">
+					  <select class="form-control" style="width:50%" name="title" required>
+					   <option>S/O</option>
+					   <option>D/O</option>
 					   </select>
+					  <input type="text" style="width:70%" class="form-control input-sm"  name="Father_name" placeholder="Enter father name.." required>
+                    </div>
+					<div class="form-group">
+                      <label for="mail">MOP</label>
+					  <input type="text" style="width:70%" class="form-control input-sm"  name="mop"  value="Pay advance"  required readonly>
                     </div>
 					
-					 <div class="form-group">
-                      <label for="mail">Father_Name</label>
-					  <input type="text" style="width:70%" class="form-control input-sm"  name="fathername" placeholder="Enter name" required>
-                    </div>
-				  
-				  <div class="form-group">
-				  <label>Invoice_No</label>
-					  <input type="text" style="width:70%" class="form-control input-sm"  name="invoice_no" placeholder="Enter Invoice no.." required>
-				  </div>
-				  <div class="form-group">
-				  <label>Booking_No</label>
-					  <input type="text" style="width:70%" class="form-control input-sm"  name="booking_no" placeholder="Enter Booking no.." required>
-				  </div>
-				  
-				   
-				        
                   </div>
 				  
 				  <div class="col-xs-3">
 				 
 				   <div class="form-group">
-                    <label>Date of Enquiry</label>
-					<div class="input-group date" data-provide="datepicker" style="width:70%">
-                     <input type="text" class="form-control" name="doe" required>
-                      <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
-                        </div>
-                      </div>
-                    <!-- /.input group -->
-                  </div>
+				   <label>Date of booking</label>
+				   <input type="text" style="width:70%" class="form-control input-sm"  name="app_date" value="<?php echo $row['app_date']?>"  required>
+				   </div>
+			
+					<div class="form-group">
+				   <label>Date of Invoice Entry</label>
+				   <input type="text" style="width:70%" class="form-control input-sm"  name="inv_date"  
+				  value=" <?php echo Date("Y-m-d")?>"
+				   required>
+				   </div>
 				  
-				   <div class="form-group">
-                    <label>Date of Invoice Entry</label>
-					<div class="input-group date" data-provide="datepicker" style="width:70%">
-                     <input type="text" class="form-control" name="doi" required>
-                      <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
-                        </div>
-                      </div>
-                    <!-- /.input group -->
-                  </div>
+				   
 				  
 				  
 				  
 				   <div class="form-group">
                       <label for="exampleInputEmail1">Email</label>
-                      <input type="email" style="width:70%" class="form-control input-sm" id="exampleInputEmail1" name="email" placeholder="Enter mail" required>
+                      <input type="email" style="width:70%" class="form-control input-sm"  name="Email"   value="<?php echo $row['Email'] ?>" required>
                     </div>
 					
 					<div class="form-group">
                       <label>Address</label>
-                      <textarea class="form-control input-sm" style="width:70%" rows="3" name="addr" placeholder="Enter ..."></textarea>
+                      <textarea class="form-control input-sm" style="width:70%" rows="3" name="Res_addr"><?php echo $row['Res_addr'] ?></textarea>
                     </div>
 					
-					<!--<div class="form-group">
-                      <label>City</label>
-                      <select class="form-control" style="width:70%" name="city" required>
-					    <option>Select a city</option>
-                        <option>Chennai</option>
-                        <option>Coimbatore</option>
-                        <option>Trichy</option>
-                        <option>Tirupur</option>
-                        <option>Others</option>
-                      </select>
-					  </div>-->
 					  <div class="form-group">
                       <label>Pincode</label>
-                      <input type="text" style="width:70%" class="form-control input-sm"  name="pin_code" placeholder="Enter pincode" required>
+                      <input type="text" style="width:70%" class="form-control input-sm"  name="Pincode"   value="<?php echo $row['Pincode'] ?>" required>
                     </div>
 				  
 				  
 				   
 				  <div class="form-group">
 				  <label>Delivery At</label>
-					  <select class="form-control" style="width:70%" name="delivery" required>
-					    <option>Select Place</option>
+					  <select class="form-control" style="width:70%" name="Deliv_at" required>
+					    <option>--Select Place--</option>
                         <option>Showroom</option>
                         <option>At customer place</option>
 						</select>
@@ -332,24 +386,24 @@ if($query)
 				   <div class="col-xs-3">
 				   <div class="form-group">
 				   <label>Particulars</label>
-				   <textarea class="form-control input-sm" style="width:70%" rows="3" name="particulars" placeholder="Enter ..." required></textarea>
+				   <textarea class="form-control input-sm" style="width:70%" rows="3" name="particulars" required><?php echo $row['category']; echo $row['subcategory'] ?></textarea>
                      </div>
 					 
 					 <div class="form-group">
 				   <label>Quantity</label>
-				   <input type="text" style="width:70%" class="form-control input-sm"  name="qty" placeholder="Enter quantity" required>
+				   <input type="text" style="width:70%" class="form-control input-sm"  name="quant" value="<?php echo $row['quant'] ?>"  required>
 				   </div>
 				   
 				   
 				   
 				   <div class="form-group">
 				   <label>Unit Price Rs.</label>
-				   <input type="text" style="width:70%" class="form-control input-sm"  name="up" placeholder="Enter price..." required>
+				   <input type="text" style="width:70%" class="form-control input-sm"  name="unit_price" value="<?php echo $row['unit_price'] ?>"  required>
 				   </div>
 				   
 				    <div class="form-group">
 				   <label>Amount Rs.</label>
-				   <input type="text" style="width:70%" class="form-control input-sm"  name="amt" >
+				   <input type="text" style="width:70%" class="form-control input-sm"  name="price" value="<?php echo $row['price'] ?>"  required >
 				   </div>
 				   
 				   <div class="form-group">
@@ -435,7 +489,8 @@ if($query)
 				  <!-- /.box-body -->
                   
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+				  
+                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>									
                   </div>
                 </form>
               </div>
@@ -492,7 +547,10 @@ if($query)
         });
       });
     </script>
-	
-	
+	  <script>
+	function eraseText() {
+    document.getElementById("q").value = "";
+}
+	</script>		
   </body>
 </html>

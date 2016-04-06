@@ -3,7 +3,7 @@ require('../../sales_db.php');
 if(isset($_GET[edi]))
 {
 $sql=mysql_query("select * from deliv_detail where enq_id='".$_GET['edi']."' ");
-#echo "select * from deliv_detail where enq_id='".$_GET['edi']."' ";
+echo "select * from deliv_detail where enq_id='".$_GET['edi']."' ";
 $row=mysql_fetch_assoc($sql);
 }
 if(isset($_POST['submits']))
@@ -92,28 +92,24 @@ if($result)
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-				 <li class="dropdown user user-menu">
+              <!-- Messages: style can be found in dropdown.less-->
+              <li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="../../dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
-                  <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
+                  <i class="fa fa-envelope-o"></i>
+                 </a>
+				 </li>
+                 <!-- Notifications: style can be found in dropdown.less -->
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
                 </a>
-                <ul class="dropdown-menu">
-                  <!-- User image -->
-                  <li class="user-header">
-                    <img src="../../dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                    <p>
-					  <?php echo $_SESSION['username'] ?>
-                    </p>
-                  </li>
-                  <!-- Menu Body -->
-                  <!-- Menu Footer-->
-                  <li class="user-footer">                    
-                    <div class="text-center">
-					  <a href="../../pages/examples/logout.php">Sign out</a>
-                    </div>
-                  </li>            
-               </ul>
-			   </li>
+				</li>
+               <!-- Tasks: style can be found in dropdown.less -->
+              <li class="dropdown tasks-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-flag-o"></i>
+                </a>
+				</li>
                </ul>
           </div>
         </nav>
@@ -141,8 +137,9 @@ if($result)
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
+             </li>		 
               <ul class="treeview-menu">
-                <li><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+                <li><a href="../../leaddetails.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
@@ -153,23 +150,24 @@ if($result)
               </a>
               <ul class="treeview-menu" class="treeview-active">
                 <li><a href="oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="../examples/invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-          <!--      <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li> -->
-                <li class="active"><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
+				<li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> Purchase Details</a></li>
+                <li class="active"><a href="pages/forms/deliveryedit.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.html">
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
-            <li class="treeview">
+             <li class="treeview">
               <a href="report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
@@ -195,8 +193,7 @@ if($result)
               <a href="mailbox.php">
                 <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
-            </li> 
-			</ul>
+            </li>  	
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -209,7 +206,7 @@ if($result)
             Delivery
           </h1>
           <ol class="breadcrumb">
-            <li><a href="../../index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 			<li class="active">Delivery Details</li>
           </ol>
         </section>
@@ -297,13 +294,12 @@ if($result)
               <label>Model</label>
      		    <select class="form-control" style="width:70%" name="model1" >
 					    <option>Select a car model</option>
-						 <?php 
-					$query = "SELECT * FROM carmodel"; 
-					$result = mysql_query($query); 
-					while ($line = mysql_fetch_array($result)) { ?>
-					<option value="<?php echo $line['modelname'];?>" <?php if($line['modelname']==$row['model1']){ ?>selected="selected"<?php } ?>> 
-					<?php echo $line['modelname'];?> </option>   <?php } ?>
-					 </select>
+                        <option value='swift'<?php if('swift'==$row['model1']){ ?>selected="selected"<?php } ?>>swift</option>
+                        <option value='ritz'<?php if('ritz'==$row['model1']){ ?>selected="selected"<?php } ?>>ritz</option>
+                        <option value='celerio'<?php if('celerio'==$row['model1']){ ?>selected="selected"<?php } ?>>celerio</option>
+                        <option value='s-cross'<?php if('s-cross'==$row['model1']){ ?>selected="selected"<?php } ?>>s-cross</option>
+                        <option value='sx4'<?php if('sx4'==$row['model1']){ ?>selected="selected"<?php } ?>>sx4</option>
+     			</select>
              </div>
 			 <div class="form-group">
 			  <label>Model year</label>

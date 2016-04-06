@@ -19,9 +19,6 @@
 					  <th size="10" width="10%">startdate</th>
 					  <th size="10" width="10%">enddate</th>
 					  <th size="10" width="10%">year</th>
-					  <th size="10" width="10%">follow_up1</th>
-					  <th size="10" width="10%">follow_up2</th>
-					  <th size="10" width="10%">follow_up3</th>
 					  </tr>
                     </thead> 
 					<tbody>
@@ -50,9 +47,6 @@
 						<td><?php echo $row['startdate']; ?></td>
 						<td><?php echo $row['enddate']; ?></td>
 						<td><?php echo $row['year']; ?></td>
-						<td><?php echo $row['follow_up1']; ?></td>
-						<td><?php echo $row['follow_up2']; ?></td>
-						<td><?php echo $row['follow_up2']; ?></td>
 						</tr>
 						<?php } ?>
 						  </tbody>

@@ -3,7 +3,6 @@ require('sales_db.php');
 if(isset($_GET[edi]))
 {
 $sql=mysql_query("select * from lead_details where enquire='".$_GET['edi']."' ");
-#echo "select * from lead_details where enquire='".$_GET['edi']."' ";
 $row=mysql_fetch_assoc($sql);
 }
 if(isset($_POST['submit']))
@@ -41,6 +40,29 @@ if($result)
 
 <html>
   <head>
+  <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Adhi Maruti CRM</title>
@@ -98,7 +120,7 @@ if($result)
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <li class="dropdown user user-menu">
+             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
                   <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
@@ -111,13 +133,12 @@ if($result)
 					  <?php echo $_SESSION['username'] ?>
                     </p>
                   </li>
-                  <!-- Menu Body -->
                  
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    
-                    <div class="text-center">
-					  <a href="pages/examples/logout.php">Sign out</a>
+                   <div class="text-center">
+					  <a href="pages/examples/login.php">
+                      Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -126,7 +147,7 @@ if($result)
           </div>
         </nav>
       </header>
-	  </div>
+	  
       <!-- Left side column. contains the logo and sidebar -->
 	  <aside style="font-family: &quot;Comic Sans MS&quot;,cursive,sans-serif;" class="main-sidebar">
            <!-- sidebar: style can be found in sidebar.less -->
@@ -134,14 +155,15 @@ if($result)
           <!-- Sidebar user panel -->
           
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+           <form class="sidebar-form" autocomplete="off">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
+              <input type="text" id="q" class="form-control" placeholder="Search..." onkeyup="showResult(this.value)">
+			  <span class="input-group-btn">
+                <button type="button" id="search" class="btn btn-flat" onclick="javascript:eraseText();"><i class="fa fa-times"></i></button>
+              </span>              
+			   </div>
+			   <div id="livesearch"></div>
+			</form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
@@ -167,15 +189,16 @@ if($result)
                 <li><a href="deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.php">
+             <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="pages/forms/amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="pages/forms/appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="pages/forms/ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="pages/forms/ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -404,9 +427,7 @@ if($result)
 						<option value='After 21 days'<?php if('After 21 days'==$row['next_foll']){ ?>selected="selected"<?php } ?>>After 21 days</option>
                       </select>
                     </div>
-				    <!--<div class="form-group">
-                      <label for="enq">Enquiry_Id</label><input type="text" style="width:70%" class="form-control input-sm" id="enq_id" name="enquire" value="<?php echo $row['enquire']; ?>" required>
-                    </div>-->
+				    
 					</div>					 
 				  <!-- /.box-body -->
                   </div>
@@ -417,7 +438,7 @@ if($result)
               </div>
         
       </div><!-- /.content-wrapper -->
-      
+      </div>
 
       
 
@@ -468,5 +489,10 @@ if($result)
         });
       });
     </script>
+	<script>
+	function eraseText() {
+    document.getElementById("q").value = "";
+}
+	</script>
   </body>
 </html>

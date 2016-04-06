@@ -1,10 +1,33 @@
 <?php
 require('../../sales_db.php');
-$sql=mysql_query("select * from invoice_details where invoice_no='".$_GET['view']."' ");
+$sql=mysql_query("select * from invoice_details where Enq_id='".$_GET['view']."' ");
 $row=mysql_fetch_assoc($sql);
 ?>
 <html>
   <head>
+      <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","../../livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Aadhi Maruthi | Invoice</title>
@@ -29,9 +52,10 @@ $row=mysql_fetch_assoc($sql);
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+ <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-<header class="main-header">
+
+      <header class="main-header">
         <!-- Logo -->
         <a style="background-color: rgb(204, 238, 255);" href="index.php" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -47,44 +71,26 @@ $row=mysql_fetch_assoc($sql);
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                 </a>
-				 </li>
-                 <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
-                </a>
-				</li>
-               <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                </a>
-				</li>
 				<li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="../../dist/img/account.jpeg" class="user-image" alt="User Image">
+                  <img src="../../dist/img/user3-128x128.jpg" class="user-image" alt="User Image">
                   <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="../../dist/img/account.jpeg" class="img-circle" alt="User Image">
+                    <img src="../../dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
                     <p>
 					  <?php echo $_SESSION['username'] ?>
                     </p>
                   </li>
                   <!-- Menu Body -->
-                 
+				  
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     
-                    <div class="pull-right">
-					  <a href="logout.php">Sign out</a>
+                    <div class="text-center">
+					  <a href="login.php">Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -93,91 +99,85 @@ $row=mysql_fetch_assoc($sql);
           </div>
         </nav>
       </header>
-	  
-	  <!-- Left side column. contains the logo and sidebar -->
+      <!-- Left side column. contains the logo and sidebar -->
 	  <aside style="font-family: &quot;Comic Sans MS&quot;,cursive,sans-serif;" class="main-sidebar">
            <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar" style="height:auto; padding-bottom:290px">
+        <section class="sidebar">
           <!-- Sidebar user panel -->
           
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+          <form class="sidebar-form" autocomplete="off">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
+              <input type="text" id="q" class="form-control" placeholder="Search..." onkeyup="showResult(this.value)">
+			  <span class="input-group-btn">
+                <button type="button" id="search" class="btn btn-flat" onclick="javascript:eraseText();"><i class="fa fa-times"></i></button>
+              </span>              
+			   </div>
+			   <div id="livesearch"></div>
+			</form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-cogs"></i> <span>Pre-Sales</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu" class="treeview-active">
-                <li class="active"><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
+              <ul class="treeview-menu">
+                <li><a href="../../leaddetailsindex.php"><i class="fa fa-circle-o"></i> Lead Details</a></li>
                 <li><a href="../forms/pre.php"><i class="fa fa-circle-o"></i> Pre-sales Feedback</a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="active treeview">
               <a href="#">
                 <i class="fa fa-cog"></i><span>Sales</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu">
+              <ul class="treeview-menu" class="treeview-active">
                 <li><a href="../forms/oppur.php"><i class="fa fa-circle-o"></i> Opportunity Details</a></li>
-				<li><a href="invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
-               <!-- <li><a href="index.php"><i class="fa fa-circle-o"></i> Purchase Details</a></li>-->
+				<li class="active"><a href="invoiceindex.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
                 <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.php">
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href="index.php"><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="../forms/amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="../forms/appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="../forms/ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="../forms/ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="index.php">
+              <a href="report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
                 </a>
             </li>
             <li class="treeview">
-              <a href="#index.php">
+              <a href="#index.html">
                 <i class="fa fa-inr"></i>
                 <span>Finance</span>
               </a>
               </li>
             <li class="treeview">
-              <a href="../forms/post.php">
+              <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>
               </a>
               </li>
             <li>
-              <a href="index.php">
+              <a href="../calendar.php">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
             <li>
-              <a href="index.php">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+              <a href="mailbox.php">
+                <i class="fa fa-envelope-o"></i> <span>Mailbox</span>
                </a>
-            </li> 
-<li class="treeview">
-              <a href="logout.php">
-                <i class="fa fa-circle-o-notch"></i>
-                <span>Logout</span>
-              </a>
-              </li> 			
+            </li>  	
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -190,31 +190,13 @@ $row=mysql_fetch_assoc($sql);
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
 	  
-	  <!-- <section class="content-header">
-	   <a href="invoiceindex.php"><h3><i class="fa fa-reply"></i></h3></a> 
-          <h1>
-            Invoice details
-            
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="../../index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-			<li class="active">Invoice Details</li>
-          </ol>
-        </section>
-		
-		
-		
-         <br></br>-->
-        <!-- Content Header (Page header) -->
-		
         <section class="content-header">
           <h1>
             Invoice 
-            <small><?php echo $row['invoice_no']; ?></small>
+            <small><?php echo $row['Invoice_id']; ?></small>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="../../index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Sales</a></li>
+            <li><a href="../../index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Invoice</li>
           </ol>
         </section>
@@ -233,7 +215,7 @@ $row=mysql_fetch_assoc($sql);
             <div class="col-xs-12">
               <h2 class="page-header">
                 <i class="fa fa-globe"></i> Aadhi Maruthi
-                <small class="pull-right"><b>Date&nbsp;&nbsp;</b><?php echo $row['doi']; ?></small>
+                <small class="pull-right"><b>Date&nbsp;&nbsp;</b><?php echo $row['inv_date']; ?></small>
               </h2>
             </div><!-- /.col -->
           </div>
@@ -252,17 +234,17 @@ $row=mysql_fetch_assoc($sql);
             <div class="col-sm-4 invoice-col">
               To
               <address>
-                <strong><?php echo $row['custname']; ?></strong><br>
-				<?php echo $row['title']; ?>&nbsp;&nbsp;<?php echo $row['fathername']; ?><br>
-               <?php echo $row['addr']; ?><br>
-			    <b>Pin Code&nbsp;&nbsp;</b><?php echo $row['pin_code']; ?><br>
+                <strong><?php echo $row['Cus_name']; ?></strong><br>
+				<?php echo $row['title']; ?>&nbsp;&nbsp;<?php echo $row['Father_name']; ?><br>
+               <?php echo $row['Res_addr']; ?><br>
+			    <b>Pin Code&nbsp;&nbsp;</b><?php echo $row['Pincode']; ?><br>
               </address>
             </div><!-- /.col -->
             <div class="col-sm-4 invoice-col">
-              <b>Invoice No&nbsp;&nbsp;</b><?php echo $row['invoice_no']; ?><br>
+              <b>Invoice No&nbsp;&nbsp;</b><?php echo $row['Invoice_id']; ?><br>
              
-              <b>Booking ID&nbsp;&nbsp;</b> <?php echo $row['booking_no']; ?><br>
-			  <b>Delivery At&nbsp;&nbsp;</b><?php echo $row['delivery']; ?><br>
+              <b>Booking ID&nbsp;&nbsp;</b> <?php echo $row['Book_id']; ?><br>
+			  <b>Delivery At&nbsp;&nbsp;</b><?php echo $row['Deliv_at']; ?><br>
               
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -280,9 +262,9 @@ $row=mysql_fetch_assoc($sql);
                   </tr>
 				  <tr>
 						<td><?php echo $row['particulars']; ?>
-						<td><?php echo $row['qty']; ?>
-						<td><?php echo $row['up']; ?>
-						<td><?php echo $row['amt']; ?>
+						<td><?php echo $row['quant']; ?>
+						<td><?php echo $row['unit_price']; ?>
+						<td><?php echo $row['price']; ?>
 				  </tr>
 				  </body>
 				  </table>
@@ -322,12 +304,17 @@ $row=mysql_fetch_assoc($sql);
                 <tbody>
                   <tr class="info">
                     <th>Color</th>
+					<th></th>
                     <th>Engine No.</th>
+					<th></th>
                     <th>Chassis No.</th>
                   </tr>
+				  
 				  <tr>
 						<td><?php echo $row['color']; ?></td>
+						<td></td>
 						<td><?php echo $row['eng_no']; ?></td>
+						<td></td>
 						<td><?php echo $row['cha_no']; ?></td>
 				  </tr>
 				  </tbody>
@@ -409,11 +396,11 @@ $row=mysql_fetch_assoc($sql);
           <!-- this row will not appear when printing -->
           <div class="row no-print">
             <div class="col-xs-12">
-              <a href="invoiceprint.php?print=<?php echo $row['invoice_no']; ?>" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+              <a href="invoiceprint.php?print=<?php echo $row['Invoice_id']; ?>" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
              <!-- <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>-->
-			 <a href="dompdf/genpdf.php?pdf=<?php echo $row['invoice_no'] ?>" target="_blank" class="btn btn-primary pull-right"><i class="fa fa-download"></i>Generate PDF</a>
-              <!--<button class="btn btn-primary pull-right" style="margin-right: 5px;" onclick="dompdf/genpdf.php?pdf=<?php echo $row['invoice_no']; ?>"><i class="fa fa-download"></i> Generate PDF</button>-->
-               <a href="../../mails/sendinvoice.php?send=<?php echo $row['invoice_no']; ?>" class="btn btn-primary pull-right" style="margin-right: 5px;" name="submit"><i class="fa fa-envelope-o"></i> Send email</a>
+			 <a href="dompdf/genpdf.php?pdf=<?php echo $row['Invoice_id'] ?>" target="_blank" class="btn btn-primary pull-right"><i class="fa fa-download"></i>Generate PDF</a>
+              <!--<button class="btn btn-primary pull-right" style="margin-right: 5px;" onclick="dompdf/genpdf.php?pdf=<?php echo $row['Invoice_id']; ?>"><i class="fa fa-download"></i> Generate PDF</button>-->
+               <a href="../../mails/sendinvoice.php?send=<?php echo $row['Invoice_id']; ?>" class="btn btn-primary pull-right" style="margin-right: 5px;" name="submit"><i class="fa fa-envelope-o"></i> Send email</a>
 		   </div>
           </div>
         </section><!-- /.content -->
@@ -438,5 +425,10 @@ $row=mysql_fetch_assoc($sql);
     <script src="../../dist/js/app.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
+	  <script>
+	function eraseText() {
+    document.getElementById("q").value = "";
+}
+	</script>	
   </body>
 </html>

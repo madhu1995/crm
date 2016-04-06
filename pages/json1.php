@@ -1,8 +1,7 @@
 <?php
-    $con=mysql_connect("localhost", "root", "") or die("Could not connect");
-    mysql_select_db("service1",$con) or die("Could not select database");
+    require('../sales_db.php');
 	$events = array();
-	$query = mysql_query( "SELECT * FROM events");
+	$query = mysql_query( "SELECT * FROM ser_events");
 	while($fetch = mysql_fetch_array($query))
 	{
 	$e = array();

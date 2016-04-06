@@ -1,0 +1,21 @@
+<pages>
+<link><title>Lead Index</title><url>http://localhost/Project/leaddetailsindex.php</url></link>
+<link><title>Lead Entry</title><url>http://localhost/Project/leaddetails.php</url></link>
+<link><title>Pre sales feedback</title><url>http://localhost/Project/pages/forms/pre.php</url></link>
+<link><title>Opportunity Index</title><url>http://localhost/Project/pages/forms/oppur.php</url></link>
+<link><title>Sales invoice index</title><url>http://localhost/Project/pages/examples/invoiceindex.php</url></link>
+<link><title>Delivery details</title><url>http://localhost/Project/deliverydetailindex.php</url></link>
+<link><title>Sign Amc</title><url>http://localhost/Project/pages/forms/amc_delete.php</url></link>
+<link><title>Renew Amc</title><url>http://localhost/Project/pages/forms/amc_renewal.php</url></link>
+<link><title>Fix service appointments</title><url>http://localhost/Project/pages/forms/appdelete.php</url></link>
+<link><title>Service details</title><url>http://localhost/Project/pages/forms/ser_delete.php</url></link>
+<link><title>Service invoice</title><url>http://localhost/Project/pages/forms/ser_invoice.php</url></link>
+<link><title>Generate reports</title><url>http://localhost/Project/pages/forms/report.php</url></link>
+<link><title>After sales feedback</title><url>http://localhost/Project/pages/forms/post.php</url></link>
+<link><title>Calendar</title><url>http://localhost/Project/pages/calendar.php</url></link>
+<link><title>Inbox</title><url>http://localhost/Project/pages/forms/mailbox.php</url></link>
+<link><title>Compose mail</title><url>http://localhost/Project/pages/forms/compose.php</url></link>
+<link><title>Sent mails</title><url>http://localhost/Project/pages/forms/sent_mail.php</url></link>
+<link><title>Draft mails</title><url>http://localhost/Project/pages/forms/drafts_mail.php</url></link>
+<link><title>Index</title><url>http://localhost/Project/index.php</url></link>
+</pages>

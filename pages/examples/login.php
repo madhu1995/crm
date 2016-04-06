@@ -6,12 +6,12 @@
 	 if(mysql_num_rows($sql) > 0)
 	 {
 	$_SESSION['username'] = $_POST['username'];
-		 echo "Username & Password Matched";
+		 
 		 header('Location:../../index.php');
 		 
 	 }
-	 else{
-		 echo "username & Password Mismatched";
+	 else{ 
+	 echo '<div id="error_notification">The submitted login info is incorrect.</div>';
 	 }
 	 }
 	 ?>
@@ -32,7 +32,17 @@
     <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="../../plugins/iCheck/square/blue.css">
-
+    <style>
+	#error_notification
+{
+border: 1px #A25965 solid;
+height: auto;
+padding: 4px;
+background: #F8F0F1;
+text-align: center;
+-moz-border-radius: 5px;
+}
+	</style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -45,9 +55,9 @@
 	  <div class="login-logo" style="margin:10%">
        <!-- <a href="../../index.php">--><b>Aadhi</b>MARUTI</a>
       </div><!-- /.login-logo -->
-	   </div>
+	   </div> <p id="err"></p>
 	  <div class="login-box" >	  
-      <div class="login-box-body" style="background-color: beige;">
+	   <div class="login-box-body" style="background-color: beige;">
         <p class="login-box-msg">Sign in to start your session</p>
        <form  method="post">
           <div class="form-group has-feedback">
@@ -59,13 +69,6 @@
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
-            <div class="col-xs-8">
-              <div class="checkbox icheck">
-                <label>
-                  <input type="checkbox"> Remember Me
-                </label>
-              </div>
-            </div><!-- /.col -->
             <div class="col-xs-4">
               <button type="submit" class="btn btn-primary btn-block btn-flat" name="submit">Sign In</button>
             </div><!-- /.col -->

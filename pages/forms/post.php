@@ -131,15 +131,16 @@ $query=mysql_query("insert into post_feedback(custname,Cus_id,r1,r2,r3,r4,r5,r6,
                 <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.html">
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -148,12 +149,7 @@ $query=mysql_query("insert into post_feedback(custname,Cus_id,r1,r2,r3,r4,r5,r6,
                 <span>Report</span>
                 </a>
             </li>
-            <li class="treeview">
-              <a href="">
-                <i class="fa fa-inr"></i>
-                <span>Finance</span>
-              </a>
-              </li>
+            
             <li class="active treeview">
               <a href="post.php">
                 <i class="fa fa-edit"></i> <span>Feedback</span>

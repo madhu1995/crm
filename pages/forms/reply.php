@@ -111,7 +111,7 @@ function onsubmitform()
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="text-center">
-					  <a href="../../pages/examples/logout.php">Sign out</a>
+					  <a href="../examples/login.php">Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -161,19 +161,19 @@ function onsubmitform()
                 <li><a href="../../deliverydetailindex.php"><i class="fa fa-circle-o"></i> Delivery</a></li>
               </ul>
             </li>
-            <li>
-              <a href="index.html">
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa-steam-square"></i> 
 				<span>Service</span><i class="fa fa-angle-left pull-right"></i> 
 				</a>
 			  <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> AMC</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Service Appointments </a></li>
-				<li><a href=""><i class="fa fa-circle-o"></i> Service Detail</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> Follow up</a></li>
+                <li><a href="amc_delete.php"><i class="fa fa-circle-o"></i> AMC</a></li>
+                <li><a href="appdelete.php"><i class="fa fa-circle-o"></i> Service Appointments </a></li>
+				<li><a href="ser_delete.php"><i class="fa fa-circle-o"></i> Service Detail</a></li>
+				<li><a href="ser_invoice.php"><i class="fa fa-circle-o"></i> Invoice</a></li>
               </ul>
             </li>
-            <li class="active treeview">
+            <li class="treeview">
               <a href="report.php">
                 <i class="fa fa-pie-chart"></i>
                 <span>Report</span>
@@ -195,9 +195,9 @@ function onsubmitform()
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                </a>
             </li>                
-            <li>
-              <a href="index.html">
-                <i class="fa fa-phone"></i> <span>Alerts</span>
+            <li class="active treeview" >
+              <a href="mailbox.php">
+                <i class="fa fa-phone"></i> <span>Mailbox</span>
                </a>
             </li>  	
            </ul>  			

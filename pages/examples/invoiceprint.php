@@ -1,12 +1,12 @@
 <?php
-require('sales_db.php');
+require('../../sales_db.php');
 
 ?>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <<title>Aadhi Maruthi | Invoice</title>
+    <title>Aadhi Maruthi | Invoice</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -26,7 +26,7 @@ require('sales_db.php');
     <![endif]-->
   </head>
   <?php
-  $sql=mysql_query("select * from invoice_details where invoice_no='".$_GET['print']."' ");
+  $sql=mysql_query("select * from invoice_details where Invoice_id='".$_GET['print']."' ");
  # echo "select * from invoice_details where invoice_no='".$_GET['print']."' ";
   $row=mysql_fetch_assoc($sql);
   ?>
@@ -37,10 +37,10 @@ require('sales_db.php');
         <!-- title row -->
         <div class="row">
           <div class="col-xs-12">
-            <h2 class="page-header" class="header">
+            <h2 class="page-header">
 			    
               <i class="fa fa-globe"></i> Aadhi Maruthi
-              <small class="pull-right">Date&nbsp;<?php echo $row['doi']; ?></small>
+              <small class="pull-right">Date&nbsp;<?php echo $row['inv_date']; ?></small>
             </h2>
           </div><!-- /.col -->
         </div>
@@ -59,16 +59,16 @@ require('sales_db.php');
           <div class="col-sm-4 invoice-col">
            To
               <address>
-                <strong><?php echo $row['custname']; ?></strong><br>
-				<?php echo $row['title']; ?>&nbsp;&nbsp;<?php echo $row['fathername']; ?><br>
-               <?php echo $row['addr']; ?><br>
-			    <b>Pin Code&nbsp;&nbsp;</b><?php echo $row['pin_code']; ?><br>
+                <strong><?php echo $row['Cus_name']; ?></strong><br>
+				<?php echo $row['title']; ?>&nbsp;&nbsp;<?php echo $row['Father_name']; ?><br>
+               <?php echo $row['Res_addr']; ?><br>
+			    <b>Pin Code&nbsp;&nbsp;</b><?php echo $row['Pincode']; ?><br>
               </address>
           </div><!-- /.col -->
           <div class="col-sm-4 invoice-col">
-            <b>Invoice No&nbsp;&nbsp;</b><?php echo $row['invoice_no']; ?><br>
-              <b>Booking ID&nbsp;&nbsp;</b> <?php echo $row['booking_no']; ?><br>
-			  <b>Delivery At&nbsp;&nbsp;</b><?php echo $row['delivery']; ?><br>
+            <b>Invoice No&nbsp;&nbsp;</b><?php echo $row['Invoice_id']; ?><br>
+              <b>Booking ID&nbsp;&nbsp;</b> <?php echo $row['Book_id']; ?><br>
+			  <b>Delivery At&nbsp;&nbsp;</b><?php echo $row['Deliv_at']; ?><br>
           </div><!-- /.col -->
 		  
         </div><!-- /.row -->
@@ -88,9 +88,9 @@ require('sales_db.php');
 				  
 				  
 						<td><?php echo $row['particulars']; ?></td>
-						<td><?php echo $row['qty']; ?></td>
-						<td><?php echo $row['up']; ?></td>
-						<td><?php echo $row['amt']; ?></td>
+						<td><?php echo $row['quant']; ?></td>
+						<td><?php echo $row['unit_price']; ?></td>
+						<td><?php echo $row['price']; ?></td>
 				  
 			
 				  </tr>
@@ -159,11 +159,7 @@ require('sales_db.php');
 				  </table>
 				  <br>
 				  <br>
-				  <br>
-				  <br>
-				  <br>
-				  <br>
-				  <br>
+				 
 					<h3 align="center">Terms And Conditions</h3>
 				  <table>
 				     <tbody>
@@ -205,11 +201,8 @@ require('sales_db.php');
 					 </tbody>
 				  </table>
 				<br><br><br><br>
-				<br><br><br><br>
-				<br><br><br><br>
-				<br><br><br><br>
-					<br><br><br><br>
-						<br><br><br><br>
+				
+				
 							
 								
 				<h4 align="right">For Aadhi Maruthi</h4>
